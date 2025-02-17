@@ -107,7 +107,7 @@ export const Preview = ({
                   key={index}
                   className="aspect-square overflow-hidden rounded-lg border"
                 >
-                  {/* @ts-expect-error - YouTube component type definition issue with React 18 */}
+                  {/* @ts-ignore - YouTube component type definition issue with React 18 */}
                   <ImagePreview image={image} index={index} />
                 </div>
               ))}
