@@ -7,7 +7,7 @@ export function AuthBackground() {
         autoPlay
         muted
         loop
-        playsInline
+        playsInline // Keeps video playing in its container on iOS
         className="h-full w-full object-cover"
       >
         <source src="/videos/bg.mp4" type="video/mp4" />

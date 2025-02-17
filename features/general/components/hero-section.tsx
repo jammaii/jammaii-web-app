@@ -16,6 +16,7 @@ export const HeroSection = () => {
           autoPlay
           muted
           loop
+          playsInline // Keeps video playing in its container on iOS
           className="absolute inset-0 h-full w-full object-cover"
         >
           <source src="/videos/bg.mp4" type="video/mp4" />
