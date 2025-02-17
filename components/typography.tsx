@@ -1,4 +1,4 @@
-import React, { forwardRef } from 'react';
+import React, { ElementType, forwardRef } from 'react';
 import { type ChildrenProps } from '@/types/global';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@/lib/utils';
@@ -32,7 +32,7 @@ export interface TypographyProps
   extends Partial<ChildrenProps>,
     VariantProps<typeof typographyVariants> {
   className?: string;
-  as?: keyof JSX.IntrinsicElements;
+  as?: ElementType;
 }
 
 export const Typography = ({
