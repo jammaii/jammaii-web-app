@@ -1,5 +1,6 @@
 export default {
   images: {
+    domains: ['images.unsplash.com', 'res.cloudinary.com'], // Add any other domains you need
     remotePatterns: [
       {
         protocol: 'https',

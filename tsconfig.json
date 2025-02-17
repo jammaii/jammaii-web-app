@@ -17,6 +17,11 @@
     "baseUrl": ".",
     "paths": {
       "@/components/*": ["components/*"],
+      "@/features/*": ["features/*"],
+      "@/types/*": ["types/*"],
+      "@/constants/*": ["constants/*"],
+      "@/validation/*": ["validation/*"],
+      "@/hooks/*": ["hooks/*"],
       "@/lib/*": ["lib/*"]
     },
     "plugins": [
