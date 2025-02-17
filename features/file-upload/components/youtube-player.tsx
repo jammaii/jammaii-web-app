@@ -1,5 +1,4 @@
-import YouTube from 'react-youtube';
-import type { YouTubeProps } from 'react-youtube';
+import YouTube, { YouTubeProps } from 'react-youtube';
 import { getYouTubeID } from '@/features/projects/utils';
 import { cn } from '@/lib/utils';
 
@@ -28,6 +27,7 @@ export const YouTubePlayer: React.FC<YouTubePlayerProps> = ({
 
   return (
     <div className={cn('relative h-full w-full', className)}>
+      {/* @ts-expect-error - YouTube component type definition issue with React 18 */}
       <YouTube
         videoId={videoId}
         opts={opts}

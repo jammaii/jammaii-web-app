@@ -1,11 +1,15 @@
+'use client';
+
 import { SingleProjectPage } from '@/features/projects/pages/single-project-page';
+import { notFound, useParams } from 'next/navigation';
 
-interface PageProps {
-  params: {
-    id: string; // matches [id] in the filename
-  };
-}
+export default async function Page() {
+  const route = useParams();
+  const { id } = route;
 
-export default function Page({ params }: PageProps) {
-  return <SingleProjectPage id={params.id} />;
+  if (!id || Array.isArray(id)) {
+    notFound();
+  }
+
+  return <SingleProjectPage id={id} />;
 }

@@ -70,13 +70,13 @@ export const CreateProjectPage = () => {
       setInvestmentDetails(data);
 
       // If all forms are complete, set the preview data
-      if (propertyDetails && mediaDetails) {
-        setPreviewData({
-          propertyDetails: propertyDetails,
-          mediaDetails: mediaDetails,
-          investmentDetails: data
-        });
-      }
+      // if (propertyDetails && mediaDetails) {
+      //   setPreviewData({
+      //     propertyDetails: propertyDetails,
+      //     mediaDetails: mediaDetails,
+      //     investmentDetails: data
+      //   });
+      // }
     }
 
     if (currentStep < STEPS.length - 1) {

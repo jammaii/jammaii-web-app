@@ -27,7 +27,12 @@ export const propertyMediaSchema = z.object({
   videos: z.array(genericStringSchema('Video', 1, 200, true, true)),
   brochure: genericStringSchema('Brochure', 1, 200, true, true).optional()
 });
-export type PropertyMediaRequestDto = z.infer<typeof propertyMediaSchema>;
+// export type PropertyMediaRequestDto = z.infer<typeof propertyMediaSchema>;
+export interface PropertyMediaRequestDto {
+  images: File[]; // Browser File API
+  videos: string[];
+  brochure?: string;
+}
 
 export const propertyInvestmentSchema = z.object({
   slots: numberSchema('Slots', { min: 1 }),

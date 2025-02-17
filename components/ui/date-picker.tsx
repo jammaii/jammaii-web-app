@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/unbound-method */
 'use client';
+
 import 'react-day-picker/dist/style.css';
 import { forwardRef, useRef, useState } from 'react';
 import { Calendar } from './calendar';
@@ -112,7 +113,7 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(
         <PopoverContent align="end" className="w-fit p-0">
           <Calendar
             mode="single"
-            captionLayout="dropdown-buttons"
+            captionLayout="dropdown"
             selected={value}
             defaultMonth={value}
             fromDate={from}

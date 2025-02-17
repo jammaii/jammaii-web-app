@@ -3,7 +3,7 @@ import { useSingleEffect } from '@/hooks/use-single-effect';
 
 export const useFileObjectUrl = (file?: File) => {
   // Keep ref of each file url so we are able to revoke it.
-  const fileUrlRef = useRef<string>();
+  const fileUrlRef = useRef<string>(null);
 
   const revokeStaleUrl = () => {
     if (fileUrlRef.current) URL.revokeObjectURL(fileUrlRef.current);

@@ -24,6 +24,7 @@ import { Input } from '@/components/ui/input';
 import YouTube from 'react-youtube';
 import { getYouTubeID } from '@/features/projects/utils';
 import { Separator } from '@/components/ui/separator';
+import { YouTubePlayer } from '@/features/file-upload/components/youtube-player';
 
 export const MediaForm = ({
   disablePreviousStep,
@@ -58,21 +59,11 @@ export const MediaForm = ({
   );
 
   const videosPreview = videos.map((url, index) => {
-    const videoId = getYouTubeID(url);
-    if (!videoId) return null;
+    if (!url) return null;
 
     return (
       <div key={index} className="flex">
-        <YouTube
-          videoId={videoId}
-          opts={{
-            height: '160',
-            width: '200',
-            playerVars: {
-              autoplay: 0
-            }
-          }}
-        />
+        <YouTubePlayer url={url} />
       </div>
     );
   });

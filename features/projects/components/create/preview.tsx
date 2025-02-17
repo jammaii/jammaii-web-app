@@ -19,6 +19,8 @@ import { YouTubePlayer } from '@/features/file-upload/components/youtube-player'
 import { CreateFormProps } from '@/features/projects/types/app';
 import { formatDate } from '@/lib/dates';
 import { Separator } from '@/components/ui/separator';
+import { useFileObjectUrl } from '@/features/file-upload/hooks/use-file-object-url';
+import { ImagePreview } from './image-preview';
 
 export const Preview = ({
   disablePreviousStep,
@@ -105,11 +107,8 @@ export const Preview = ({
                   key={index}
                   className="aspect-square overflow-hidden rounded-lg border"
                 >
-                  <img
-                    src={URL.createObjectURL(image)}
-                    alt={`Preview ${index + 1}`}
-                    className="h-full w-full object-cover"
-                  />
+                  {/* @ts-expect-error - YouTube component type definition issue with React 18 */}
+                  <ImagePreview image={image} index={index} />
                 </div>
               ))}
             </div>
