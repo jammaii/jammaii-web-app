@@ -17,9 +17,9 @@ import { useState } from 'react';
 const footerLinks = {
   company: [
     { label: 'About Us', href: '/about' },
-    { label: 'Careers', href: '/careers' },
+    { label: 'Vision and Mission', href: '/vision-mission' },
     { label: 'Contact', href: '/contact' },
-    { label: 'Blog', href: '/blog' }
+    { label: 'Blog', href: '/#' }
   ],
   resources: [
     { label: 'How It Works', href: '/how-it-works' },
@@ -28,10 +28,10 @@ const footerLinks = {
     { label: 'Privacy Policy', href: '/privacy' }
   ],
   investments: [
-    { label: 'Properties', href: '/projects' },
-    { label: 'Investment Guide', href: '/guide' },
-    { label: 'Market Updates', href: '/updates' },
-    { label: 'Success Stories', href: '/stories' }
+    { label: 'Projects', href: '/#' },
+    { label: 'Investment Guide', href: '/#' },
+    { label: 'Market Updates', href: '/#' },
+    { label: 'Success Stories', href: '/#' }
   ]
 };
 

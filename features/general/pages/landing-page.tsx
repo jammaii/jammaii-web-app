@@ -6,6 +6,7 @@ import { TestimonialsSection } from '@/features/general/components/testimonials-
 import { CTASection } from '@/features/general/components/cta-section';
 import { Footer } from '@/features/general/components/footer';
 import { NavSection } from '@/features/general/components/nav-section';
+import { ContactSection } from '@/features/general/components/contact-section';
 
 export function LandingPage() {
   return (
@@ -30,6 +31,9 @@ export function LandingPage() {
 
       {/* CTA Section */}
       <CTASection />
+
+      {/* Contact Section */}
+      <ContactSection />
 
       {/* Footer */}
       <Footer />
