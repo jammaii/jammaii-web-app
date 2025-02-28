@@ -1,49 +1,48 @@
-"use client";
+'use client';
 
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 import {
   FacebookIcon,
   InstagramIcon,
   LinkedinIcon,
   TwitterIcon,
   Mail,
-  ArrowRight,
-} from "lucide-react";
-import Link from "next/link";
-import Image from "next/image";
-import { useState } from "react";
-import { CopyrightText } from "./copyright";
+  ArrowRight
+} from 'lucide-react';
+import Link from 'next/link';
+import Image from 'next/image';
+import { useState } from 'react';
+import { CopyrightText } from './copyright';
 
 const footerLinks = {
   company: [
-    { label: "About Us", href: "/about" },
-    { label: "Vision and Mission", href: "/vision-mission" },
-    { label: "Contact", href: "/contact" },
-    { label: "Blog", href: "/#" },
+    { label: 'About Us', href: '/about' },
+    { label: 'Vision and Mission', href: '/vision-mission' },
+    { label: 'Contact', href: '/contact' },
+    { label: 'Blog', href: '/#' }
   ],
   resources: [
-    { label: "How It Works", href: "/how-it-works" },
-    { label: "FAQs", href: "/faq" },
-    { label: "Terms of Service", href: "/terms" },
-    { label: "Privacy Policy", href: "/privacy" },
+    { label: 'How It Works', href: '/how-it-works' },
+    { label: 'FAQs', href: '/faq' },
+    { label: 'Terms of Service', href: '/terms' },
+    { label: 'Privacy Policy', href: '/privacy' }
   ],
   investments: [
-    { label: "Projects", href: "/#" },
-    { label: "Investment Guide", href: "/#" },
-    { label: "Market Updates", href: "/#" },
-    { label: "Success Stories", href: "/#" },
-  ],
+    { label: 'Projects', href: '/#' },
+    { label: 'Investment Guide', href: '/#' },
+    { label: 'Market Updates', href: '/#' },
+    { label: 'Success Stories', href: '/#' }
+  ]
 };
 
 export function Footer() {
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState('');
   const currentYear = new Date().getFullYear();
 
   const handleSubscribe = (e: React.FormEvent) => {
     e.preventDefault();
-    // Add newsletter subscription logic
-    console.log("Subscribing:", email);
+    // Add newsletter subscription logic.
   };
 
   return (
@@ -123,10 +122,10 @@ export function Footer() {
           <CopyrightText />
           <div className="flex gap-4">
             {[
-              { icon: FacebookIcon, label: "Facebook", href: "#" },
-              { icon: TwitterIcon, label: "Twitter", href: "#" },
-              { icon: InstagramIcon, label: "Instagram", href: "#" },
-              { icon: LinkedinIcon, label: "LinkedIn", href: "#" },
+              { icon: FacebookIcon, label: 'Facebook', href: '#' },
+              { icon: TwitterIcon, label: 'Twitter', href: '#' },
+              { icon: InstagramIcon, label: 'Instagram', href: '#' },
+              { icon: LinkedinIcon, label: 'LinkedIn', href: '#' }
             ].map(({ icon: Icon, label, href }) => (
               <Link
                 key={label}

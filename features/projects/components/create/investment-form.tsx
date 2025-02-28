@@ -1,41 +1,40 @@
-"use client";
+'use client';
 
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
 import {
   Form,
   FormField,
   FormItem,
   FormControl,
   FormMessage,
-  FormLabel,
-} from "@/components/ui/form";
+  FormLabel
+} from '@/components/ui/form';
 import {
   CreateFormProps,
   PropertyDetailsRequestDto,
   PropertyInvestmentRequestDto,
-  propertyInvestmentSchema,
-} from "@/features/projects/types/app";
-import { propertyDetailsSchema } from "@/features/projects/types/app";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Label } from "@/components/ui/label";
-import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
-import { DatePicker } from "@/components/ui/date-picker";
+  propertyInvestmentSchema
+} from '@/features/projects/types/app';
+import { propertyDetailsSchema } from '@/features/projects/types/app';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
+import { Label } from '@/components/ui/label';
+import { Button } from '@/components/ui/button';
+import { Separator } from '@/components/ui/separator';
+import { DatePicker } from '@/components/ui/date-picker';
 
 export const InvestmentForm = ({
   disablePreviousStep,
   showNextStep,
   backAction,
-  onCompleteAction,
+  onCompleteAction
 }: CreateFormProps) => {
   const form = useForm<PropertyInvestmentRequestDto>({
-    resolver: zodResolver(propertyInvestmentSchema),
+    resolver: zodResolver(propertyInvestmentSchema)
   });
 
   const saveInvestmentDetails = async (data: PropertyInvestmentRequestDto) => {
-    console.log(data);
     onCompleteAction(data);
   };
 
@@ -125,19 +124,19 @@ export const InvestmentForm = ({
                         Date.UTC(
                           date.getFullYear(),
                           date.getMonth(),
-                          date.getDate(),
-                        ),
-                      ),
+                          date.getDate()
+                        )
+                      )
                     );
                   }}
                   onDateError={(error) => {
                     if (error) {
-                      form.setError("startDate", {
+                      form.setError('startDate', {
                         message: error,
-                        type: "onChange",
+                        type: 'onChange'
                       });
                     } else {
-                      form.clearErrors("startDate");
+                      form.clearErrors('startDate');
                     }
                   }}
                 />

@@ -1,37 +1,36 @@
-"use client";
+'use client';
 
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
 import {
   Form,
   FormField,
   FormItem,
   FormControl,
-  FormMessage,
-} from "@/components/ui/form";
+  FormMessage
+} from '@/components/ui/form';
 import {
   CreateFormProps,
-  PropertyDetailsRequestDto,
-} from "@/features/projects/types/app";
-import { propertyDetailsSchema } from "@/features/projects/types/app";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Label } from "@/components/ui/label";
-import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
+  PropertyDetailsRequestDto
+} from '@/features/projects/types/app';
+import { propertyDetailsSchema } from '@/features/projects/types/app';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
+import { Label } from '@/components/ui/label';
+import { Button } from '@/components/ui/button';
+import { Separator } from '@/components/ui/separator';
 
 export const AboutForm = ({
   disablePreviousStep,
   showNextStep,
   backAction,
-  onCompleteAction,
+  onCompleteAction
 }: CreateFormProps) => {
   const form = useForm<PropertyDetailsRequestDto>({
-    resolver: zodResolver(propertyDetailsSchema),
+    resolver: zodResolver(propertyDetailsSchema)
   });
 
   const saveAboutDetails = async (data: PropertyDetailsRequestDto) => {
-    console.log(data);
     onCompleteAction(data);
   };
 

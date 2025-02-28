@@ -35,14 +35,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       from: process.env.EMAIL_FROM,
       server: {},
       async sendVerificationRequest({ identifier, url }) {
-        console.log('Sending verification email to:', identifier);
         try {
-          // await resend.emails.send({
-          //   from: process.env.EMAIL_FROM ?? 'info@jammaii.com',
-          //   to: identifier,
-          //   subject: 'Sign in to JAMMAII',
-          //   react: SigninEmailTemplate({ url })
-          // });
           await MailService.sendEmail({
             to: identifier,
             subject: 'Sign in to JAMMAII',

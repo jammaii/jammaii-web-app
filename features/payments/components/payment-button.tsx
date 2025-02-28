@@ -58,9 +58,6 @@ export const PaymentButton = ({
   });
 
   const handlePaystackSuccessAction = async (reference: string) => {
-    // Implementation for whatever you want to do with reference and after success call.
-    // console.log(reference);
-
     const data = {
       transactionReference: reference,
       projectId,

@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import { Button } from "@/components/ui/button";
+import { Button } from '@/components/ui/button';
 import {
   Dialog,
   DialogContent,
@@ -8,8 +8,8 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
+  DialogTrigger
+} from '@/components/ui/dialog';
 import {
   Form,
   FormControl,
@@ -17,19 +17,19 @@ import {
   FormField,
   FormItem,
   FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { useState } from "react";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { formatCurrency } from "@/lib/utils";
+  FormMessage
+} from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { formatCurrency } from '@/lib/utils';
 import {
   PurchaseFormRequest,
-  purchaseFormSchema,
-} from "@/features/users/types/app";
-import { useUser } from "@/hooks/use-user";
-import { PaymentButton } from "@/features/payments/components/payment-button";
+  purchaseFormSchema
+} from '@/features/users/types/app';
+import { useUser } from '@/hooks/use-user';
+import { PaymentButton } from '@/features/payments/components/payment-button';
 
 interface PurchaseSlotsDialogProps {
   projectId: string;
@@ -40,7 +40,7 @@ interface PurchaseSlotsDialogProps {
 export function PurchaseSlotsDialog({
   projectId,
   slotPrice,
-  availableSlots,
+  availableSlots
 }: PurchaseSlotsDialogProps) {
   const [open, setOpen] = useState(false);
   const { user, status } = useUser();
@@ -48,20 +48,19 @@ export function PurchaseSlotsDialog({
   const form = useForm<PurchaseFormRequest>({
     resolver: zodResolver(purchaseFormSchema),
     defaultValues: {
-      slots: 1,
-    },
+      slots: 1
+    }
   });
 
-  const slots = form.watch("slots");
+  const slots = form.watch('slots');
   const totalAmount = slots * slotPrice;
 
   const onSubmit = async (data: PurchaseFormRequest) => {
     try {
       // TODO: Implement purchase logic
-      console.log("Purchase:", data);
       setOpen(false);
     } catch (error) {
-      console.error("Purchase failed:", error);
+      console.error('Purchase failed:', error);
     }
   };
 

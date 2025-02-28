@@ -1,36 +1,36 @@
-"use client";
+'use client';
 
-import { Button } from "@/components/ui/button";
-import { FileUploadDropzone } from "@/features/file-upload/components/file-upload-dropzone";
-import { useState } from "react";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { Button } from '@/components/ui/button';
+import { FileUploadDropzone } from '@/features/file-upload/components/file-upload-dropzone';
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
 import {
   Form,
   FormField,
   FormItem,
   FormControl,
-  FormMessage,
-} from "@/components/ui/form";
+  FormMessage
+} from '@/components/ui/form';
 import {
   CreateFormProps,
   PropertyMediaPreview,
-  properyMediaPreviewSchema,
-} from "@/features/projects/types/app";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
-import { PlusIcon, XIcon } from "lucide-react";
-import { Input } from "@/components/ui/input";
-import YouTube from "react-youtube";
-import { getYouTubeID } from "@/features/projects/utils";
-import { Separator } from "@/components/ui/separator";
-import { YouTubePlayer } from "@/features/file-upload/components/youtube-player";
+  properyMediaPreviewSchema
+} from '@/features/projects/types/app';
+import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
+import { PlusIcon, XIcon } from 'lucide-react';
+import { Input } from '@/components/ui/input';
+import YouTube from 'react-youtube';
+import { getYouTubeID } from '@/features/projects/utils';
+import { Separator } from '@/components/ui/separator';
+import { YouTubePlayer } from '@/features/file-upload/components/youtube-player';
 
 export const MediaForm = ({
   disablePreviousStep,
   showNextStep,
   backAction,
-  onCompleteAction,
+  onCompleteAction
 }: CreateFormProps) => {
   const [images, setImages] = useState<File[]>([]);
   const [videos, setVideos] = useState<string[]>([]);
@@ -39,13 +39,12 @@ export const MediaForm = ({
     resolver: zodResolver(properyMediaPreviewSchema),
     defaultValues: {
       images: [],
-      videos: [],
-    },
+      videos: []
+    }
   });
 
   const saveMediaDetails = async (data: PropertyMediaPreview) => {
     const resolvedData = { ...data, images };
-    console.log("data", resolvedData);
     onCompleteAction(resolvedData);
   };
 
@@ -59,9 +58,7 @@ export const MediaForm = ({
   );
 
   const videosPreview = videos.map((url, index) => {
-    console.log("video preview?", url);
     if (!url) return null;
-    console.log("video logeed?", url);
 
     return (
       <div
@@ -112,7 +109,7 @@ export const MediaForm = ({
                         size="icon"
                         onClick={() => {
                           const newUrls = field.value?.filter(
-                            (_, i) => i !== index,
+                            (_, i) => i !== index
                           );
                           field.onChange(newUrls);
                         }}
@@ -126,7 +123,7 @@ export const MediaForm = ({
                     variant="outline"
                     className="w-full"
                     onClick={() => {
-                      field.onChange([...(field.value || []), ""]);
+                      field.onChange([...(field.value || []), '']);
                     }}
                     leftIcon={<PlusIcon className="mr-2 h-4 w-4" />}
                   >

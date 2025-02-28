@@ -1,30 +1,30 @@
-"use client";
+'use client';
 
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
 import {
   Form,
   FormControl,
   FormField,
   FormItem,
   FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import { api } from "@/lib/api";
-import { useToast } from "@/components/ui/use-toast";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { ImageUpload } from "@/features/file-upload/components/image-upload";
-import { Skeleton } from "@/components/ui/skeleton";
+  FormMessage
+} from '@/components/ui/form';
+import { api } from '@/lib/api';
+import { useToast } from '@/components/ui/use-toast';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { ImageUpload } from '@/features/file-upload/components/image-upload';
+import { Skeleton } from '@/components/ui/skeleton';
 import {
   profileUpdateSchema,
-  type ProfileUpdateRequestDto,
-} from "@/features/auth/types/app";
-import { useUser } from "@/hooks/use-user";
-import { PhoneNumberInput } from "@/components/ui/phone-input";
-import { useEffect } from "react";
+  type ProfileUpdateRequestDto
+} from '@/features/auth/types/app';
+import { useUser } from '@/hooks/use-user';
+import { PhoneNumberInput } from '@/components/ui/phone-input';
+import { useEffect } from 'react';
 
 interface ProfilePageProps {
   id?: string;
@@ -35,32 +35,31 @@ export function ProfilePage({ id }: ProfilePageProps) {
   const { data: user, isLoading } = api.user.getUser.useQuery({ id });
 
   const form = useForm<ProfileUpdateRequestDto>({
-    resolver: zodResolver(profileUpdateSchema),
+    resolver: zodResolver(profileUpdateSchema)
   });
 
   useEffect(() => {
     if (user) {
       form.reset({
-        firstName: user.firstName || "",
-        lastName: user.lastName || "",
-        middleName: user.middleName || "",
-        phoneNumber: user.phoneNumber || "",
-        image: user.image || "",
+        firstName: user.firstName || '',
+        lastName: user.lastName || '',
+        middleName: user.middleName || '',
+        phoneNumber: user.phoneNumber || '',
+        image: user.image || ''
       });
     }
   }, [user, form]);
 
   const updateProfile = api.user.updateUserProfile.useMutation({
     onSuccess: () => {
-      toastSuccess({ message: "Profile updated successfully" });
+      toastSuccess({ message: 'Profile updated successfully' });
     },
     onError: () => {
-      toastError({ message: "Failed to update profile" });
-    },
+      toastError({ message: 'Failed to update profile' });
+    }
   });
 
   const submit = async (data: ProfileUpdateRequestDto) => {
-    console.log("data: ", data);
     await updateProfile.mutateAsync(data);
   };
 
@@ -72,20 +71,17 @@ export function ProfilePage({ id }: ProfilePageProps) {
     return <div>Something went wrong, retry again</div>;
   }
 
-  console.log("form: ", form.formState);
-  console.log("watch: ", form.watch("middleName"));
-
   return (
     <Card>
       <CardHeader>
-        <CardTitle>{id ? "Edit User Profile" : "Profile Settings"} </CardTitle>
+        <CardTitle>{id ? 'Edit User Profile' : 'Profile Settings'} </CardTitle>
       </CardHeader>
       <CardContent>
         <Form {...form}>
           <form className="space-y-6" onSubmit={form.handleSubmit(submit)}>
             <div className="flex flex-col items-center gap-6">
               <Avatar className="h-64 w-64">
-                <AvatarImage src={form.watch("image")} />
+                <AvatarImage src={form.watch('image')} />
                 <AvatarFallback>
                   {user?.firstName?.[0]}
                   {user?.lastName?.[0]}

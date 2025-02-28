@@ -1,23 +1,23 @@
-import { db } from "@/server/db";
-import { TRPCError } from "@trpc/server";
-import { projectSchema } from "@/server/db/schemas/project/project.schema";
+import { db } from '@/server/db';
+import { TRPCError } from '@trpc/server';
+import { projectSchema } from '@/server/db/schemas/project/project.schema';
 import type {
   CreateProjectRequestDto,
   CreateUserInvestmentDto,
   ProjectResponse,
-  ProjectsResponse,
-} from "@/features/projects/types/app";
-import { generateUUID } from "@/lib/ids";
-import { and, desc, eq, inArray, like, or, sql } from "drizzle-orm";
-import { PaginationRequest } from "@/features/general/types/app";
-import { project, user, userInvestment } from "@/server/db/schema";
-import { UserInvestmentsResponse } from "@/features/users/types/app";
-import { map } from "zod";
-import { addToDate } from "@/lib/dates";
-import { AdminDashboardResponse } from "@/features/admin/types/app";
-import { MailService } from "./mail.service";
-import { getHostName } from "@/server/api/utils/get-host-name";
-import { InvestmentConfirmationTemplate } from "@/features/email/templates/investment-confirmation-template";
+  ProjectsResponse
+} from '@/features/projects/types/app';
+import { generateUUID } from '@/lib/ids';
+import { and, desc, eq, inArray, like, or, sql } from 'drizzle-orm';
+import { PaginationRequest } from '@/features/general/types/app';
+import { project, user, userInvestment } from '@/server/db/schema';
+import { UserInvestmentsResponse } from '@/features/users/types/app';
+import { map } from 'zod';
+import { addToDate } from '@/lib/dates';
+import { AdminDashboardResponse } from '@/features/admin/types/app';
+import { MailService } from './mail.service';
+import { getHostName } from '@/server/api/utils/get-host-name';
+import { InvestmentConfirmationTemplate } from '@/features/email/templates/investment-confirmation-template';
 
 export class ProjectService {
   static async createProject(userId: string, data: CreateProjectRequestDto) {
@@ -30,16 +30,16 @@ export class ProjectService {
           ...data.propertyDetails,
           ...data.mediaDetails,
           ...data.investmentDetails,
-          status: "PENDING",
+          status: 'PENDING',
           metaCreatedAt: new Date(),
-          metaUpdatedAt: new Date(),
+          metaUpdatedAt: new Date()
         })
         .returning();
 
       if (!project) {
         throw new TRPCError({
-          code: "INTERNAL_SERVER_ERROR",
-          message: "Failed to create project",
+          code: 'INTERNAL_SERVER_ERROR',
+          message: 'Failed to create project'
         });
       }
 
@@ -48,16 +48,16 @@ export class ProjectService {
       if (error instanceof TRPCError) throw error;
 
       throw new TRPCError({
-        code: "INTERNAL_SERVER_ERROR",
-        message: "Failed to create project",
-        cause: error,
+        code: 'INTERNAL_SERVER_ERROR',
+        message: 'Failed to create project',
+        cause: error
       });
     }
   }
 
   static async getProjectById(
     id: string,
-    isAdmin?: boolean,
+    isAdmin?: boolean
   ): Promise<ProjectResponse> {
     try {
       const [projectData] = await db
@@ -70,22 +70,22 @@ export class ProjectService {
         .select({
           totalSlotsSold:
             sql<number>`COALESCE(SUM(${userInvestment.slots}), 0)`.as(
-              "total_slots",
-            ),
+              'total_slots'
+            )
         })
         .from(userInvestment)
         .where(eq(userInvestment.projectId, id));
 
       if (!projectData || !slotsData) {
         throw new TRPCError({
-          code: "NOT_FOUND",
-          message: "Project not found",
+          code: 'NOT_FOUND',
+          message: 'Project not found'
         });
       }
 
       const projectDataWithSlotsData = {
         ...projectData,
-        totalSlotsSold: Number(slotsData?.totalSlotsSold) || 0,
+        totalSlotsSold: Number(slotsData?.totalSlotsSold) || 0
       };
 
       // Get admin stats if required
@@ -94,22 +94,20 @@ export class ProjectService {
           .select({
             totalInvestors:
               sql<number>`COUNT(DISTINCT ${userInvestment.userId})`.as(
-                "total_investors",
+                'total_investors'
               ),
             totalSlotsSold:
               sql<number>`COALESCE(SUM(${userInvestment.slots}), 0)`.as(
-                "total_slots",
+                'total_slots'
               ),
             totalAmountInvested:
               sql<number>`COALESCE(SUM(${userInvestment.slots} * ${project.slotPrice}), 0)`.as(
-                "total_amount",
-              ),
+                'total_amount'
+              )
           })
           .from(userInvestment)
           .innerJoin(project, eq(project.id, userInvestment.projectId))
           .where(eq(userInvestment.projectId, id));
-
-        console.log("admin stats: ", adminStats);
 
         // Get investors for admin details
         const investors = await db
@@ -124,15 +122,15 @@ export class ProjectService {
               phoneNumber: user.phoneNumber,
               role: user.role,
               profileCompleted: user.profileCompleted,
-              metaCreatedAt: user.metaCreatedAt,
+              metaCreatedAt: user.metaCreatedAt
             },
             totalSlots: sql<number>`SUM(${userInvestment.slots})`.as(
-              "total_slots",
+              'total_slots'
             ),
             totalAmount:
               sql<number>`SUM(${userInvestment.slots} * ${project.slotPrice})`.as(
-                "total_amount",
-              ),
+                'total_amount'
+              )
           })
           .from(userInvestment)
           .innerJoin(user, eq(userInvestment.userId, user.id))
@@ -152,16 +150,16 @@ export class ProjectService {
                 return {
                   ...i,
                   totalSlots: Number(i?.totalSlots) || 0,
-                  totalAmount: Number(i?.totalSlots) || 0,
+                  totalAmount: Number(i?.totalSlots) || 0
                 };
               }),
               meta: {
                 page: 1,
                 limit: 10,
-                total: Number(adminStats?.totalInvestors) || 0,
-              },
-            },
-          },
+                total: Number(adminStats?.totalInvestors) || 0
+              }
+            }
+          }
         };
       }
 
@@ -169,15 +167,15 @@ export class ProjectService {
         ...projectDataWithSlotsData,
         images: projectData.images || [],
         videos: projectData.videos || [],
-        brochure: projectData.brochure || null,
+        brochure: projectData.brochure || null
       };
     } catch (error) {
       if (error instanceof TRPCError) throw error;
 
       throw new TRPCError({
-        code: "INTERNAL_SERVER_ERROR",
-        message: "Failed to fetch project",
-        cause: error,
+        code: 'INTERNAL_SERVER_ERROR',
+        message: 'Failed to fetch project',
+        cause: error
       });
     }
   }
@@ -186,7 +184,7 @@ export class ProjectService {
     page = 1,
     limit = 10,
     offset = 0,
-    search = "",
+    search = ''
   }: PaginationRequest): Promise<ProjectsResponse> {
     try {
       let whereClause = undefined;
@@ -194,7 +192,7 @@ export class ProjectService {
       if (search) {
         whereClause = or(
           like(projectSchema.name, `%${search}%`),
-          like(projectSchema.description, `%${search}%`),
+          like(projectSchema.description, `%${search}%`)
         );
       }
 
@@ -212,7 +210,7 @@ export class ProjectService {
           .where(whereClause)
           .orderBy(desc(projectSchema.metaCreatedAt))
           .limit(limit)
-          .offset(offset),
+          .offset(offset)
       ]);
 
       return {
@@ -221,26 +219,26 @@ export class ProjectService {
           totalSlotsSold: 0,
           images: project.images || [],
           videos: project.videos || [],
-          brochure: project.brochure || null,
+          brochure: project.brochure || null
         })),
         meta: {
           page,
           limit,
-          total,
-        },
+          total
+        }
       };
     } catch (error) {
       throw new TRPCError({
-        code: "INTERNAL_SERVER_ERROR",
-        message: "Failed to fetch projects",
-        cause: error,
+        code: 'INTERNAL_SERVER_ERROR',
+        message: 'Failed to fetch projects',
+        cause: error
       });
     }
   }
 
   static async createInvestment(
     userId: string,
-    data: CreateUserInvestmentDto,
+    data: CreateUserInvestmentDto
   ): Promise<{ id: string }> {
     try {
       const [investment] = await db
@@ -249,14 +247,14 @@ export class ProjectService {
           ...data,
           id: generateUUID(),
           userId,
-          metaCreatedAt: new Date(),
+          metaCreatedAt: new Date()
         })
         .returning();
 
       if (!investment) {
         throw new TRPCError({
-          code: "INTERNAL_SERVER_ERROR",
-          message: "Failed to create investment",
+          code: 'INTERNAL_SERVER_ERROR',
+          message: 'Failed to create investment'
         });
       }
 
@@ -264,13 +262,13 @@ export class ProjectService {
         .select({
           project: {
             name: project.name,
-            id: project.id,
+            id: project.id
           },
           user: {
             firstName: user.firstName,
             lastName: user.lastName,
-            email: user.email,
-          },
+            email: user.email
+          }
         })
         .from(userInvestment)
         .innerJoin(project, eq(userInvestment.projectId, project.id))
@@ -282,15 +280,15 @@ export class ProjectService {
 
       await MailService.sendEmail({
         to: investmentData.user.email,
-        subject: "Congratulations on your investment!",
+        subject: 'Congratulations on your investment!',
         template: InvestmentConfirmationTemplate({
           name: `${investmentData.user.firstName} ${investmentData.user.lastName}`,
           investmentstUrl,
           transactionReference: data.transactionReference,
           totalAmount: data.totalAmount,
           slots: data.slots,
-          projectName: investmentData.project.name,
-        }),
+          projectName: investmentData.project.name
+        })
       });
 
       return { id: investment.id };
@@ -298,22 +296,22 @@ export class ProjectService {
       if (error instanceof TRPCError) throw error;
 
       throw new TRPCError({
-        code: "INTERNAL_SERVER_ERROR",
-        message: "Failed to create investment",
-        cause: error,
+        code: 'INTERNAL_SERVER_ERROR',
+        message: 'Failed to create investment',
+        cause: error
       });
     }
   }
 
   static async getUserInvestments(
     userId: string,
-    { page = 1, limit = 10, offset = 0 }: PaginationRequest,
+    { page = 1, limit = 10, offset = 0 }: PaginationRequest
   ): Promise<UserInvestmentsResponse> {
     try {
       const userWithInvestments = await db
         .select({
           userInvestment: userInvestment,
-          project: project,
+          project: project
         })
         .from(userInvestment)
         .innerJoin(project, eq(userInvestment.projectId, project.id))
@@ -326,8 +324,8 @@ export class ProjectService {
 
       if (!userWithInvestments || !userRecord) {
         throw new TRPCError({
-          code: "NOT_FOUND",
-          message: "User not found",
+          code: 'NOT_FOUND',
+          message: 'User not found'
         });
       }
 
@@ -349,23 +347,23 @@ export class ProjectService {
             endDate: addToDate(
               item.project.startDate,
               item.project.duration,
-              "months",
-            ),
-          },
+              'months'
+            )
+          }
         };
       });
 
       return {
         user: userRecord,
-        investments,
+        investments
       };
     } catch (error) {
       if (error instanceof TRPCError) throw error;
 
       throw new TRPCError({
-        code: "INTERNAL_SERVER_ERROR",
-        message: "Failed to fetch user investments",
-        cause: error,
+        code: 'INTERNAL_SERVER_ERROR',
+        message: 'Failed to fetch user investments',
+        cause: error
       });
     }
   }
@@ -377,19 +375,19 @@ export class ProjectService {
         .select({
           totalAmountInvested: sql<number>`
             COALESCE(SUM(${userInvestment.slots} * ${project.slotPrice}), 0)
-          `.as("total_investment"),
+          `.as('total_investment'),
           totalProjects: sql<number>`COUNT(DISTINCT ${project.id})`.as(
-            "total_projects",
+            'total_projects'
           ),
           inProgressProjects: sql<number>`
             COUNT(CASE WHEN ${project.status} = 'IN_PROGRESS' THEN 1 END)
-          `.as("in_progress"),
+          `.as('in_progress'),
           pendingProjects: sql<number>`
             COUNT(CASE WHEN ${project.status} = 'PENDING' THEN 1 END)
-          `.as("pending"),
+          `.as('pending'),
           completedProjects: sql<number>`
             COUNT(CASE WHEN ${project.status} = 'COMPLETED' THEN 1 END)
-          `.as("completed"),
+          `.as('completed')
         })
         .from(project)
         .leftJoin(userInvestment, eq(userInvestment.projectId, project.id));
@@ -397,10 +395,10 @@ export class ProjectService {
       // Get user stats
       const [userStats] = await db
         .select({
-          total: sql<number>`COUNT(*)`.as("total_users"),
+          total: sql<number>`COUNT(*)`.as('total_users'),
           active: sql<number>`
             COUNT(CASE WHEN ${user.profileCompleted} = true THEN 1 END)
-          `.as("active_users"),
+          `.as('active_users')
         })
         .from(user);
 
@@ -419,44 +417,42 @@ export class ProjectService {
           projectId: userInvestment.projectId,
           totalSlotsSold:
             sql<number>`COALESCE(SUM(${userInvestment.slots}), 0)`.as(
-              "total_slots",
-            ),
+              'total_slots'
+            )
         })
         .from(userInvestment)
         .where(inArray(userInvestment.projectId, projectIds))
         .groupBy(userInvestment.projectId);
 
       const slotsSoldMap = new Map(
-        slotsData.map((item) => [item.projectId, Number(item.totalSlotsSold)]),
+        slotsData.map((item) => [item.projectId, Number(item.totalSlotsSold)])
       );
 
-      console.log("sloslotsSoldMaptsData: ", slotsSoldMap);
       return {
         totalAmountInvested: Number(stats?.totalAmountInvested) || 0,
         projects: {
           total: Number(stats?.totalProjects) || 0,
           in_progress: Number(stats?.inProgressProjects) || 0,
           pending: Number(stats?.pendingProjects) || 0,
-          completed: Number(stats?.completedProjects) || 0,
+          completed: Number(stats?.completedProjects) || 0
         },
         users: {
           total: Number(userStats?.total) || 0,
-          active: Number(userStats?.active) || 0,
+          active: Number(userStats?.active) || 0
         },
         recentProjects: recentProjects.map((project) => ({
           ...project,
           totalSlotsSold: slotsSoldMap.get(project.id) || 0,
           images: project.images || [],
           videos: project.videos || [],
-          brochure: project.brochure || null,
-        })),
+          brochure: project.brochure || null
+        }))
       };
     } catch (error) {
-      console.log("eee: ", error);
       throw new TRPCError({
-        code: "INTERNAL_SERVER_ERROR",
-        message: "Failed to fetch dashboard stats",
-        cause: error,
+        code: 'INTERNAL_SERVER_ERROR',
+        message: 'Failed to fetch dashboard stats',
+        cause: error
       });
     }
   }
