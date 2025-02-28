@@ -10,6 +10,6 @@ interface AuthProviderProps {
 }
 
 export function AuthProvider({ children, session }: AuthProviderProps) {
-  // @ts-expect-error - NextAuth SessionProvider type issue with React 18
+  /** @ts-expect-error Async Server Component */
   return <SessionProvider session={session}>{children}</SessionProvider>;
 }
