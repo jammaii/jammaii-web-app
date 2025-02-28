@@ -9,11 +9,7 @@ interface AuthProviderProps {
   session?: Session | null;
 }
 
-export const AuthProvider = ({ children, session }: AuthProviderProps) => {
-  return (
-    <>
-      {/* @ts-ignore - Provider should be updated */}
-      <SessionProvider session={session}>{children}</SessionProvider>
-    </>
-  );
-};
+export function AuthProvider({ children, session }: AuthProviderProps) {
+  // @ts-expect-error - NextAuth SessionProvider type issue with React 18
+  return <SessionProvider session={session}>{children}</SessionProvider>;
+}
