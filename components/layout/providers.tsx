@@ -1,5 +1,3 @@
-'use client';
-
 import { AuthProvider } from './auth-provider';
 import { cookies } from 'next/headers';
 import { TRPCReactProvider } from '@/trpc/react';
