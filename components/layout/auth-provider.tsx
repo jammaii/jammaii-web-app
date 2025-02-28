@@ -12,7 +12,7 @@ interface AuthProviderProps {
 export const AuthProvider = ({ children, session }: AuthProviderProps) => {
   return (
     <>
-      {/* @ts-expect-error - Provider should be updated */}
+      {/* @ts-ignore - Provider should be updated */}
       <SessionProvider session={session}>{children}</SessionProvider>
     </>
   );
