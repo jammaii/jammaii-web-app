@@ -1,48 +1,49 @@
-'use client';
+"use client";
 
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import {
   FacebookIcon,
   InstagramIcon,
   LinkedinIcon,
   TwitterIcon,
   Mail,
-  ArrowRight
-} from 'lucide-react';
-import Link from 'next/link';
-import Image from 'next/image';
-import { useState } from 'react';
+  ArrowRight,
+} from "lucide-react";
+import Link from "next/link";
+import Image from "next/image";
+import { useState } from "react";
+import { CopyrightText } from "./copyright";
 
 const footerLinks = {
   company: [
-    { label: 'About Us', href: '/about' },
-    { label: 'Vision and Mission', href: '/vision-mission' },
-    { label: 'Contact', href: '/contact' },
-    { label: 'Blog', href: '/#' }
+    { label: "About Us", href: "/about" },
+    { label: "Vision and Mission", href: "/vision-mission" },
+    { label: "Contact", href: "/contact" },
+    { label: "Blog", href: "/#" },
   ],
   resources: [
-    { label: 'How It Works', href: '/how-it-works' },
-    { label: 'FAQs', href: '/faq' },
-    { label: 'Terms of Service', href: '/terms' },
-    { label: 'Privacy Policy', href: '/privacy' }
+    { label: "How It Works", href: "/how-it-works" },
+    { label: "FAQs", href: "/faq" },
+    { label: "Terms of Service", href: "/terms" },
+    { label: "Privacy Policy", href: "/privacy" },
   ],
   investments: [
-    { label: 'Projects', href: '/#' },
-    { label: 'Investment Guide', href: '/#' },
-    { label: 'Market Updates', href: '/#' },
-    { label: 'Success Stories', href: '/#' }
-  ]
+    { label: "Projects", href: "/#" },
+    { label: "Investment Guide", href: "/#" },
+    { label: "Market Updates", href: "/#" },
+    { label: "Success Stories", href: "/#" },
+  ],
 };
 
 export function Footer() {
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState("");
   const currentYear = new Date().getFullYear();
 
   const handleSubscribe = (e: React.FormEvent) => {
     e.preventDefault();
     // Add newsletter subscription logic
-    console.log('Subscribing:', email);
+    console.log("Subscribing:", email);
   };
 
   return (
@@ -82,9 +83,14 @@ export function Footer() {
                 className="max-w-xs bg-background/50 transition-colors focus:bg-background"
                 required
               />
-              <Button type="submit" className="group gap-2">
+              <Button
+                type="submit"
+                className="group gap-2"
+                rightIcon={
+                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                }
+              >
                 Subscribe
-                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
               </Button>
             </form>
           </div>
@@ -114,15 +120,13 @@ export function Footer() {
 
         {/* Bottom Bar */}
         <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t pt-8 sm:flex-row">
-          <p className="text-sm text-muted-foreground">
-            © {currentYear} JAMMAII Inc. All rights reserved.
-          </p>
+          <CopyrightText />
           <div className="flex gap-4">
             {[
-              { icon: FacebookIcon, label: 'Facebook', href: '#' },
-              { icon: TwitterIcon, label: 'Twitter', href: '#' },
-              { icon: InstagramIcon, label: 'Instagram', href: '#' },
-              { icon: LinkedinIcon, label: 'LinkedIn', href: '#' }
+              { icon: FacebookIcon, label: "Facebook", href: "#" },
+              { icon: TwitterIcon, label: "Twitter", href: "#" },
+              { icon: InstagramIcon, label: "Instagram", href: "#" },
+              { icon: LinkedinIcon, label: "LinkedIn", href: "#" },
             ].map(({ icon: Icon, label, href }) => (
               <Link
                 key={label}

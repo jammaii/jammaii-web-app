@@ -1,14 +1,12 @@
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle
-} from '@/components/ui/card';
-import { UsersPage } from '@/features/users/pages/users-page';
+"use client";
 
-export default function Page(props: {
-  searchParams: Promise<{ q: string; offset: string }>;
-}) {
-  return <UsersPage {...props} />;
+import { withProtectedRoute } from "@/components/general/protected-route";
+import { UsersPage } from "@/features/admin/pages/users-page";
+
+function Page() {
+  return <UsersPage />;
 }
+
+export default withProtectedRoute(Page, {
+  allowedRoles: ["ADMIN", "SUPER_ADMIN"],
+});

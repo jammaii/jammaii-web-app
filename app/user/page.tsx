@@ -1,9 +1,10 @@
-import { defaultUserProjects } from '@/constants/mock';
-import { UserDashboardPage } from '@/features/users/pages/user-dashboard-page';
+"use client";
 
-export default function Page() {
-  // In a real app, you'd fetch the user's projects here
-  const userProjects = defaultUserProjects[0]; // Get first user's projects for demo
+import { withProtectedRoute } from "@/components/general/protected-route";
+import { UserDashboardPage } from "@/features/users/pages/user-dashboard-page";
 
-  return <UserDashboardPage userProjects={userProjects} />;
+function Page() {
+  return <UserDashboardPage />;
 }
+
+export default withProtectedRoute(Page, { allowedRoles: ["USER"] });

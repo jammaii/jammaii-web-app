@@ -1,5 +1,5 @@
-import { pluralize } from '@/lib/utils';
-import type { NonEmptyArray } from '@/types/index';
+import { pluralize } from "@/lib/utils";
+import type { NonEmptyArray } from "@/types/index";
 
 export const requiredErrorMessage = (fieldName: string) => {
   return `${fieldName} is required`;
@@ -20,7 +20,7 @@ export const invalidErrorMessage = (fieldName: string) => {
 export const lowerLimitErrorMessage = (
   fieldName: string,
   limit: number,
-  appendage?: string
+  appendage?: string,
 ) => {
   const base = `${fieldName} should be at least ${limit}`;
   if (!appendage) return base;
@@ -38,7 +38,7 @@ export const lowerLimitErrorMessage = (
 export const upperLimitErrorMessage = (
   fieldName: string,
   limit: number,
-  appendage?: string
+  appendage?: string,
 ) => {
   const base = `${fieldName} should not be more than ${limit}`;
   if (!appendage) return base;
@@ -62,7 +62,7 @@ export const invalidUsernameErrorMessage = (fieldName: string) => {
 };
 
 export const WEAK_PASSWORD_ERROR_MESSAGE =
-  'Weak password. Password must have atleast 8 characters';
+  "Weak password. Password must have atleast 8 characters";
 
 export const invalidFieldWhiteSpaceErrorMessage = (fieldName: string) =>
   `${fieldName} should not contain space`;
@@ -72,7 +72,7 @@ export const emptyArrayErrorMessage = (fieldName: string) =>
 
 export const oneOfFieldsIsRequiredErrorMessage = (
   fields: NonEmptyArray<string>,
-  type: 'onlyOneOf' | 'atLeastOneOf' = 'atLeastOneOf'
+  type: "onlyOneOf" | "atLeastOneOf" = "atLeastOneOf",
 ) => {
   const firstItem = fields[0];
   if (fields.length === 1) return requiredErrorMessage(firstItem);
@@ -81,15 +81,15 @@ export const oneOfFieldsIsRequiredErrorMessage = (
 
   if (!lastItem) return requiredErrorMessage(firstItem);
 
-  const firstWord = type === 'atLeastOneOf' ? 'At least' : 'Only';
+  const firstWord = type === "atLeastOneOf" ? "At least" : "Only";
 
-  return `${firstWord} one of ${fields.join(', ')} or ${lastItem} is required`;
+  return `${firstWord} one of ${fields.join(", ")} or ${lastItem} is required`;
 };
 
 /** Only either IBAN or account number is allowed, not both. */
 export const EXCLUSIVE_IBAN_OR_ACCOUNT_NUMBER_ERROR_MESSAGE =
-  'Either IBAN or account number needs to be provided, not both.';
+  "Either IBAN or account number needs to be provided, not both.";
 export const SEPA_PAYMENT_REQUIRES_IBAN_ERROR_MESSAGE =
-  'For SEPA payments, you must provide an IBAN.';
+  "For SEPA payments, you must provide an IBAN.";
 export const SEPA_PAYMENT_REQUIRES_NO_ACCOUNT_NUMBER_ERROR_MESSAGE =
-  'For SEPA payments, you must not provide an account number.';
+  "For SEPA payments, you must not provide an account number.";

@@ -1,10 +1,10 @@
-import React, { useId, type ReactNode } from 'react';
-import { Input } from '@/components/ui/input';
-import type { DivProps, NonEmptyArray } from '@/types/index';
-import type { FileType } from '@/features/file-upload/types';
-import { getInputAcceptFromCustomFileTypes } from '@/features/file-upload/utils';
-import { cn } from '@/lib/utils';
-import { Label } from '@/components/ui/label';
+import React, { useId, type ReactNode } from "react";
+import { Input } from "@/components/ui/input";
+import type { DivProps, NonEmptyArray } from "@/types/index";
+import type { FileType } from "@/features/file-upload/types";
+import { getInputAcceptFromCustomFileTypes } from "@/features/file-upload/utils";
+import { cn } from "@/lib/utils";
+import { Label } from "@/components/ui/label";
 
 export interface FileUploadInputProps extends DivProps {
   label?: ReactNode;
@@ -25,7 +25,7 @@ export const FileUploadInput = ({
   acceptMultiple = false,
   fileTypesToAccept,
   onFileAdd,
-  className
+  className,
 }: FileUploadInputProps) => {
   // Generate unique input id.
   const inputId = useId();
@@ -37,7 +37,7 @@ export const FileUploadInput = ({
         // Hack - Removes the default input tool tip.
         title=" "
         id={inputId}
-        className={cn('cursor-pointer border-0 p-0 opacity-0', className)}
+        className={cn("cursor-pointer border-0 p-0 opacity-0", className)}
         multiple={acceptMultiple}
         accept={
           fileTypesToAccept &&

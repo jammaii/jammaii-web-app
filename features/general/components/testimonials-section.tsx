@@ -1,34 +1,34 @@
-'use client';
+"use client";
 
-import { motion } from 'framer-motion';
-import { StarIcon } from 'lucide-react';
-import Image from 'next/image';
+import { motion } from "framer-motion";
+import { StarIcon } from "lucide-react";
+import Image from "next/image";
 
 const testimonials = [
   {
     quote:
-      "The platform made real estate investment accessible to me. I'm now earning passive income from premium properties I never thought I could invest in.",
-    author: 'Alice Williams',
-    title: 'First-time Investor',
-    image: '/images/testimonials/ro.jpg',
-    rating: 5
+      "I've worked with the CEO of Jammaii back from our university days and his consistency in advocating for wealth creation through the corridors of real estate remains unquenchable. His JREIT crowdfunding community is one of those initiatives he has created to achieve his goal of creating wealth for millions via real estate.",
+    author: "Engr. Omodolapo David Ajayi (PhD)",
+    title: "Texas Tech University Lubbock, Texas, United States.",
+    image: "/images/testimonials/ro.jpg",
+    rating: 5,
   },
   {
     quote:
-      'The transparency and professional management of investments gives me peace of mind. The returns have been consistently impressive.',
-    author: 'David Chen',
-    title: 'Portfolio Manager',
-    image: '/images/testimonials/ro.jpg',
-    rating: 5
+      "Not to say much, but the level of transparency and accountability the Jammaii team has shown the couple of times my company has worked with them gave me the courage to refer them to other industry colleagues. With Jammaii, be rest assured of your peace of mind and remittance without delays.",
+    author: "Joshua Shaibu; NIQS, YQSF",
+    title: "QS, Interdec Building Systems Victoria Island, Lagos, Nigeria.",
+    image: "/images/testimonials/ro.jpg",
+    rating: 5,
   },
   {
     quote:
-      "I've been investing in real estate for years, but this platform makes it so much easier. The team is professional and the results speak for themselves.",
-    author: 'Sarah Martinez',
-    title: 'Experienced Investor',
-    image: '/images/testimonials/ro.jpg',
-    rating: 5
-  }
+      "A business with Jammaii is synonymous with growth. If you really want to grow in wealth, do Jammaii. Wealth creation, growth, and expansion are their area of specialty.",
+    author: "AbdulRazzaq Ibrahim Inyass; GMNSE, MSPE, ISPON",
+    title: "Gas Engineer, Greenville LNG. Port Harcourt, Nigeria.",
+    image: "/images/testimonials/ro.jpg",
+    rating: 5,
+  },
 ];
 
 export function TestimonialsSection() {
@@ -42,10 +42,10 @@ export function TestimonialsSection() {
           className="text-center"
         >
           <h2 className="text-3xl font-bold sm:text-4xl">
-            What Our Investors Say
+            What Our Affiliate Developers Say
           </h2>
           <p className="mt-4 text-lg text-muted-foreground">
-            Join thousands of satisfied investors building their wealth
+            Join our satisfied members in the journey of building wealth
           </p>
         </motion.div>
 

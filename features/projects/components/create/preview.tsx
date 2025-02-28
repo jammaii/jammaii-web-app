@@ -3,8 +3,8 @@ import {
   CardContent,
   CardDescription,
   CardHeader,
-  CardTitle
-} from '@/components/ui/card';
+  CardTitle,
+} from "@/components/ui/card";
 import {
   CalendarDaysIcon,
   CalendarIcon,
@@ -13,27 +13,91 @@ import {
   FileIcon,
   CircleDollarSignIcon,
   BathIcon,
-  BedIcon
-} from 'lucide-react';
-import { YouTubePlayer } from '@/features/file-upload/components/youtube-player';
-import { CreateFormProps } from '@/features/projects/types/app';
-import { formatDate } from '@/lib/dates';
-import { Separator } from '@/components/ui/separator';
-import { useFileObjectUrl } from '@/features/file-upload/hooks/use-file-object-url';
-import { ImagePreview } from './image-preview';
+  BedIcon,
+} from "lucide-react";
+import { YouTubePlayer } from "@/features/file-upload/components/youtube-player";
+import {
+  CreateFile,
+  CreateFormProps,
+  CreateProjectRequestDto,
+} from "@/features/projects/types/app";
+import { formatDate } from "@/lib/dates";
+import { Separator } from "@/components/ui/separator";
+import { useFileObjectUrl } from "@/features/file-upload/hooks/use-file-object-url";
+import { ImagePreview } from "./image-preview";
+import { useS3Upload } from "next-s3-upload";
+import { isBrowserFile } from "@/features/projects/types/guards";
+import { useRouter } from "next/navigation";
+import { api } from "@/lib/api";
+import { GENERIC_ERROR_MESSAGE } from "@/constants/strings";
+import { useToast } from "@/components/ui/use-toast";
+import { Button } from "@/components/ui/button";
+import { useState } from "react";
 
 export const Preview = ({
   disablePreviousStep,
   showNextStep,
   previewData,
   backAction,
-  onCompleteAction
+  onCompleteAction,
 }: CreateFormProps) => {
-  console.log('previewData', previewData);
+  console.log("previewData", previewData);
+  const { uploadToS3 } = useS3Upload();
+  const { toastSuccess, toastError } = useToast();
+  const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
+
+  const createProject = api.project.createProject.useMutation({
+    onSuccess: (project) => {
+      toastSuccess({ message: "Project created successfully" });
+
+      router.push(`/admin/projects/${project.id}`);
+    },
+    onError: (error) => {
+      toastError({ message: GENERIC_ERROR_MESSAGE });
+    },
+  });
 
   if (!previewData) {
     return null;
   }
+
+  const submitProject = async () => {
+    setIsLoading(true);
+    const images = previewData.mediaDetails.images;
+
+    const uploadedImages: CreateFile[] = (
+      await Promise.all(
+        images.map(async (imageFile) => {
+          // Skip if not a browser File
+          if (!isBrowserFile(imageFile)) {
+            console.warn("Invalid file type encountered:", imageFile);
+            return;
+          }
+
+          const { url: fileUploadUrl } = await uploadToS3(imageFile, {});
+          if (!fileUploadUrl) return;
+
+          return {
+            fileUploadUrl,
+            mimeType: imageFile.type,
+            size: imageFile.size,
+          };
+        }),
+      )
+    ).filter((file): file is CreateFile => !!file);
+
+    const processedData: CreateProjectRequestDto = {
+      ...previewData,
+      mediaDetails: {
+        ...previewData.mediaDetails,
+        images: uploadedImages,
+      },
+    };
+
+    await createProject.mutateAsync(processedData);
+    setIsLoading(false);
+  };
 
   return (
     <Card>
@@ -173,6 +237,11 @@ export const Preview = ({
             />
           </div>
         </section>
+
+        <Separator />
+        <Button isLoading={isLoading} onClick={submitProject}>
+          Submit
+        </Button>
       </CardContent>
     </Card>
   );
@@ -186,9 +255,9 @@ interface InfoItemProps {
 }
 
 const InfoItem = ({ label, value, icon: Icon, fullWidth }: InfoItemProps) => (
-  <div className={fullWidth ? 'space-y-1.5' : 'flex items-center gap-2'}>
+  <div className={fullWidth ? "space-y-1.5" : "flex items-center gap-2"}>
     {Icon && <Icon className="h-4 w-4 text-muted-foreground" />}
-    <div className={fullWidth ? 'space-y-1.5' : 'flex items-center gap-2'}>
+    <div className={fullWidth ? "space-y-1.5" : "flex items-center gap-2"}>
       <span className="text-sm font-medium text-muted-foreground">
         {label}:
       </span>

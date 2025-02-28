@@ -1,3 +1,6 @@
+'use client';
+
+import { LoadingScreen } from '@/components/general/loading-screen';
 import {
   Card,
   CardContent,
@@ -5,7 +8,7 @@ import {
   CardHeader,
   CardTitle
 } from '@/components/ui/card';
-import { defaultProject, defaultUsers } from '@/constants/mock';
+import { api } from '@/lib/api';
 import {
   CircleDollarSignIcon,
   Users2Icon,
@@ -14,29 +17,18 @@ import {
   ClockIcon,
   CheckCircleIcon
 } from 'lucide-react';
+import Link from 'next/link';
 
 export function DashboardPage() {
-  // Calculate statistics
-  const totalProjects = defaultProject.length;
-  const activeProjects = defaultProject.filter(
-    (p) => p.status === 'Active'
-  ).length;
-  const pendingProjects = defaultProject.filter(
-    (p) => p.status === 'Pending'
-  ).length;
-  const completedProjects = defaultProject.filter(
-    (p) => p.status === 'Completed'
-  ).length;
+  const { data, isLoading } = api.project.getDashboardStats.useQuery();
 
-  const totalInvestment = defaultProject.reduce(
-    (acc, project) =>
-      acc +
-      project.investmentDetails.slots * project.investmentDetails.slotPrice,
-    0
-  );
+  if (isLoading) {
+    return <LoadingScreen />;
+  }
 
-  const totalUsers = defaultUsers.length;
-  const activeUsers = defaultUsers.filter((u) => u.status === 'active').length;
+  if (!data) {
+    return <div>Failed to load dashboard data</div>;
+  }
 
   return (
     <Card>
@@ -61,7 +53,7 @@ export function DashboardPage() {
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold">
-                  ₦{totalInvestment.toLocaleString()}
+                  ₦{data.totalAmountInvested.toLocaleString()}
                 </div>
                 <p className="text-xs text-muted-foreground">
                   Across all projects
@@ -78,13 +70,13 @@ export function DashboardPage() {
                 <HomeIcon className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold">{totalProjects}</div>
+                <div className="text-2xl font-bold">{data.projects.total}</div>
                 <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                  <span>{activeProjects} active</span>
+                  <span>{data.projects.in_progress} active</span>
                   <span>•</span>
-                  <span>{pendingProjects} pending</span>
+                  <span>{data.projects.pending} pending</span>
                   <span>•</span>
-                  <span>{completedProjects} completed</span>
+                  <span>{data.projects.completed} completed</span>
                 </div>
               </CardContent>
             </Card>
@@ -98,9 +90,9 @@ export function DashboardPage() {
                 <Users2Icon className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold">{totalUsers}</div>
+                <div className="text-2xl font-bold">{data.users.total}</div>
                 <p className="text-xs text-muted-foreground">
-                  {activeUsers} active users
+                  {data.users.active} active users
                 </p>
               </CardContent>
             </Card>
@@ -114,7 +106,9 @@ export function DashboardPage() {
                 <ActivityIcon className="h-4 w-4 text-blue-500" />
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold">{activeProjects}</div>
+                <div className="text-2xl font-bold">
+                  {data.projects.in_progress}
+                </div>
               </CardContent>
             </Card>
 
@@ -124,7 +118,9 @@ export function DashboardPage() {
                 <ClockIcon className="h-4 w-4 text-yellow-500" />
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold">{pendingProjects}</div>
+                <div className="text-2xl font-bold">
+                  {data.projects.pending}
+                </div>
               </CardContent>
             </Card>
 
@@ -134,7 +130,9 @@ export function DashboardPage() {
                 <CheckCircleIcon className="h-4 w-4 text-green-500" />
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold">{completedProjects}</div>
+                <div className="text-2xl font-bold">
+                  {data.projects.completed}
+                </div>
               </CardContent>
             </Card>
 
@@ -146,7 +144,7 @@ export function DashboardPage() {
                 <Users2Icon className="h-4 w-4 text-violet-500" />
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold">{activeUsers}</div>
+                <div className="text-2xl font-bold">{data.users.active}</div>
               </CardContent>
             </Card>
           </div>
@@ -161,24 +159,22 @@ export function DashboardPage() {
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
-                {defaultProject.slice(0, 3).map((project) => (
-                  <div
+                {data.recentProjects.slice(0, 3).map((project) => (
+                  <Link
                     key={project.id}
+                    href={`/admin/projects/${project.id}`}
                     className="flex items-center justify-between rounded-lg border p-4"
                   >
                     <div className="space-y-1">
-                      <p className="font-medium">
-                        {project.propertyDetails.name}
-                      </p>
+                      <p className="font-medium">{project.name}</p>
                       <p className="text-sm text-muted-foreground">
-                        {project.propertyDetails.type}
+                        {project.type}
                       </p>
                     </div>
                     <div className="flex items-center gap-4">
                       <div className="text-right">
                         <p className="text-sm font-medium">
-                          ₦
-                          {project.investmentDetails.slotPrice.toLocaleString()}
+                          ₦{project.slotPrice.toLocaleString()}
                         </p>
                         <p className="text-xs text-muted-foreground">
                           per slot
@@ -187,9 +183,9 @@ export function DashboardPage() {
                       <div>
                         <span
                           className={`inline-flex rounded-full px-2 py-1 text-xs font-semibold ${
-                            project.status === 'Active'
+                            project.status === 'IN_PROGRESS'
                               ? 'bg-blue-100 text-blue-700'
-                              : project.status === 'Completed'
+                              : project.status === 'COMPLETED'
                                 ? 'bg-green-100 text-green-700'
                                 : 'bg-yellow-100 text-yellow-700'
                           }`}
@@ -198,7 +194,7 @@ export function DashboardPage() {
                         </span>
                       </div>
                     </div>
-                  </div>
+                  </Link>
                 ))}
               </div>
             </CardContent>

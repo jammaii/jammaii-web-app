@@ -1,47 +1,47 @@
-'use client';
+"use client";
 
-import { motion } from 'framer-motion';
-import useEmblaCarousel from 'embla-carousel-react';
-import { Button } from '@/components/ui/button';
-import Image from 'next/image';
+import { motion } from "framer-motion";
+import useEmblaCarousel from "embla-carousel-react";
+import { Button } from "@/components/ui/button";
+import Image from "next/image";
 
 const featuredProperties = [
   {
-    title: 'Luxury Villa Estate',
-    description: 'Premium 5-bedroom villas with modern amenities',
-    image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800',
-    pricePerSlot: 500000
+    title: "Luxury Villa Estate",
+    description: "Premium 5-bedroom villas with modern amenities",
+    image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800",
+    pricePerSlot: 500000,
   },
   {
-    title: 'Urban Apartments',
-    description: 'Contemporary living in the heart of the city',
-    image: 'https://images.unsplash.com/photo-1600573472550-8090b5e0745e?w=800',
-    pricePerSlot: 500000
+    title: "Urban Apartments",
+    description: "Contemporary living in the heart of the city",
+    image: "https://images.unsplash.com/photo-1600573472550-8090b5e0745e?w=800",
+    pricePerSlot: 500000,
   },
   {
-    title: 'Beach Resort',
-    description: 'Oceanfront properties with stunning views',
-    image: 'https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=800',
-    pricePerSlot: 500000
+    title: "Beach Resort",
+    description: "Oceanfront properties with stunning views",
+    image: "https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=800",
+    pricePerSlot: 500000,
   },
   {
-    title: 'Luxury Villa Estate',
-    description: 'Premium 5-bedroom villas with modern amenities',
-    image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800',
-    pricePerSlot: 500000
+    title: "Luxury Villa Estate",
+    description: "Premium 5-bedroom villas with modern amenities",
+    image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800",
+    pricePerSlot: 500000,
   },
   {
-    title: 'Urban Apartments',
-    description: 'Contemporary living in the heart of the city',
-    image: 'https://images.unsplash.com/photo-1600573472550-8090b5e0745e?w=800',
-    pricePerSlot: 500000
+    title: "Urban Apartments",
+    description: "Contemporary living in the heart of the city",
+    image: "https://images.unsplash.com/photo-1600573472550-8090b5e0745e?w=800",
+    pricePerSlot: 500000,
   },
   {
-    title: 'Beach Resort',
-    description: 'Oceanfront properties with stunning views',
-    image: 'https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=800',
-    pricePerSlot: 500000
-  }
+    title: "Beach Resort",
+    description: "Oceanfront properties with stunning views",
+    image: "https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=800",
+    pricePerSlot: 500000,
+  },
 ];
 
 export const FeaturedProjectsSection = () => {

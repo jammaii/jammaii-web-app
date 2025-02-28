@@ -14,27 +14,24 @@ import {
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
-import { UserProjectsResponseDto } from '@/features/users/types/app';
+import { LoadingSkeleton } from '@/components/general/loading-skeleton';
+import { api } from '@/lib/api';
+import { formatCurrency } from '@/lib/utils';
+import { formatDate } from '@/lib/dates';
+import { UserInvestments } from '@/features/users/components/user-investments';
+import { useUser } from '@/hooks/use-user';
 
-interface UserDashboardPageProps {
-  userProjects: UserProjectsResponseDto;
-}
+export function UserDashboardPage() {
+  const { data, isLoading } = api.user.getDashboard.useQuery();
+  const { user } = useUser();
 
-export function UserDashboardPage({ userProjects }: UserDashboardPageProps) {
-  // Calculate user statistics
-  const totalInvested = userProjects.project.reduce(
-    (acc, project) => acc + project.slots * project.slotPrice,
-    0
-  );
+  if (isLoading) {
+    return <LoadingSkeleton />;
+  }
 
-  const activeProjects = userProjects.project.filter(
-    (p) => p.status === 'Approved'
-  ).length;
-
-  const totalSlots = userProjects.project.reduce(
-    (acc, project) => acc + project.slots,
-    0
-  );
+  if (!data || !user) {
+    return <div>Oops something went wrong, try again</div>;
+  }
 
   return (
     <Card>
@@ -42,7 +39,7 @@ export function UserDashboardPage({ userProjects }: UserDashboardPageProps) {
         <div className="container mx-auto space-y-8 py-8">
           <div>
             <h2 className="text-3xl font-bold tracking-tight">
-              Welcome back, {userProjects.user.firstName}!
+              Hello, {user.firstName}!
             </h2>
             <p className="text-muted-foreground">
               Here's an overview of your investment portfolio
@@ -60,10 +57,10 @@ export function UserDashboardPage({ userProjects }: UserDashboardPageProps) {
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold">
-                  ₦{totalInvested.toLocaleString()}
+                  ₦{formatCurrency(data.totalAmountInvested)}
                 </div>
                 <p className="text-xs text-muted-foreground">
-                  Across {userProjects.project.length} projects
+                  Across {data.totalProjects} projects
                 </p>
               </CardContent>
             </Card>
@@ -76,7 +73,9 @@ export function UserDashboardPage({ userProjects }: UserDashboardPageProps) {
                 <LayoutGridIcon className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold">{activeProjects}</div>
+                <div className="text-2xl font-bold">
+                  {data.totalActiveProjects}
+                </div>
                 <p className="text-xs text-muted-foreground">
                   Currently active investments
                 </p>
@@ -91,7 +90,7 @@ export function UserDashboardPage({ userProjects }: UserDashboardPageProps) {
                 <TrendingUpIcon className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold">{totalSlots}</div>
+                <div className="text-2xl font-bold">{data.totalSlots}</div>
                 <p className="text-xs text-muted-foreground">Slots purchased</p>
               </CardContent>
             </Card>
@@ -105,9 +104,7 @@ export function UserDashboardPage({ userProjects }: UserDashboardPageProps) {
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold">
-                  {new Date(
-                    userProjects.project[0]?.boughtAt ?? ''
-                  ).toLocaleDateString()}
+                  {formatDate(data.latestInvestmentDate)}
                 </div>
                 <p className="text-xs text-muted-foreground">
                   Last transaction date
@@ -126,54 +123,19 @@ export function UserDashboardPage({ userProjects }: UserDashboardPageProps) {
                     Overview of your real estate investments
                   </CardDescription>
                 </div>
-                <Link href="/projects">
-                  <Button variant="ghost" className="gap-2">
+                <Link href="/user/investments">
+                  <Button
+                    variant="ghost"
+                    className="gap-2"
+                    rightIcon={<ChevronRightIcon className="h-4 w-4" />}
+                  >
                     View All
-                    <ChevronRightIcon className="h-4 w-4" />
                   </Button>
                 </Link>
               </div>
             </CardHeader>
             <CardContent>
-              <div className="space-y-4">
-                {userProjects.project.map((project) => (
-                  <div
-                    key={project.id}
-                    className="flex items-center justify-between rounded-lg border p-4"
-                  >
-                    <div className="space-y-1">
-                      <p className="font-medium">{project.name}</p>
-                      <p className="text-sm text-muted-foreground">
-                        {project.slots} slots purchased
-                      </p>
-                    </div>
-                    <div className="flex items-center gap-4">
-                      <div className="text-right">
-                        <p className="text-sm font-medium">
-                          ₦
-                          {(project.slots * project.slotPrice).toLocaleString()}
-                        </p>
-                        <p className="text-xs text-muted-foreground">
-                          Total investment
-                        </p>
-                      </div>
-                      <div>
-                        <span
-                          className={`inline-flex rounded-full px-2 py-1 text-xs font-semibold ${
-                            project.status === 'Approved'
-                              ? 'bg-green-100 text-green-700'
-                              : project.status === 'Rejected'
-                                ? 'bg-red-100 text-red-700'
-                                : 'bg-yellow-100 text-yellow-700'
-                          }`}
-                        >
-                          {project.status}
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
+              <UserInvestments investments={data.recentInvestments} />
             </CardContent>
           </Card>
         </div>

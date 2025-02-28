@@ -1,17 +1,17 @@
 /* eslint-disable @typescript-eslint/unbound-method */
-'use client';
+"use client";
 
-import 'react-day-picker/dist/style.css';
-import { forwardRef, useRef, useState } from 'react';
-import { Calendar } from './calendar';
-import { CalendarIcon } from 'lucide-react';
-import { Popover, PopoverContent, PopoverTrigger } from './popover';
-import { Input, type InputProps } from './input';
-import { cn } from '@/lib/utils';
-import { Button } from './button';
-import { formatDate } from '@/lib/dates';
+import "react-day-picker/dist/style.css";
+import { forwardRef, useRef, useState } from "react";
+import { Calendar } from "./calendar";
+import { CalendarIcon } from "lucide-react";
+import { Popover, PopoverContent, PopoverTrigger } from "./popover";
+import { Input, type InputProps } from "./input";
+import { cn } from "@/lib/utils";
+import { Button } from "./button";
+import { formatDate } from "@/lib/dates";
 
-type OmittedKeys = 'onChange' | 'value' | 'defaultValue';
+type OmittedKeys = "onChange" | "value" | "defaultValue";
 
 export interface DatePickerProps extends Omit<InputProps, OmittedKeys> {
   defaultValue?: Date;
@@ -47,7 +47,9 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(
     } = props;
     const [opened, setOpened] = useState(false);
     const [stringDate, setStringDate] = useState(
-      defaultValue ? formatDate(defaultValue, { dateFormat: 'MM/dd/yyyy' }) : ''
+      defaultValue
+        ? formatDate(defaultValue, { dateFormat: "MM/dd/yyyy" })
+        : "",
     );
     const [errorMessage, setErrorMessage] = useState<string>();
     const wrapperRef = useRef<HTMLDivElement>(null);
@@ -63,35 +65,35 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(
             {...rest}
             ref={ref}
             // Disable auto suggest for input: https://stackoverflow.com/questions/35448269/angular-materials-can-you-disable-the-autocomplete-suggestions-for-an-input/60335213#60335213
-            name={props.name ?? 'date-picker'}
+            name={props.name ?? "date-picker"}
             type="text"
             value={stringDate}
             placeholder="MM/DD/YYYY"
             autoComplete="off"
             onFocus={() => {
               if (value)
-                setStringDate(formatDate(value, { dateFormat: 'MM/dd/yyyy' }));
+                setStringDate(formatDate(value, { dateFormat: "MM/dd/yyyy" }));
             }}
             onChange={(e) => {
-              if (value) setStringDate('');
+              if (value) setStringDate("");
               setStringDate(e.target.value);
             }}
             onBlur={(e) => {
               if (e.target.value) {
                 const parsedDate = new Date(e.target.value);
-                if (parsedDate.toString() === 'Invalid Date') {
-                  handleError('Invalid Date');
+                if (parsedDate.toString() === "Invalid Date") {
+                  handleError("Invalid Date");
                 } else {
                   handleError();
                   onChange(parsedDate);
                   setStringDate(
-                    formatDate(parsedDate, { dateFormat: 'MM/dd/yyyy' })
+                    formatDate(parsedDate, { dateFormat: "MM/dd/yyyy" }),
                   );
                 }
               }
             }}
           />
-          {!onDateError && errorMessage !== '' && (
+          {!onDateError && errorMessage !== "" && (
             <div className="absolute -bottom-6 left-0 text-sm text-destructive">
               {errorMessage}
             </div>
@@ -101,8 +103,8 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(
               <Button
                 variant="ghost"
                 className={cn(
-                  'absolute right-0 top-[50%] translate-y-[-50%] rounded-md rounded-l-none font-normal',
-                  !value && 'text-muted-foreground'
+                  "absolute right-0 top-[50%] translate-y-[-50%] rounded-md rounded-l-none font-normal",
+                  !value && "text-muted-foreground",
                 )}
               >
                 <CalendarIcon className="h-4 w-4" />
@@ -119,21 +121,21 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(
             fromDate={from}
             toDate={to}
             classNames={{
-              caption_label: 'flex items-center text-sm font-medium',
-              dropdown: 'rdp-dropdown bg-card',
-              dropdown_icon: 'ml-2',
-              dropdown_year: 'rdp-dropdown_year ml-3',
-              button: '',
-              button_reset: '',
-              head_row: 'flex justify-between',
-              row: 'flex justify-between mt-2',
-              month: 'w-full space-y-4'
+              caption_label: "flex items-center text-sm font-medium",
+              dropdown: "rdp-dropdown bg-card",
+              dropdown_icon: "ml-2",
+              dropdown_year: "rdp-dropdown_year ml-3",
+              button: "",
+              button_reset: "",
+              head_row: "flex justify-between",
+              row: "flex justify-between mt-2",
+              month: "w-full space-y-4",
             }}
             onSelect={(selectedDate) => {
               if (!selectedDate) return;
               onChange(selectedDate);
               setStringDate(
-                formatDate(selectedDate, { dateFormat: 'MM/dd/yyyy' })
+                formatDate(selectedDate, { dateFormat: "MM/dd/yyyy" }),
               );
               handleError();
               setOpened(false);
@@ -142,7 +144,7 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(
         </PopoverContent>
       </Popover>
     );
-  }
+  },
 );
 
-DatePicker.displayName = 'DatePicker';
+DatePicker.displayName = "DatePicker";

@@ -1,18 +1,18 @@
-'use client';
+"use client";
 
-import { useState, useEffect } from 'react';
-import Link from 'next/link';
-import { Button } from '@/components/ui/button';
-import { cn } from '@/lib/utils';
-import { MenuIcon, XIcon } from 'lucide-react';
-import Image from 'next/image';
+import { useState, useEffect } from "react";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
+import { MenuIcon, XIcon } from "lucide-react";
+import Image from "next/image";
 
 const navLinks = [
-  { label: 'Home', href: '/' },
-  { label: 'Properties', href: '/projects' },
-  { label: 'How it Works', href: '#how-it-works' },
-  { label: 'About', href: '#about' },
-  { label: 'Contact', href: '#contact' }
+  { label: "Home", href: "/" },
+  { label: "Properties", href: "/projects" },
+  { label: "How it Works", href: "how-it-works" },
+  { label: "About", href: "about" },
+  { label: "Contact", href: "contact" },
 ];
 
 export function NavSection() {
@@ -24,17 +24,17 @@ export function NavSection() {
       setIsScrolled(window.scrollY > 10);
     };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   return (
     <nav
       className={cn(
-        'fixed inset-x-0 top-0 z-50 transition-all duration-300',
+        "fixed inset-x-0 top-0 z-50 transition-all duration-300",
         isScrolled
-          ? 'bg-background/80 backdrop-blur-lg shadow-md'
-          : 'bg-transparent'
+          ? "bg-background/80 shadow-md backdrop-blur-lg"
+          : "bg-transparent",
       )}
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -50,8 +50,8 @@ export function NavSection() {
             /> */}
             <span
               className={cn(
-                'text-lg font-bold',
-                isScrolled ? 'text-foreground' : 'text-white'
+                "text-lg font-bold",
+                isScrolled ? "text-foreground" : "text-white",
               )}
             >
               JAMMAII
@@ -65,8 +65,8 @@ export function NavSection() {
                 key={link.href}
                 href={link.href}
                 className={cn(
-                  'text-sm font-medium transition-colors hover:text-primary',
-                  isScrolled ? 'text-foreground' : 'text-white'
+                  "text-sm font-medium transition-colors hover:text-primary",
+                  isScrolled ? "text-foreground" : "text-white",
                 )}
               >
                 {link.label}
@@ -78,10 +78,10 @@ export function NavSection() {
           <div className="hidden gap-4 md:flex">
             <Link href="/signin">
               <Button
-                variant={isScrolled ? 'outline' : 'ghost'}
+                variant={isScrolled ? "outline" : "ghost"}
                 className={cn(
-                  'transition-all',
-                  !isScrolled && 'text-white hover:bg-white/20'
+                  "transition-all",
+                  !isScrolled && "text-white hover:bg-white/20",
                 )}
               >
                 Sign in
@@ -107,7 +107,7 @@ export function NavSection() {
 
         {/* Mobile Menu */}
         {isMobileMenuOpen && (
-          <div className="border-t md:hidden bg-background">
+          <div className="border-t bg-background md:hidden">
             <div className="space-y-1 px-2 pb-3 pt-2">
               {navLinks.map((link) => (
                 <Link

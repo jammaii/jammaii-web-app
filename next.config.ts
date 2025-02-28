@@ -1,17 +1,29 @@
 export default {
   images: {
-    domains: ['images.unsplash.com', 'res.cloudinary.com'], // Add any other domains you need
     remotePatterns: [
       {
-        protocol: 'https',
-        hostname: 'avatars.githubusercontent.com',
-        search: ''
+        protocol: "https",
+        hostname: "avatars.githubusercontent.com",
+        search: "",
       },
       {
-        protocol: 'https',
-        hostname: '*.public.blob.vercel-storage.com',
-        search: ''
-      }
-    ]
-  }
+        protocol: "https",
+        hostname: "*.public.blob.vercel-storage.com",
+        search: "",
+      },
+      {
+        protocol: "https",
+        hostname: "images.unsplash.com",
+      },
+      {
+        protocol: "https",
+        hostname: "res.cloudinary.com",
+        search: "",
+      },
+      {
+        protocol: "https",
+        hostname: "jammaii-bucket.s3.eu-north-1.amazonaws.com",
+      },
+    ],
+  },
 };

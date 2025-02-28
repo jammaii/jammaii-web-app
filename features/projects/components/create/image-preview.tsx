@@ -1,4 +1,4 @@
-import { useFileObjectUrl } from '@/features/file-upload/hooks/use-file-object-url';
+import { useFileObjectUrl } from "@/features/file-upload/hooks/use-file-object-url";
 
 interface ImagePreviewProps {
   image: globalThis.File; // Explicitly use browser's File type

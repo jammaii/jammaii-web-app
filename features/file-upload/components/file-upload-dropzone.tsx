@@ -1,8 +1,8 @@
-import { useDropzone } from 'react-dropzone';
-import { FileUploadPreview } from './file-upload-preview';
-import { Button } from '@/components/ui/button';
-import { XIcon } from 'lucide-react';
-import { T } from '@/components/typography';
+import { useDropzone } from "react-dropzone";
+import { FileUploadPreview } from "./file-upload-preview";
+import { Button } from "@/components/ui/button";
+import { XIcon } from "lucide-react";
+import { T } from "@/components/typography";
 
 interface FileUploadDropzoneProps {
   maximum: number;
@@ -13,12 +13,12 @@ interface FileUploadDropzoneProps {
 export const FileUploadDropzone = ({
   maximum,
   files,
-  setFiles
+  setFiles,
 }: FileUploadDropzoneProps) => {
   const { getRootProps, getInputProps } = useDropzone({
     // TODO(DG-461): Add accept to props - I might not always want to accept both.
     accept: {
-      'image/*': []
+      "image/*": [],
     },
     onDrop: (acceptedFiles: File[]) => {
       if (!acceptedFiles.length) return;
@@ -28,11 +28,11 @@ export const FileUploadDropzone = ({
 
       const updatedFileList = [
         ...files,
-        ...acceptedFiles.slice(0, maximum - files.length)
+        ...acceptedFiles.slice(0, maximum - files.length),
       ];
 
       setFiles(updatedFileList);
-    }
+    },
   });
 
   const removeFile = (fileIndex: number) => {

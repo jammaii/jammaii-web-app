@@ -2,9 +2,9 @@ import {
   Card,
   CardContent,
   CardFooter,
-  CardHeader
-} from '@/components/ui/card';
-import { cn } from '@/lib/utils';
+  CardHeader,
+} from "@/components/ui/card";
+import { cn } from "@/lib/utils";
 
 interface AuthCardProps extends React.HTMLAttributes<HTMLDivElement> {
   headerContent?: React.ReactNode;
@@ -20,7 +20,7 @@ export const AuthCard = ({
   ...props
 }: AuthCardProps) => {
   return (
-    <Card className={cn('w-full max-w-md', className)} {...props}>
+    <Card className={cn("w-full max-w-md", className)} {...props}>
       {headerContent && <CardHeader>{headerContent}</CardHeader>}
       <CardContent>{children}</CardContent>
       {footerContent && <CardFooter>{footerContent}</CardFooter>}

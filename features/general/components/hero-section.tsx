@@ -1,10 +1,10 @@
-'use client';
+"use client";
 
-import { motion } from 'framer-motion';
-import { Button } from '@/components/ui/button';
-import { ArrowRightIcon, PlayCircle } from 'lucide-react';
-import { useState } from 'react';
-import { YouTubePlayer } from '@/features/file-upload/components/youtube-player';
+import { motion } from "framer-motion";
+import { Button } from "@/components/ui/button";
+import { ArrowRightIcon, PlayCircle } from "lucide-react";
+import { useState } from "react";
+import { YouTubePlayer } from "@/features/file-upload/components/youtube-player";
 
 export const HeroSection = () => {
   const [videoModalOpen, setVideoModalOpen] = useState(false);
@@ -43,17 +43,19 @@ export const HeroSection = () => {
               <Button
                 size="lg"
                 className="group gap-2 bg-primary/90 hover:bg-primary"
+                rightIcon={
+                  <ArrowRightIcon className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                }
               >
                 Start Investing
-                <ArrowRightIcon className="h-4 w-4 transition-transform group-hover:translate-x-1" />
               </Button>
               <Button
                 size="lg"
                 variant="outline"
                 className="gap-2 bg-white/10 text-white backdrop-blur-sm hover:bg-white/20"
                 onClick={() => setVideoModalOpen(true)}
+                leftIcon={<PlayCircle className="h-5 w-5" />}
               >
-                <PlayCircle className="h-5 w-5" />
                 Watch Video
               </Button>
             </div>

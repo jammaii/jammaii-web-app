@@ -1,41 +1,41 @@
-'use client';
+"use client";
 
-import { motion } from 'framer-motion';
+import { motion } from "framer-motion";
 import {
   SearchIcon,
   CreditCardIcon,
   BuildingIcon,
-  BarChart2Icon
-} from 'lucide-react';
+  BarChart2Icon,
+} from "lucide-react";
 
 const steps = [
   {
-    title: 'Browse Projects',
+    title: "Browse Projects",
     description:
-      'Explore our curated selection of premium real estate investments.',
+      "Explore our curated selection of premium real estate investments.",
     icon: SearchIcon,
-    color: 'bg-blue-500/10 text-blue-500'
+    color: "bg-blue-500/10 text-blue-500",
   },
   {
-    title: 'Choose Your Investment',
+    title: "Choose Your Investment",
     description:
-      'Select the number of slots you want to purchase in your chosen project.',
+      "Select the number of slots you want to purchase in your chosen project.",
     icon: BuildingIcon,
-    color: 'bg-green-500/10 text-green-500'
+    color: "bg-green-500/10 text-green-500",
   },
   {
-    title: 'Secure Payment',
-    description: 'Make your investment using our secure payment platform.',
+    title: "Secure Payment",
+    description: "Make your investment using our secure payment platform.",
     icon: CreditCardIcon,
-    color: 'bg-yellow-500/10 text-yellow-500'
+    color: "bg-yellow-500/10 text-yellow-500",
   },
   {
-    title: 'Track Returns',
+    title: "Track Returns",
     description:
-      'Monitor your investment performance and receive regular returns.',
+      "Monitor your investment performance and receive regular returns.",
     icon: BarChart2Icon,
-    color: 'bg-purple-500/10 text-purple-500'
-  }
+    color: "bg-purple-500/10 text-purple-500",
+  },
 ];
 
 export function HowItWorksSection() {

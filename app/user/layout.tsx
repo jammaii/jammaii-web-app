@@ -1,23 +1,12 @@
 import Link from 'next/link';
 import {
+  DollarSignIcon,
   Home,
-  LineChart,
   Package,
   Package2,
   PanelLeft,
-  Settings,
-  ShoppingCart,
-  Users2
+  Settings
 } from 'lucide-react';
-
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator
-} from '@/components/ui/breadcrumb';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import {
@@ -26,13 +15,14 @@ import {
   TooltipTrigger
 } from '@/components/ui/tooltip';
 import { Analytics } from '@vercel/analytics/react';
-import { User } from '../admin/user';
 import { VercelLogo } from '@/components/icons';
 import Providers from '../admin/providers';
-import { NavItem } from './nav-item';
-import { SearchInput } from '../admin/search';
+import { NavItem } from '@/components/general/nav-item';
+import { HeaderIcon } from '@/components/general/header-icon';
+import { UserPopup } from '@/components/general/user-popup';
+import { MobileNavItem } from '@/components/general/mobile-nav-item';
 
-export default function DashboardLayout({
+export default function UserDashboardLayout({
   children
 }: {
   children: React.ReactNode;
@@ -41,14 +31,13 @@ export default function DashboardLayout({
     <Providers>
       <main className="flex min-h-screen w-full flex-col bg-muted/40">
         <DesktopNav />
-        <div className="flex flex-col sm:gap-4 sm:py-4 sm:pl-14">
-          <header className="sticky top-0 z-30 flex h-14 items-center gap-4 border-b bg-background px-4 sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6">
+        <div className="flex flex-col sm:gap-4 sm:py-4 sm:pl-24">
+          <header className="sticky top-0 z-30 flex h-14 items-center justify-between gap-4 border-b bg-background px-4 sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6">
             <MobileNav />
-            <DashboardBreadcrumb />
-            <SearchInput />
-            <User />
+            <HeaderIcon />
+            <UserPopup accountType="user" />
           </header>
-          <main className="grid flex-1 items-start gap-2 p-4 sm:px-6 sm:py-0 md:gap-4 bg-muted/40">
+          <main className="grid flex-1 items-start gap-2 bg-muted/40 p-4 sm:px-6 sm:py-0 md:gap-4">
             {children}
           </main>
         </div>
@@ -60,23 +49,21 @@ export default function DashboardLayout({
 
 function DesktopNav() {
   return (
-    <aside className="fixed inset-y-0 left-0 z-10 hidden w-14 flex-col border-r bg-background sm:flex">
+    <aside className="fixed inset-y-0 left-0 z-10 hidden w-24 flex-col border-r bg-background bg-green-800 sm:flex">
       <nav className="flex flex-col items-center gap-4 px-2 sm:py-5">
         <Link href="/">
           <VercelLogo className="h-3 w-3 transition-all group-hover:scale-110" />
           <span className="sr-only">JAMMAII</span>
         </Link>
 
-        <NavItem href="/" label="Dashboard">
+        <NavItem href="/user" label="Dashboard">
           <Home className="h-5 w-5" />
+          Home
         </NavItem>
 
-        <NavItem href="/projects" label="Projects">
-          <Package className="h-5 w-5" />
-        </NavItem>
-
-        <NavItem href="/users" label="Users">
-          <Users2 className="h-5 w-5" />
+        <NavItem href="/user/investments" label="Investments">
+          <DollarSignIcon className="h-5 w-5" />
+          Investments
         </NavItem>
       </nav>
       <nav className="mt-auto flex flex-col items-center gap-4 px-2 sm:py-5">
@@ -106,7 +93,7 @@ function MobileNav() {
           <span className="sr-only">Toggle Menu</span>
         </Button>
       </SheetTrigger>
-      <SheetContent side="left" className="sm:max-w-xs">
+      <SheetContent side="left" className="bg-green-800 sm:max-w-xs">
         <nav className="grid gap-6 text-lg font-medium">
           <Link
             href="#"
@@ -116,59 +103,27 @@ function MobileNav() {
             <span className="sr-only">JAMMAII</span>
           </Link>
           <Link
-            href="/"
+            href="/admin"
             className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground"
-          >
+          ></Link>
+          <MobileNavItem href="/user" label="Users">
             <Home className="h-5 w-5" />
             Dashboard
-          </Link>
-          <Link
-            href="/projects"
-            className="flex items-center gap-4 px-2.5 text-foreground"
-          >
+          </MobileNavItem>
+
+          <MobileNavItem href="/user/investments" label="Users">
             <Package className="h-5 w-5" />
-            Projects
-          </Link>
-          <Link
-            href="/users"
-            className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground"
-          >
-            <Users2 className="h-5 w-5" />
-            Users
-          </Link>
-          <Link
+            Investments
+          </MobileNavItem>
+          {/* <Link
             href="#"
             className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground"
           >
             <LineChart className="h-5 w-5" />
             Settings
-          </Link>
+          </Link> */}
         </nav>
       </SheetContent>
     </Sheet>
-  );
-}
-
-function DashboardBreadcrumb() {
-  return (
-    <Breadcrumb className="hidden md:flex">
-      <BreadcrumbList>
-        <BreadcrumbItem>
-          <BreadcrumbLink asChild>
-            <Link href="#">Dashboard</Link>
-          </BreadcrumbLink>
-        </BreadcrumbItem>
-        <BreadcrumbSeparator />
-        <BreadcrumbItem>
-          <BreadcrumbLink asChild>
-            <Link href="#">Products</Link>
-          </BreadcrumbLink>
-        </BreadcrumbItem>
-        <BreadcrumbSeparator />
-        <BreadcrumbItem>
-          <BreadcrumbPage>All Products</BreadcrumbPage>
-        </BreadcrumbItem>
-      </BreadcrumbList>
-    </Breadcrumb>
   );
 }

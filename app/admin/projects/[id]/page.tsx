@@ -1,9 +1,10 @@
-'use client';
+"use client";
 
-import { SingleProjectPage } from '@/features/projects/pages/single-project-page';
-import { notFound, useParams } from 'next/navigation';
+import { withProtectedRoute } from "@/components/general/protected-route";
+import { SingleProjectPage } from "@/features/projects/pages/single-project-page";
+import { notFound, useParams } from "next/navigation";
 
-export default async function Page() {
+function Page() {
   const route = useParams();
   const { id } = route;
 
@@ -11,5 +12,9 @@ export default async function Page() {
     notFound();
   }
 
-  return <SingleProjectPage id={id} />;
+  return <SingleProjectPage id={id} isAdmin />;
 }
+
+export default withProtectedRoute(Page, {
+  allowedRoles: ["ADMIN", "SUPER_ADMIN"],
+});

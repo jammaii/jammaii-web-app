@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import { motion } from 'framer-motion';
-import { Button } from '@/components/ui/button';
-import { ArrowRightIcon } from 'lucide-react';
-import Link from 'next/link';
+import { motion } from "framer-motion";
+import { Button } from "@/components/ui/button";
+import { ArrowRightIcon } from "lucide-react";
+import Link from "next/link";
 
 export function CTASection() {
   return (
@@ -30,9 +30,9 @@ export function CTASection() {
                   size="lg"
                   variant="secondary"
                   className="w-full gap-2 sm:w-auto"
+                  rightIcon={<ArrowRightIcon className="h-4 w-4" />}
                 >
                   Create Account
-                  <ArrowRightIcon className="h-4 w-4" />
                 </Button>
               </Link>
               <Link href="/projects">

@@ -1,7 +1,12 @@
-import { ProjectsPage } from '@/features/projects/pages/projects-page';
+"use client";
 
-export default async function Page(props: {
-  searchParams: Promise<{ q: string; offset: string }>;
-}) {
-  return <ProjectsPage {...props} />;
+import { withProtectedRoute } from "@/components/general/protected-route";
+import { ProjectsPage } from "@/features/projects/pages/projects-page";
+
+function Page() {
+  return <ProjectsPage />;
 }
+
+export default withProtectedRoute(Page, {
+  allowedRoles: ["ADMIN", "SUPER_ADMIN"],
+});

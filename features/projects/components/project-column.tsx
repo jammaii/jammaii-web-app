@@ -1,21 +1,11 @@
 import Image from 'next/image';
 import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuTrigger
-} from '@/components/ui/dropdown-menu';
-import { ArrowUpRightIcon, MoreHorizontal } from 'lucide-react';
+import { ArrowUpRightIcon } from 'lucide-react';
 import { TableCell, TableRow } from '@/components/ui/table';
-import { SelectProduct } from '@/lib/db';
-import { deleteProduct } from '@/features/projects/utils';
-import { ProjectResponseDto } from '@/features/projects/types/app';
+import { ProjectResponse } from '@/features/projects/types/app';
 import Link from 'next/link';
 
-export const ProjectCoumn = ({ project }: { project: ProjectResponseDto }) => {
+export const ProjectColumn = ({ project }: { project: ProjectResponse }) => {
   return (
     <TableRow>
       <TableCell className="hidden sm:table-cell">
@@ -23,29 +13,25 @@ export const ProjectCoumn = ({ project }: { project: ProjectResponseDto }) => {
           alt="Project image"
           className="aspect-square rounded-md object-cover"
           height="64"
-          src={project.mediaDetails.images[0]}
+          src={project.images[0].fileUploadUrl}
           width="64"
         />
       </TableCell>
-      <TableCell className="font-medium">
-        {project.propertyDetails.name}
-      </TableCell>
+      <TableCell className="font-medium">{project.name}</TableCell>
       <TableCell>
         <Badge variant="outline" className="capitalize">
           {project.status}
         </Badge>
       </TableCell>
+      <TableCell className="hidden md:table-cell">{project.slots}</TableCell>
       <TableCell className="hidden md:table-cell">
-        {project.investmentDetails.slots}
+        {`NGN ${project.slotPrice.toLocaleString()}`}
       </TableCell>
       <TableCell className="hidden md:table-cell">
-        {`NGN ${project.investmentDetails.slotPrice.toLocaleString()}`}
-      </TableCell>
-      <TableCell className="hidden md:table-cell">
-        {project.investmentDetails.startDate.toLocaleDateString('en-US')}
+        {project.startDate.toLocaleDateString('en-US')}
       </TableCell>
       <TableCell>
-        <Link href={`/projects/${project.id}`}>
+        <Link href={`/admin/projects/${project.id}`}>
           <ArrowUpRightIcon />
         </Link>
         {/* <DropdownMenu>

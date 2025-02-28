@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 export function AuthBackground() {
   return (
@@ -12,7 +12,7 @@ export function AuthBackground() {
       >
         <source src="/videos/bg.mp4" type="video/mp4" />
       </video>
-      <div className="absolute inset-0 bg-background/15 backdrop-blur-xs" />
+      <div className="backdrop-blur-xs absolute inset-0 bg-background/15" />
     </div>
   );
 }
