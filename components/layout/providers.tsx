@@ -1,5 +1,3 @@
-'use client';
-
 import { cookies } from 'next/headers';
 import { TRPCReactProvider } from '@/trpc/react';
 import { Analytics } from '@vercel/analytics/react';
@@ -39,7 +37,7 @@ export async function Providers({ children }: ProvidersProps) {
     <TRPCReactProvider cookies={cookieData.toString()}>
       <Analytics />
       {/** @ts-expect-error Async Server Component */}
-      <SessionProvider session={session}>{children}</SessionProvider>
+      <SessionProvider>{children}</SessionProvider>
     </TRPCReactProvider>
   );
 }

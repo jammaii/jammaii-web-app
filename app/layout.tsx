@@ -1,33 +1,27 @@
-import "@/styles/globals.css";
+import '@/styles/globals.css';
 
-import { Analytics } from "@vercel/analytics/react";
-import { TRPCReactProvider } from "@/trpc/react";
-import { cookies } from "next/headers";
-import { Toaster } from "@/components/ui/toaster";
-import { AuthProvider } from "@/components/layout/auth-provider";
+import { Analytics } from '@vercel/analytics/react';
+import { Toaster } from '@/components/ui/toaster';
+import { Providers } from '@/components/layout/providers';
 
 export const metadata = {
-  title: "JAMMAII",
+  title: 'JAMMAII',
   description:
-    "Jammai is a premium real estate investment platform for affiliate developers",
+    'Jammai is a premium real estate investment platform for affiliate developers'
 };
 
 export default async function RootLayout({
-  children,
+  children
 }: {
   children: React.ReactNode;
 }) {
-  const cookieData = await cookies();
-
   return (
     <html lang="en">
-      <TRPCReactProvider cookies={cookieData.toString()}>
-        <body className="flex min-h-screen w-full flex-col">
-          <AuthProvider>{children}</AuthProvider>
-        </body>
+      <body className="flex min-h-screen w-full flex-col">
+        <Providers>{children}</Providers>
         <Analytics />
         <Toaster />
-      </TRPCReactProvider>
+      </body>
     </html>
   );
 }
