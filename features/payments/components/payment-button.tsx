@@ -82,7 +82,6 @@ export const PaymentButton = ({
 
   return (
     <Button isLoading={createProject.isPending}>
-      {/* @ts-expect-error - Type incompatability with recent next versions */}
       <PaystackButton {...componentProps} />
     </Button>
   );
