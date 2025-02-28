@@ -36,7 +36,6 @@ export async function Providers({ children }: ProvidersProps) {
   return (
     <TRPCReactProvider cookies={cookieData.toString()}>
       <Analytics />
-      {/** @ts-expect-error Async Server Component */}
       <SessionProvider>{children}</SessionProvider>
     </TRPCReactProvider>
   );
