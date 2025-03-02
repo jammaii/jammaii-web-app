@@ -36,7 +36,7 @@ export function UserDashboardPage() {
   return (
     <Card>
       <CardContent>
-        <div className="container mx-auto space-y-8 py-8">
+        <div className="space-y-8 py-8">
           <div>
             <h2 className="text-3xl font-bold tracking-tight">
               Hello, {user.firstName}!

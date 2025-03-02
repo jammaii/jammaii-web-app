@@ -94,7 +94,7 @@ export function SingleProjectPage({ id, isAdmin }: SingleProjectPageProps) {
 
       <Card>
         <CardContent>
-          <div className="container mx-auto py-8">
+          <div className="py-8">
             <div className="grid gap-8">
               {/* Image Carousel Section */}
               <div className="relative rounded-xl border bg-card">

@@ -1,15 +1,15 @@
-"use client";
+'use client';
 
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { api } from "@/lib/api";
-import { LoadingScreen } from "@/components/general/loading-screen";
-import { useState } from "react";
-import { useDebounce } from "@/hooks/use-debounce";
-import { SupportMessagesTable } from "@/features/admin/components/support/messages-table";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { api } from '@/lib/api';
+import { LoadingScreen } from '@/components/general/loading-screen';
+import { useState } from 'react';
+import { useDebounce } from '@/hooks/use-debounce';
+import { SupportMessagesTable } from '@/features/admin/components/support/messages-table';
 
 export const SupportMessagePage = () => {
   const { data, isLoading } = api.support.getMessages.useQuery({});
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState('');
   const [page, setPage] = useState(1);
   const debouncedSearch = useDebounce(search, 500);
 
@@ -30,7 +30,7 @@ export const SupportMessagePage = () => {
           <TabsTrigger value="all">
             All Messages ({data?.meta.total || 0})
           </TabsTrigger>
-          <TabsTrigger value="resolved">Resovled</TabsTrigger>
+          <TabsTrigger value="resolved">Resolved</TabsTrigger>
           <TabsTrigger value="unresolved">Unresolved</TabsTrigger>
         </TabsList>
       </div>

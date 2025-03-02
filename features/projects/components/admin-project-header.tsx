@@ -3,10 +3,10 @@ import {
   CardContent,
   CardDescription,
   CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { AdminProjectDetails } from "@/features/projects/types/app";
-import { CircleDollarSignIcon, HomeIcon, Users2Icon } from "lucide-react";
+  CardTitle
+} from '@/components/ui/card';
+import { AdminProjectDetails } from '@/features/projects/types/app';
+import { CircleDollarSignIcon, HomeIcon, Users2Icon } from 'lucide-react';
 
 interface AdminProjectHeaderProps {
   name: string;
@@ -19,12 +19,12 @@ export const AdminProjectHeader = ({
   name,
   totalSlots,
   totalSlotsSold,
-  overview,
+  overview
 }: AdminProjectHeaderProps) => {
   return (
     <Card>
       <CardContent>
-        <div className="container mx-auto space-y-8 py-8">
+        <div className="space-y-8 py-8">
           <div>
             <h2 className="text-3xl font-bold tracking-tight">{name}</h2>
             <p className="text-muted-foreground">Overview of project.</p>

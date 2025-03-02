@@ -1,34 +1,34 @@
-"use client";
+'use client';
 
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Badge } from "@/components/ui/badge";
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Badge } from '@/components/ui/badge';
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+  CardTitle
+} from '@/components/ui/card';
 import {
   Table,
   TableBody,
   TableCell,
   TableHead,
   TableHeader,
-  TableRow,
-} from "@/components/ui/table";
+  TableRow
+} from '@/components/ui/table';
 import {
   PhoneIcon,
   MailIcon,
   CalendarIcon,
   BadgeCheckIcon,
-  EditIcon,
-} from "lucide-react";
-import { formatDate } from "@/lib/dates";
-import { api } from "@/lib/api";
-import { LoadingScreen } from "@/components/general/loading-screen";
-import { InvestmentDetailsDialog } from "@/features/users/components/investment-details-dialog";
-import Link from "next/link";
+  EditIcon
+} from 'lucide-react';
+import { formatDate } from '@/lib/dates';
+import { api } from '@/lib/api';
+import { LoadingScreen } from '@/components/general/loading-screen';
+import { InvestmentDetailsDialog } from '@/features/users/components/investment-details-dialog';
+import Link from 'next/link';
 
 interface SingleUserPageProps {
   id: string;
@@ -50,19 +50,19 @@ export function SingleUserPage({ id }: SingleUserPageProps) {
   const fullName = [
     data.user?.firstName,
     data.user?.middleName,
-    data.user?.lastName,
+    data.user?.lastName
   ]
     .filter(Boolean)
-    .join(" ");
+    .join(' ');
 
   return (
     <Card>
       <CardContent>
-        <div className="container mx-auto space-y-8 py-8">
+        <div className="space-y-8 py-8">
           {/* User Profile Header */}
           <div className="flex items-start gap-6">
             <Avatar className="h-24 w-24">
-              <AvatarImage src={data.user?.image ?? ""} />
+              <AvatarImage src={data.user?.image ?? ''} />
               <AvatarFallback className="text-lg">
                 {data.user?.firstName}
                 {data.user?.lastName}
@@ -73,17 +73,17 @@ export function SingleUserPage({ id }: SingleUserPageProps) {
                 <h1 className="text-2xl font-bold">{fullName}</h1>
                 <Badge
                   variant={
-                    data.user.role === "ADMIN" ||
-                    data.user.role === "SUPER_ADMIN"
-                      ? "default"
-                      : "secondary"
+                    data.user.role === 'ADMIN' ||
+                    data.user.role === 'SUPER_ADMIN'
+                      ? 'default'
+                      : 'secondary'
                   }
                 >
                   {data.user.role}
                 </Badge>
                 <Badge
                   variant={
-                    data.user.profileCompleted ? "default" : "destructive"
+                    data.user.profileCompleted ? 'default' : 'destructive'
                   }
                 >
                   {data.user.profileCompleted}
@@ -207,11 +207,11 @@ export function SingleUserPage({ id }: SingleUserPageProps) {
                         <TableCell>
                           <Badge
                             variant={
-                              investment.project.status === "IN_PROGRESS"
-                                ? "default"
-                                : investment.project.status === "PENDING"
-                                  ? "destructive"
-                                  : "secondary"
+                              investment.project.status === 'IN_PROGRESS'
+                                ? 'default'
+                                : investment.project.status === 'PENDING'
+                                  ? 'destructive'
+                                  : 'secondary'
                             }
                           >
                             {investment.project.status}
