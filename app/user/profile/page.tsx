@@ -1,6 +1,5 @@
 'use client';
 
-import { LoadingScreen } from '@/components/general/loading-screen';
 import { withProtectedRoute } from '@/components/general/protected-route';
 import {
   ProfilePage,
