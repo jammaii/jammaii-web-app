@@ -1,51 +1,53 @@
-"use client";
+'use client';
 
-import { motion } from "framer-motion";
-import useEmblaCarousel from "embla-carousel-react";
-import { Button } from "@/components/ui/button";
-import Image from "next/image";
+import { motion } from 'framer-motion';
+import useEmblaCarousel from 'embla-carousel-react';
+import { Button } from '@/components/ui/button';
+import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 
 const featuredProperties = [
   {
-    title: "Luxury Villa Estate",
-    description: "Premium 5-bedroom villas with modern amenities",
-    image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800",
-    pricePerSlot: 500000,
+    title: '12 Bedroom',
+    description: 'Premium 5-bedroom villas with modern amenities',
+    image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800',
+    pricePerSlot: 500000
   },
   {
-    title: "Urban Apartments",
-    description: "Contemporary living in the heart of the city",
-    image: "https://images.unsplash.com/photo-1600573472550-8090b5e0745e?w=800",
-    pricePerSlot: 500000,
+    title: 'Urban Apartments',
+    description: 'Contemporary living in the heart of the city',
+    image: 'https://images.unsplash.com/photo-1600573472550-8090b5e0745e?w=800',
+    pricePerSlot: 500000
   },
   {
-    title: "Beach Resort",
-    description: "Oceanfront properties with stunning views",
-    image: "https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=800",
-    pricePerSlot: 500000,
+    title: 'Swimming pool',
+    description: 'Oceanfront properties with stunning views',
+    image: 'https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=800',
+    pricePerSlot: 500000
   },
   {
-    title: "Luxury Villa Estate",
-    description: "Premium 5-bedroom villas with modern amenities",
-    image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800",
-    pricePerSlot: 500000,
+    title: 'Gym',
+    description: 'Premium 5-bedroom villas with modern amenities',
+    image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800',
+    pricePerSlot: 500000
   },
   {
-    title: "Urban Apartments",
-    description: "Contemporary living in the heart of the city",
-    image: "https://images.unsplash.com/photo-1600573472550-8090b5e0745e?w=800",
-    pricePerSlot: 500000,
+    title: 'Playground',
+    description: 'Contemporary living in the heart of the city',
+    image: 'https://images.unsplash.com/photo-1600573472550-8090b5e0745e?w=800',
+    pricePerSlot: 500000
   },
   {
-    title: "Beach Resort",
-    description: "Oceanfront properties with stunning views",
-    image: "https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=800",
-    pricePerSlot: 500000,
-  },
+    title: '24 hours electricity',
+    description: 'Oceanfront properties with stunning views',
+    image: 'https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=800',
+    pricePerSlot: 500000
+  }
 ];
 
 export const FeaturedProjectsSection = () => {
   const [emblaRef] = useEmblaCarousel({ loop: true, dragFree: true });
+  const router = useRouter();
 
   return (
     <section className="py-24">
@@ -56,9 +58,9 @@ export const FeaturedProjectsSection = () => {
           viewport={{ once: true }}
           className="mb-12 text-center"
         >
-          <h2 className="text-3xl font-bold sm:text-4xl">Featured Projects</h2>
+          <h2 className="text-3xl font-bold sm:text-4xl">Featured Project</h2>
           <p className="mt-4 text-lg text-muted-foreground">
-            Explore our handpicked premium real estate opportunities
+            Explore our current premium real estate opportunity
           </p>
         </motion.div>
 
@@ -87,7 +89,11 @@ export const FeaturedProjectsSection = () => {
                       <span className="text-lg font-bold">
                         ₦{property.pricePerSlot.toLocaleString()}/slot
                       </span>
-                      <Button variant="outline" size="sm">
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => router.push('/signin')}
+                      >
                         View Details
                       </Button>
                     </div>

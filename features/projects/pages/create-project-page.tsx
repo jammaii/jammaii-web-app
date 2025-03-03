@@ -1,51 +1,51 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { AboutForm } from "@/features/projects/components/create/about-form";
-import { MediaForm } from "@/features/projects/components/create/media-form";
-import { InvestmentForm } from "@/features/projects/components/create/investment-form";
+import { useState } from 'react';
+import { AboutForm } from '@/features/projects/components/create/about-form';
+import { MediaForm } from '@/features/projects/components/create/media-form';
+import { InvestmentForm } from '@/features/projects/components/create/investment-form';
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Preview } from "@/features/projects/components/create/preview";
+  CardTitle
+} from '@/components/ui/card';
+import { Preview } from '@/features/projects/components/create/preview';
 import {
   CreateFormDto,
   CreateProjectPreview,
   PropertyDetailsRequestDto,
   PropertyInvestmentRequestDto,
-  PropertyMediaPreview,
-} from "@/features/projects/types/app";
+  PropertyMediaPreview
+} from '@/features/projects/types/app';
 import {
   isPropertyDetails,
   isPropertyInvestment,
-  isPropertyPreviewMedia,
-} from "@/features/projects/types/guards";
+  isPropertyPreviewMedia
+} from '@/features/projects/types/guards';
 
 const STEPS = [
   {
-    id: "about",
-    title: "About Project",
-    component: AboutForm,
+    id: 'about',
+    title: 'About Project',
+    component: AboutForm
   },
   {
-    id: "media",
-    title: "Media",
-    component: MediaForm,
+    id: 'media',
+    title: 'Media',
+    component: MediaForm
   },
   {
-    id: "investment",
-    title: "Investment Details",
-    component: InvestmentForm,
+    id: 'investment',
+    title: 'Investment Details',
+    component: InvestmentForm
   },
   {
-    id: "preview",
-    title: "Preview",
-    component: Preview,
-  },
+    id: 'preview',
+    title: 'Preview',
+    component: Preview
+  }
 ] as const;
 
 export const CreateProjectPage = () => {
@@ -57,7 +57,7 @@ export const CreateProjectPage = () => {
   const [investmentDetails, setInvestmentDetails] =
     useState<PropertyInvestmentRequestDto | null>();
   const [previewData, setPreviewData] = useState<CreateProjectPreview | null>(
-    null,
+    null
   );
 
   const Step = STEPS[currentStep].component;
@@ -75,7 +75,7 @@ export const CreateProjectPage = () => {
         setPreviewData({
           propertyDetails: propertyDetails,
           mediaDetails: mediaDetails,
-          investmentDetails: data,
+          investmentDetails: data
         });
       }
     }
@@ -104,14 +104,14 @@ export const CreateProjectPage = () => {
               <div
                 key={step.id}
                 className={`flex items-center ${
-                  index !== STEPS.length - 1 ? "flex-1" : ""
+                  index !== STEPS.length - 1 ? 'flex-1' : ''
                 }`}
               >
                 <div
                   className={`flex h-8 w-8 items-center justify-center rounded-full border-2 ${
                     currentStep >= index
-                      ? "border-primary bg-primary text-primary-foreground"
-                      : "border-muted"
+                      ? 'border-primary bg-primary text-primary-foreground'
+                      : 'border-muted'
                   }`}
                 >
                   {index + 1}
@@ -119,7 +119,7 @@ export const CreateProjectPage = () => {
                 {index !== STEPS.length - 1 && (
                   <div
                     className={`h-0.5 flex-1 ${
-                      currentStep > index ? "bg-primary" : "bg-muted"
+                      currentStep > index ? 'bg-primary' : 'bg-muted'
                     }`}
                   />
                 )}

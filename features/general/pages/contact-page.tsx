@@ -1,13 +1,13 @@
-"use client";
+'use client';
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { GeneralWrapper } from "@/features/general/components/general-wrapper";
-import { ContactSection } from "@/features/general/components/contact-section";
-import { AtSignIcon, Mail, Phone } from "lucide-react";
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { GeneralWrapper } from '@/features/general/components/general-wrapper';
+import { ContactSection } from '@/features/general/components/contact-section';
+import { AtSignIcon, Mail, Phone } from 'lucide-react';
 
 export const ContactPage = () => {
-  const phoneNumber = "+2341234567890"; // Remove spaces for WhatsApp link
-  const emailAddress = "info@jammaii.com";
+  const phoneNumber = '+2341234567890'; // Remove spaces for WhatsApp link
+  const emailAddress = 'info@jammaii.com';
 
   return (
     <GeneralWrapper>
@@ -36,7 +36,7 @@ export const ContactPage = () => {
                 href={`tel:${phoneNumber}`}
                 className="text-primary hover:underline"
               >
-                {phoneNumber.replace(/(\d{3})(\d{3})(\d{4})/, "$1 $2 $3")}
+                {phoneNumber.replace(/(\d{3})(\d{3})(\d{4})/, '$1 $2 $3')}
               </a>
             </div>
 

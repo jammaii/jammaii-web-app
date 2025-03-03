@@ -1,11 +1,11 @@
-import * as React from "react";
+import * as React from 'react';
 import {
   BaseTemplate,
   EmailHeading,
   EmailText,
   EmailButton,
-  EmailFootnote,
-} from "./base-template";
+  EmailFootnote
+} from './base-template';
 
 interface WelcomeEmailTemplateProps {
   name: string;
@@ -14,7 +14,7 @@ interface WelcomeEmailTemplateProps {
 
 export function WelcomeEmailTemplate({
   name,
-  dashboardUrl,
+  dashboardUrl
 }: WelcomeEmailTemplateProps) {
   return (
     <BaseTemplate previewText="Welcome to JAMMAII">

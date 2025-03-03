@@ -1,21 +1,21 @@
-import { db } from "@/server/db";
-import { userSchema } from "@/server/db/schemas/auth/user.schema";
-import { and, desc, eq, like, or, sql } from "drizzle-orm";
-import { TRPCError } from "@trpc/server";
+import { db } from '@/server/db';
+import { userSchema } from '@/server/db/schemas/auth/user.schema';
+import { and, desc, eq, like, or, sql } from 'drizzle-orm';
+import { TRPCError } from '@trpc/server';
 import {
   UserDashboardResponse,
   UserInvestmentsResponse,
   UserResponse,
-  UsersResponse,
-} from "@/features/users/types/app";
-import { ProfileUpdateRequestDto } from "@/features/auth/types/app";
-import { project, user, userInvestment } from "@/server/db/schema";
-import { PaginationRequest } from "@/features/general/types/app";
-import { ApiRequestUser } from "@/server/api/types";
-import { addToDate } from "@/lib/dates";
-import { MailService } from "./mail.service";
-import { WelcomeEmailTemplate } from "@/features/email/templates/welcome-template";
-import { getHostName } from "@/server/api/utils/get-host-name";
+  UsersResponse
+} from '@/features/users/types/app';
+import { ProfileUpdateRequestDto } from '@/features/auth/types/app';
+import { project, user, userInvestment } from '@/server/db/schema';
+import { PaginationRequest } from '@/features/general/types/app';
+import { ApiRequestUser } from '@/server/api/types';
+import { addToDate } from '@/lib/dates';
+import { MailService } from './mail.service';
+import { WelcomeEmailTemplate } from '@/features/email/templates/welcome-template';
+import { getHostName } from '@/server/api/utils/get-host-name';
 
 export class UserService {
   static async getUserById(id: string): Promise<UserResponse> {
@@ -24,8 +24,8 @@ export class UserService {
 
       if (!userRecord) {
         throw new TRPCError({
-          code: "NOT_FOUND",
-          message: "User not found",
+          code: 'NOT_FOUND',
+          message: 'User not found'
         });
       }
 
@@ -34,16 +34,16 @@ export class UserService {
       if (error instanceof TRPCError) throw error;
 
       throw new TRPCError({
-        code: "INTERNAL_SERVER_ERROR",
-        message: "Failed to fetch user",
-        cause: error,
+        code: 'INTERNAL_SERVER_ERROR',
+        message: 'Failed to fetch user',
+        cause: error
       });
     }
   }
 
   static async updateUser(
     id: string,
-    data: ProfileUpdateRequestDto,
+    data: ProfileUpdateRequestDto
   ): Promise<UserResponse> {
     try {
       const [updatedUser] = await db
@@ -51,30 +51,30 @@ export class UserService {
         .set({
           ...data,
           profileCompleted: true,
-          metaUpdatedAt: new Date(),
+          metaUpdatedAt: new Date()
         })
         .where(eq(userSchema.id, id))
         .returning();
 
       if (!updatedUser) {
         throw new TRPCError({
-          code: "NOT_FOUND",
-          message: "User not found",
+          code: 'NOT_FOUND',
+          message: 'User not found'
         });
       }
 
       if (data.isNewUser) {
         const hostName = await getHostName();
-        const userType = updatedUser.role === "USER" ? "user" : "admin";
+        const userType = updatedUser.role === 'USER' ? 'user' : 'admin';
         const dashboardUrl = `${hostName}/${userType}`;
 
         await MailService.sendEmail({
           to: updatedUser.email,
-          subject: "Welcome to JAMMAII",
+          subject: 'Welcome to JAMMAII',
           template: WelcomeEmailTemplate({
             name: `${updatedUser.firstName} ${updatedUser.lastName}`,
-            dashboardUrl,
-          }),
+            dashboardUrl
+          })
         });
       }
 
@@ -83,15 +83,15 @@ export class UserService {
       if (error instanceof TRPCError) throw error;
 
       throw new TRPCError({
-        code: "INTERNAL_SERVER_ERROR",
-        message: "Failed to update user",
-        cause: error,
+        code: 'INTERNAL_SERVER_ERROR',
+        message: 'Failed to update user',
+        cause: error
       });
     }
   }
 
   static async getUserWithInvestments(
-    userId: string,
+    userId: string
   ): Promise<UserInvestmentsResponse> {
     try {
       const [userRecord] = await db
@@ -101,15 +101,15 @@ export class UserService {
 
       if (!userRecord) {
         throw new TRPCError({
-          code: "NOT_FOUND",
-          message: "User not found",
+          code: 'NOT_FOUND',
+          message: 'User not found'
         });
       }
 
       const investments = await db
         .select({
           investment: userInvestment,
-          projectDetails: project,
+          projectDetails: project
         })
         .from(userInvestment)
         .innerJoin(project, eq(userInvestment.projectId, project.id))
@@ -132,29 +132,29 @@ export class UserService {
           endDate: addToDate(
             item.projectDetails.startDate,
             item.projectDetails.duration,
-            "months",
-          ),
-        },
+            'months'
+          )
+        }
       }));
 
       return {
         user: userRecord,
-        investments: mappedInvestments,
+        investments: mappedInvestments
       };
     } catch (error) {
       if (error instanceof TRPCError) throw error;
 
       throw new TRPCError({
-        code: "INTERNAL_SERVER_ERROR",
-        message: "Failed to fetch user with investments",
-        cause: error,
+        code: 'INTERNAL_SERVER_ERROR',
+        message: 'Failed to fetch user with investments',
+        cause: error
       });
     }
   }
 
   static async getUsers(
     requestUser: ApiRequestUser,
-    { page = 1, limit = 10, offset = 0, search = "" }: PaginationRequest,
+    { page = 1, limit = 10, offset = 0, search = '' }: PaginationRequest
   ): Promise<UsersResponse> {
     try {
       let whereClause = undefined;
@@ -162,7 +162,7 @@ export class UserService {
       if (search) {
         whereClause = or(
           like(user.firstName, `%${search}%`),
-          like(user.lastName, `%${search}%`),
+          like(user.lastName, `%${search}%`)
         );
       }
 
@@ -180,7 +180,7 @@ export class UserService {
           .where(whereClause)
           .orderBy(desc(user.id))
           .limit(limit)
-          .offset(offset),
+          .offset(offset)
       ]);
 
       return {
@@ -188,27 +188,27 @@ export class UserService {
         meta: {
           page,
           limit,
-          total,
-        },
+          total
+        }
       };
     } catch (error) {
       throw new TRPCError({
-        code: "INTERNAL_SERVER_ERROR",
-        message: "Failed to fetch users",
-        cause: error,
+        code: 'INTERNAL_SERVER_ERROR',
+        message: 'Failed to fetch users',
+        cause: error
       });
     }
   }
 
   static async getUserDashboard(
-    userId: string,
+    userId: string
   ): Promise<UserDashboardResponse> {
     try {
       const investments = await db
         .select({
           userInvestment: userInvestment,
           project: project,
-          userRecord: user,
+          userRecord: user
         })
         .from(userInvestment)
         .innerJoin(project, eq(userInvestment.projectId, project.id))
@@ -223,7 +223,7 @@ export class UserService {
           totalActiveProjects: 0,
           totalSlots: 0,
           latestInvestmentDate: 0,
-          recentInvestments: [],
+          recentInvestments: []
         };
       }
 
@@ -243,36 +243,36 @@ export class UserService {
           endDate: addToDate(
             item.project.startDate,
             item.project.duration,
-            "months",
-          ),
-        },
+            'months'
+          )
+        }
       }));
 
       return {
         totalAmountInvested: investments.reduce(
           (total, inv) =>
             total + inv.userInvestment.slots * inv.project.slotPrice,
-          0,
+          0
         ),
         totalActiveProjects: investments.filter(
-          (inv) => inv.project.status === "IN_PROGRESS",
+          (inv) => inv.project.status === 'IN_PROGRESS'
         ).length,
         totalProjects: investments.length,
         totalSlots: investments.reduce(
           (total, inv) => total + inv.userInvestment.slots,
-          0,
+          0
         ),
         latestInvestmentDate:
           investments[0]?.userInvestment.metaCreatedAt.getTime() || 0,
-        recentInvestments: mappedInvestments.slice(0, 5),
+        recentInvestments: mappedInvestments.slice(0, 5)
       };
     } catch (error) {
       if (error instanceof TRPCError) throw error;
 
       throw new TRPCError({
-        code: "INTERNAL_SERVER_ERROR",
-        message: "Failed to fetch user dashboard",
-        cause: error,
+        code: 'INTERNAL_SERVER_ERROR',
+        message: 'Failed to fetch user dashboard',
+        cause: error
       });
     }
   }

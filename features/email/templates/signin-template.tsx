@@ -1,11 +1,11 @@
-import * as React from "react";
+import * as React from 'react';
 import {
   BaseTemplate,
   EmailHeading,
   EmailText,
   EmailButton,
-  EmailFootnote,
-} from "./base-template";
+  EmailFootnote
+} from './base-template';
 
 interface SigninEmailTemplateProps {
   url: string;

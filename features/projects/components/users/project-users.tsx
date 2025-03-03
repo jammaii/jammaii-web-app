@@ -1,16 +1,16 @@
-"use client";
+'use client';
 
-import { Card, CardContent } from "@/components/ui/card";
-import { ProjectUsersTable } from "./project-users-table";
-import { AdminProjectDetails } from "../../types/app";
-import { useState } from "react";
+import { Card, CardContent } from '@/components/ui/card';
+import { ProjectUsersTable } from './project-users-table';
+import { AdminProjectDetails } from '../../types/app';
+import { useState } from 'react';
 
 interface ProjectUsersProps {
-  details: Pick<AdminProjectDetails, "investors">;
+  details: Pick<AdminProjectDetails, 'investors'>;
 }
 
 export const ProjectUsers = ({ details }: ProjectUsersProps) => {
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState('');
   const [page, setPage] = useState(1);
 
   return (

@@ -1,19 +1,19 @@
-import { integer, json, text, timestamp, uuid } from "drizzle-orm/pg-core";
-import { tableCreator, metaDataSchema } from "@/server/db/schemas";
-import { userSchema } from "@/server/db/schemas/auth/user.schema";
-import { projectStatusSchema } from "./enums/project-status.schema";
+import { integer, json, text, timestamp, uuid } from 'drizzle-orm/pg-core';
+import { tableCreator, metaDataSchema } from '@/server/db/schemas';
+import { userSchema } from '@/server/db/schemas/auth/user.schema';
+import { projectStatusSchema } from './enums/project-status.schema';
 
-export const projectSchema = tableCreator("project", {
-  id: uuid("id").notNull().primaryKey(),
-  status: projectStatusSchema("status").notNull().default("PENDING"),
+export const projectSchema = tableCreator('project', {
+  id: uuid('id').notNull().primaryKey(),
+  status: projectStatusSchema('status').notNull().default('PENDING'),
 
   // Property Details
-  name: text("name").notNull(),
-  description: text("description").notNull(),
-  type: text("type").notNull(),
-  location: text("location").notNull(),
-  units: integer("units").notNull(),
-  unitDetail: json("unit_detail")
+  name: text('name').notNull(),
+  description: text('description').notNull(),
+  type: text('type').notNull(),
+  location: text('location').notNull(),
+  units: integer('units').notNull(),
+  unitDetail: json('unit_detail')
     .$type<{
       description: string;
       bedrooms: number;
@@ -23,7 +23,7 @@ export const projectSchema = tableCreator("project", {
     .notNull(),
 
   // Media Details
-  images: json("images")
+  images: json('images')
     .$type<
       {
         fileUploadUrl: string;
@@ -32,20 +32,20 @@ export const projectSchema = tableCreator("project", {
       }[]
     >()
     .notNull(),
-  videos: json("videos").$type<string[]>().notNull(),
-  brochure: text("brochure"),
+  videos: json('videos').$type<string[]>().notNull(),
+  brochure: text('brochure'),
 
   // Investment Details
-  slots: integer("slots").notNull(),
-  slotPrice: integer("slot_price").notNull(),
-  duration: integer("duration").notNull(),
-  roi: integer("roi").notNull(),
-  startDate: timestamp("start_date", { mode: "date" }).notNull(),
+  slots: integer('slots').notNull(),
+  slotPrice: integer('slot_price').notNull(),
+  duration: integer('duration').notNull(),
+  roi: integer('roi').notNull(),
+  startDate: timestamp('start_date', { mode: 'date' }).notNull(),
 
   // Relations
-  userId: text("user_id")
+  userId: text('user_id')
     .notNull()
     .references(() => userSchema.id),
 
-  ...metaDataSchema,
+  ...metaDataSchema
 });

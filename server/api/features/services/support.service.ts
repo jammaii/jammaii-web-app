@@ -1,18 +1,18 @@
-import { db } from "@/server/db";
-import { TRPCError } from "@trpc/server";
-import { and, desc, eq, sql } from "drizzle-orm";
-import { supportMessage } from "@/server/db/schema";
+import { db } from '@/server/db';
+import { TRPCError } from '@trpc/server';
+import { and, desc, eq, sql } from 'drizzle-orm';
+import { supportMessage } from '@/server/db/schema';
 import type {
   PaginationRequest,
   SendSupportMessageRequest,
   SupportMessageResponse,
-  SupportMessagesResponse,
-} from "@/features/general/types/app";
-import { generateUUID } from "@/lib/ids";
+  SupportMessagesResponse
+} from '@/features/general/types/app';
+import { generateUUID } from '@/lib/ids';
 
 export class SupportMessageService {
   static async sendMessage(
-    data: SendSupportMessageRequest,
+    data: SendSupportMessageRequest
   ): Promise<SupportMessageResponse> {
     try {
       const [newMessage] = await db
@@ -20,16 +20,16 @@ export class SupportMessageService {
         .values({
           ...data,
           id: generateUUID(),
-          metaCreatedAt: new Date(),
+          metaCreatedAt: new Date()
         })
         .returning();
 
       return newMessage;
     } catch (error) {
       throw new TRPCError({
-        code: "INTERNAL_SERVER_ERROR",
-        message: "Failed to send message",
-        cause: error,
+        code: 'INTERNAL_SERVER_ERROR',
+        message: 'Failed to send message',
+        cause: error
       });
     }
   }
@@ -37,7 +37,7 @@ export class SupportMessageService {
   static async getMessages({
     page = 1,
     limit = 10,
-    offset = 0,
+    offset = 0
   }: PaginationRequest): Promise<SupportMessagesResponse> {
     try {
       const [total, messages] = await Promise.all([
@@ -51,7 +51,7 @@ export class SupportMessageService {
           .from(supportMessage)
           .orderBy(desc(supportMessage.metaCreatedAt))
           .limit(limit)
-          .offset(offset),
+          .offset(offset)
       ]);
 
       return {
@@ -59,14 +59,14 @@ export class SupportMessageService {
         meta: {
           page,
           limit,
-          total,
-        },
+          total
+        }
       };
     } catch (error) {
       throw new TRPCError({
-        code: "INTERNAL_SERVER_ERROR",
-        message: "Failed to fetch messages",
-        cause: error,
+        code: 'INTERNAL_SERVER_ERROR',
+        message: 'Failed to fetch messages',
+        cause: error
       });
     }
   }
@@ -82,9 +82,9 @@ export class SupportMessageService {
       return updatedMessage;
     } catch (error) {
       throw new TRPCError({
-        code: "INTERNAL_SERVER_ERROR",
-        message: "Failed to update message status",
-        cause: error,
+        code: 'INTERNAL_SERVER_ERROR',
+        message: 'Failed to update message status',
+        cause: error
       });
     }
   }

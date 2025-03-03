@@ -1,7 +1,7 @@
-import { AuthBackground } from "@/features/auth/components/auth-background";
+import { AuthBackground } from '@/features/auth/components/auth-background';
 
 export default function AuthLayout({
-  children,
+  children
 }: {
   children: React.ReactNode;
 }) {

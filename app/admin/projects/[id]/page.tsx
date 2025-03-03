@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import { withProtectedRoute } from "@/components/general/protected-route";
-import { SingleProjectPage } from "@/features/projects/pages/single-project-page";
-import { notFound, useParams } from "next/navigation";
+import { withProtectedRoute } from '@/components/general/protected-route';
+import { SingleProjectPage } from '@/features/projects/pages/single-project-page';
+import { notFound, useParams } from 'next/navigation';
 
 function Page() {
   const route = useParams();
@@ -16,5 +16,5 @@ function Page() {
 }
 
 export default withProtectedRoute(Page, {
-  allowedRoles: ["ADMIN", "SUPER_ADMIN"],
+  allowedRoles: ['ADMIN', 'SUPER_ADMIN']
 });

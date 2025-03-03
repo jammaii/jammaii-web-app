@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import { useS3Upload } from "next-s3-upload";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { useState } from "react";
-import { UploadCloud } from "lucide-react";
+import { useS3Upload } from 'next-s3-upload';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { useState } from 'react';
+import { UploadCloud } from 'lucide-react';
 
 interface ImageUploadProps {
   value?: string;
@@ -15,7 +15,7 @@ interface ImageUploadProps {
 export function ImageUpload({
   value,
   onChangeAction,
-  className,
+  className
 }: ImageUploadProps) {
   const [isUploading, setIsUploading] = useState(false);
   const { uploadToS3 } = useS3Upload();
@@ -29,7 +29,7 @@ export function ImageUpload({
       const { url } = await uploadToS3(file);
       onChangeAction(url);
     } catch (error) {
-      console.error("Upload failed:", error);
+      console.error('Upload failed:', error);
     } finally {
       setIsUploading(false);
     }
@@ -47,7 +47,7 @@ export function ImageUpload({
       <Button type="button" variant="outline" asChild disabled={isUploading}>
         <label htmlFor="imageUpload" className="cursor-pointer">
           <UploadCloud className="mr-2 h-4 w-4" />
-          {isUploading ? "Uploading..." : "Upload Image"}
+          {isUploading ? 'Uploading...' : 'Upload Image'}
         </label>
       </Button>
     </div>

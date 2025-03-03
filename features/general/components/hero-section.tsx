@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import { motion } from "framer-motion";
-import { Button } from "@/components/ui/button";
-import { ArrowRightIcon, PlayCircle } from "lucide-react";
-import { useState } from "react";
-import { YouTubePlayer } from "@/features/file-upload/components/youtube-player";
+import { motion } from 'framer-motion';
+import { Button } from '@/components/ui/button';
+import { ArrowRightIcon, PlayCircle } from 'lucide-react';
+import { useState } from 'react';
+import { YouTubePlayer } from '@/features/file-upload/components/youtube-player';
 
 export const HeroSection = () => {
   const [videoModalOpen, setVideoModalOpen] = useState(false);
@@ -30,14 +30,15 @@ export const HeroSection = () => {
             className="space-y-8"
           >
             <h1 className="text-4xl font-bold tracking-tight text-white sm:text-6xl lg:text-7xl">
-              JAMMAII Real Estates
+              JAMMAII PREMIUM PROPERTIES
               <span className="mt-2 block text-amber-400 drop-shadow-lg">
-                Premium Investments Made Simple
+                Buy | Crowdfund | Develop
               </span>
             </h1>
             <p className="max-w-xl text-xl text-white/90">
-              Join thousands of investors building wealth through fractional
-              real estate investment.
+              Join our ever growing Affiliate Developers community to make real
+              estate projects a reality through crowdfunding and earn upto 50%
+              for every slot you own.
             </p>
             <div className="flex gap-4">
               <Button
@@ -47,7 +48,7 @@ export const HeroSection = () => {
                   <ArrowRightIcon className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                 }
               >
-                Start Investing
+                Join JREIT
               </Button>
               <Button
                 size="lg"

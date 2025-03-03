@@ -7,7 +7,7 @@ import { Providers } from '@/components/layout/providers';
 export const metadata = {
   title: 'JAMMAII',
   description:
-    'Jammai is a premium real estate investment platform for affiliate developers'
+    'Jammaii is a premium real estate investment platform for affiliate developers'
 };
 
 export default async function RootLayout({

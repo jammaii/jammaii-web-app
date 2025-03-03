@@ -1,21 +1,21 @@
-"use client";
+'use client';
 
 import {
   QueryCache,
   QueryClient,
-  QueryClientProvider,
-} from "@tanstack/react-query";
+  QueryClientProvider
+} from '@tanstack/react-query';
 import {
   TRPCClientError,
   loggerLink,
-  unstable_httpBatchStreamLink,
-} from "@trpc/client";
-import { createTRPCReact } from "@trpc/react-query";
-import { useState } from "react";
+  unstable_httpBatchStreamLink
+} from '@trpc/client';
+import { createTRPCReact } from '@trpc/react-query';
+import { useState } from 'react';
 
-import { type AppRouter } from "@/server/api/root";
-import { getUrl, transformer } from "./shared";
-import { signOut } from "next-auth/react";
+import { type AppRouter } from '@/server/api/root';
+import { getUrl, transformer } from './shared';
+import { signOut } from 'next-auth/react';
 
 /**
  * This shouldn't be used externally (e.g. in components).
@@ -40,15 +40,15 @@ export function TRPCReactProvider(props: {
               // So there is currently no way to get this check by errorCode instead
               // of error message. We are sticking to this until there is a better solution.
               [
-                "This account is not active",
-                "Action cannot be completed because user is banned",
-                "Action cannot be completed because user is suspended",
+                'This account is not active',
+                'Action cannot be completed because user is banned',
+                'Action cannot be completed because user is suspended'
               ].includes(error.message)
             )
               void signOut();
-          },
-        }),
-      }),
+          }
+        })
+      })
   );
 
   const [trpcClient] = useState(() =>
@@ -56,21 +56,21 @@ export function TRPCReactProvider(props: {
       links: [
         loggerLink({
           enabled: (op) =>
-            process.env.NODE_ENV === "development" ||
-            (op.direction === "down" && op.result instanceof Error),
+            process.env.NODE_ENV === 'development' ||
+            (op.direction === 'down' && op.result instanceof Error)
         }),
         unstable_httpBatchStreamLink({
           url: getUrl(),
           headers() {
             return {
               cookie: props.cookies,
-              "x-trpc-source": "react",
+              'x-trpc-source': 'react'
             };
           },
-          transformer,
-        }),
-      ],
-    }),
+          transformer
+        })
+      ]
+    })
   );
 
   return (

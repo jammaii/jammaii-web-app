@@ -1,6 +1,6 @@
-import { ProjectResponse } from "@/features/projects/types/app";
-import { booleanSchema, idSchema } from "@/validation/shared.schema";
-import { z } from "zod";
+import { ProjectResponse } from '@/features/projects/types/app';
+import { booleanSchema, idSchema } from '@/validation/shared.schema';
+import { z } from 'zod';
 
 export type AdminDashboardResponse = {
   totalAmountInvested: number;
@@ -18,8 +18,8 @@ export type AdminDashboardResponse = {
 };
 
 export const updateSupportMessageSchema = z.object({
-  id: idSchema("id"),
-  isResolved: booleanSchema("Is resolved"),
+  id: idSchema('id'),
+  isResolved: booleanSchema('Is resolved')
 });
 export type UpdateSupportMessageRequest = z.infer<
   typeof updateSupportMessageSchema

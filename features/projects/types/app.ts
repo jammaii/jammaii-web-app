@@ -1,56 +1,56 @@
-import { PROJECT_IMAGE_TYPES } from "@/features/file-upload/constants";
+import { PROJECT_IMAGE_TYPES } from '@/features/file-upload/constants';
 import {
   booleanSchema,
   dateSchema,
   fileSchema,
   genericStringSchema,
   idSchema,
-  numberSchema,
-} from "validation/shared.schema";
-import { number, z } from "zod";
-import type { File as BufferFile } from "buffer";
-import { getByIdSchema, PaginatedResponse } from "@/features/general/types/app";
-import { PROJECT_STATUSES } from "@/server/db/schemas/project/enums/project-status.schema";
-import { UserResponse } from "@/features/users/types/app";
+  numberSchema
+} from 'validation/shared.schema';
+import { number, z } from 'zod';
+import type { File as BufferFile } from 'buffer';
+import { getByIdSchema, PaginatedResponse } from '@/features/general/types/app';
+import { PROJECT_STATUSES } from '@/server/db/schemas/project/enums/project-status.schema';
+import { UserResponse } from '@/features/users/types/app';
 
 export const propertyUnitSchema = z.object({
-  description: genericStringSchema("Description", 1, 2000, true, true),
-  bedrooms: numberSchema("Bedrooms", { min: 1 }),
-  bathrooms: numberSchema("Bathrooms", { min: 1 }),
-  toilets: numberSchema("Toilets", { min: 1 }),
+  description: genericStringSchema('Description', 1, 2000, true, true),
+  bedrooms: numberSchema('Bedrooms', { min: 1 }),
+  bathrooms: numberSchema('Bathrooms', { min: 1 }),
+  toilets: numberSchema('Toilets', { min: 1 })
 });
 
 export const propertyDetailsSchema = z.object({
-  name: genericStringSchema("Project Name", 1, 50, true, true),
-  description: genericStringSchema("Description", 1, 2000, true, true),
-  type: genericStringSchema("Type", 1, 50, true, true),
-  location: genericStringSchema("Location", 5, 200, true, true),
-  units: numberSchema("Units", { min: 1 }),
-  unitDetail: propertyUnitSchema,
+  name: genericStringSchema('Project Name', 1, 50, true, true),
+  description: genericStringSchema('Description', 1, 2000, true, true),
+  type: genericStringSchema('Type', 1, 50, true, true),
+  location: genericStringSchema('Location', 5, 200, true, true),
+  units: numberSchema('Units', { min: 1 }),
+  unitDetail: propertyUnitSchema
 });
 export type PropertyDetailsRequestDto = z.infer<typeof propertyDetailsSchema>;
 
 const mediaSchema = z.object({
-  videos: z.array(genericStringSchema("Video", 5, 200, true, true)),
-  brochure: genericStringSchema("Brochure", 1, 200, true, true).optional(),
+  videos: z.array(genericStringSchema('Video', 5, 200, true, true)),
+  brochure: genericStringSchema('Brochure', 1, 200, true, true).optional()
 });
 
 export const createFileSchema = z.object({
-  fileUploadUrl: genericStringSchema("File upload URL", 1, 1000, true, true),
-  mimeType: genericStringSchema("MIME type", 1, 1000, true, true),
-  size: numberSchema("Size", { min: 5, max: 10_000_000 /*bytes*/ }), // Max 10mb per file
+  fileUploadUrl: genericStringSchema('File upload URL', 1, 1000, true, true),
+  mimeType: genericStringSchema('MIME type', 1, 1000, true, true),
+  size: numberSchema('Size', { min: 5, max: 10_000_000 /*bytes*/ }) // Max 10mb per file
 });
 export type CreateFile = z.infer<typeof createFileSchema>;
 
 export const propertyMediaSchema = z.object({
   images: z.array(createFileSchema),
-  ...mediaSchema.shape,
+  ...mediaSchema.shape
 });
 export type PropertyMediaRequest = z.infer<typeof propertyMediaSchema>;
 
 export const properyMediaPreviewSchema = z.object({
-  images: z.array(fileSchema("Images", PROJECT_IMAGE_TYPES)),
-  ...mediaSchema.shape,
+  images: z.array(fileSchema('Images', PROJECT_IMAGE_TYPES)),
+  ...mediaSchema.shape
 });
 export type PropertyMediaPreview = {
   images: (File | BufferFile)[];
@@ -59,11 +59,11 @@ export type PropertyMediaPreview = {
 };
 
 export const propertyInvestmentSchema = z.object({
-  slots: numberSchema("Slots", { min: 1 }),
-  slotPrice: numberSchema("Slot Price", { min: 100 }),
-  duration: numberSchema("Duration", { min: 1 }),
-  roi: numberSchema("ROI", { min: 1 }),
-  startDate: dateSchema("Start Date"),
+  slots: numberSchema('Slots', { min: 1 }),
+  slotPrice: numberSchema('Slot Price', { min: 100 }),
+  duration: numberSchema('Duration', { min: 1 }),
+  roi: numberSchema('ROI', { min: 1 }),
+  startDate: dateSchema('Start Date')
 });
 export type PropertyInvestmentRequestDto = z.infer<
   typeof propertyInvestmentSchema
@@ -72,13 +72,13 @@ export type PropertyInvestmentRequestDto = z.infer<
 export const createProjectSchema = z.object({
   propertyDetails: propertyDetailsSchema,
   mediaDetails: propertyMediaSchema,
-  investmentDetails: propertyInvestmentSchema,
+  investmentDetails: propertyInvestmentSchema
 });
 export type CreateProjectRequestDto = z.infer<typeof createProjectSchema>;
 
 export const getSingleProjectSchema = z.object({
-  isAdmin: booleanSchema("isAdmin").optional(),
-  ...getByIdSchema.shape,
+  isAdmin: booleanSchema('isAdmin').optional(),
+  ...getByIdSchema.shape
 });
 
 export type CreateProjectPreview = {
@@ -101,16 +101,16 @@ export interface CreateFormProps {
 }
 
 export const createUserInvestmentSchema = z.object({
-  totalAmount: numberSchema("Amount"),
-  slots: numberSchema("Slots", { min: 1 }),
+  totalAmount: numberSchema('Amount'),
+  slots: numberSchema('Slots', { min: 1 }),
   transactionReference: genericStringSchema(
-    "Transaction reference",
+    'Transaction reference',
     1,
     200,
     true,
-    true,
+    true
   ),
-  projectId: idSchema("Project id"),
+  projectId: idSchema('Project id')
 });
 export type CreateUserInvestmentDto = z.infer<
   typeof createUserInvestmentSchema
@@ -118,7 +118,7 @@ export type CreateUserInvestmentDto = z.infer<
 
 export interface ProjectResponseDto {
   id: string;
-  status: "Pending" | "Active" | "Completed";
+  status: 'Pending' | 'Active' | 'Completed';
   propertyDetails: {
     name: string;
     description: string;

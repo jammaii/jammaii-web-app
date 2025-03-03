@@ -1,34 +1,30 @@
-"use client";
+'use client';
 
-import { motion } from "framer-motion";
-import { StarIcon } from "lucide-react";
-import Image from "next/image";
+import { motion } from 'framer-motion';
+import { StarIcon } from 'lucide-react';
 
 const testimonials = [
   {
     quote:
       "I've worked with the CEO of Jammaii back from our university days and his consistency in advocating for wealth creation through the corridors of real estate remains unquenchable. His JREIT crowdfunding community is one of those initiatives he has created to achieve his goal of creating wealth for millions via real estate.",
-    author: "Engr. Omodolapo David Ajayi (PhD)",
-    title: "Texas Tech University Lubbock, Texas, United States.",
-    image: "/images/testimonials/ro.jpg",
-    rating: 5,
+    author: 'Engr. Omodolapo David Ajayi (PhD)',
+    title: 'Texas Tech University Lubbock, Texas, United States.',
+    rating: 5
   },
   {
     quote:
-      "Not to say much, but the level of transparency and accountability the Jammaii team has shown the couple of times my company has worked with them gave me the courage to refer them to other industry colleagues. With Jammaii, be rest assured of your peace of mind and remittance without delays.",
-    author: "Joshua Shaibu; NIQS, YQSF",
-    title: "QS, Interdec Building Systems Victoria Island, Lagos, Nigeria.",
-    image: "/images/testimonials/ro.jpg",
-    rating: 5,
+      'Not to say much, but the level of transparency and accountability the Jammaii team has shown the couple of times my company has worked with them gave me the courage to refer them to other industry colleagues. With Jammaii, be rest assured of your peace of mind and remittance without delays.',
+    author: 'Joshua Shaibu; NIQS, YQSF',
+    title: 'QS, Interdec Building Systems Victoria Island, Lagos, Nigeria.',
+    rating: 5
   },
   {
     quote:
-      "A business with Jammaii is synonymous with growth. If you really want to grow in wealth, do Jammaii. Wealth creation, growth, and expansion are their area of specialty.",
-    author: "AbdulRazzaq Ibrahim Inyass; GMNSE, MSPE, ISPON",
-    title: "Gas Engineer, Greenville LNG. Port Harcourt, Nigeria.",
-    image: "/images/testimonials/ro.jpg",
-    rating: 5,
-  },
+      'A business with Jammaii is synonymous with growth. If you really want to grow in wealth, do Jammaii. Wealth creation, growth, and expansion are their area of specialty.',
+    author: 'AbdulRazzaq Ibrahim Inyass; GMNSE, MSPE, ISPON',
+    title: 'Gas Engineer, Greenville LNG. Port Harcourt, Nigeria.',
+    rating: 5
+  }
 ];
 
 export function TestimonialsSection() {
@@ -71,13 +67,6 @@ export function TestimonialsSection() {
                 <p className="text-lg">{testimonial.quote}</p>
               </blockquote>
               <div className="mt-6 flex items-center gap-4">
-                <Image
-                  src={testimonial.image}
-                  alt={testimonial.author}
-                  width={48}
-                  height={48}
-                  className="rounded-full"
-                />
                 <div>
                   <div className="font-semibold">{testimonial.author}</div>
                   <div className="text-sm text-muted-foreground">

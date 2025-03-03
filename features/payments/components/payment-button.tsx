@@ -9,7 +9,6 @@ import { Button } from '@/components/ui/button';
 import { useToast } from '@/components/ui/use-toast';
 import { api } from '@/lib/api';
 import { GENERIC_ERROR_MESSAGE } from '@/constants/strings';
-import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 
 interface PaymentButtonProps {
@@ -57,9 +56,9 @@ export const PaymentButton = ({
     }
   });
 
-  const handlePaystackSuccessAction = async (reference: string) => {
+  const handlePaystackSuccessAction = async (reference: unknown) => {
     const data = {
-      transactionReference: reference,
+      transactionReference: JSON.stringify(reference),
       projectId,
       slots,
       totalAmount

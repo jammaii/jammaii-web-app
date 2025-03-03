@@ -1,4 +1,4 @@
-import type { AnyZodObject, ZodEffects, z } from "zod";
+import type { AnyZodObject, ZodEffects, z } from 'zod';
 
 type SchemaParseError = {
   message: string;
@@ -6,17 +6,17 @@ type SchemaParseError = {
 };
 
 export const safeParseSchema = <
-  T extends AnyZodObject | ZodEffects<AnyZodObject>,
+  T extends AnyZodObject | ZodEffects<AnyZodObject>
 >(
   schema: T,
-  data: unknown,
+  data: unknown
 ): { result: z.infer<T>; errors: false } | { errors: SchemaParseError[] } => {
   const parsing = schema.safeParse(data);
 
   if (!parsing.success) {
     const errors = parsing.error.errors.map((e) => ({
       message: e.message,
-      field: `${e.path[0]}:${e.path[1]}`,
+      field: `${e.path[0]}:${e.path[1]}`
     }));
     return { errors };
   }

@@ -1,5 +1,5 @@
-import { createEnv } from "@t3-oss/env-nextjs";
-import { z } from "zod";
+import { createEnv } from '@t3-oss/env-nextjs';
+import { z } from 'zod';
 
 export const env = createEnv({
   /**
@@ -11,17 +11,17 @@ export const env = createEnv({
       .string()
       .url()
       .refine(
-        (str) => !str.includes("YOUR_POSTGRES_URL_HERE"),
-        "You forgot to change the default URL",
+        (str) => !str.includes('YOUR_POSTGRES_URL_HERE'),
+        'You forgot to change the default URL'
       ),
     NODE_ENV: z
-      .enum(["development", "test", "production"])
-      .default("development"),
+      .enum(['development', 'test', 'production'])
+      .default('development'),
     VERCEL_URL: z.string().optional(),
     PORT: z.string().optional(),
 
     NEXTAUTH_SECRET:
-      process.env.NODE_ENV === "production"
+      process.env.NODE_ENV === 'production'
         ? z.string()
         : z.string().optional(),
     NEXTAUTH_URL: z.preprocess(
@@ -30,7 +30,7 @@ export const env = createEnv({
       // if present.
       (str) => process.env.VERCEL_URL ?? str,
       // VERCEL_URL doesn't include `https` so it cant be validated as a URL
-      process.env.VERCEL ? z.string() : z.string().url(),
+      process.env.VERCEL ? z.string() : z.string().url()
     ),
 
     // Add AWS credentials here if you want to use image upload
@@ -46,10 +46,11 @@ export const env = createEnv({
     PLATFORM_LOGO_URL: z
       .string()
       .refine((s) => {
-        return !s.includes("svg") && s.includes("aws");
-      }, "Logo should be a non-svg AWS url. SVGs are widely unsupported in e-mails.")
+        return !s.includes('svg') && s.includes('aws');
+      }, 'Logo should be a non-svg AWS url. SVGs are widely unsupported in e-mails.')
       .optional(),
     PLATFORM_APP_HOME_FULL_URL: z.string().optional(),
+    PAYSTACK_SECRET: z.string().optional()
   },
 
   /**
@@ -58,7 +59,7 @@ export const env = createEnv({
    * `NEXT_PUBLIC_`.
    */
   client: {
-    NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY: z.string(),
+    NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY: z.string()
   },
 
   /**
@@ -81,8 +82,8 @@ export const env = createEnv({
     RESEND_API_KEY: process.env.RESEND_API_KEY,
     PLATFORM_LOGO_URL: process.env.PLATFORM_LOGO_URL,
     PLATFORM_APP_HOME_FULL_URL: process.env.PLATFORM_APP_HOME_FULL_URL,
-    NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY:
-      process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY,
+    NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY: process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY,
+    PAYSTACK_SECRET: process.env.PAYSTACK_SECRET
   },
   /**
    * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation. This is especially
@@ -93,5 +94,5 @@ export const env = createEnv({
    * Makes it so that empty strings are treated as undefined.
    * `SOME_VAR: z.string()` and `SOME_VAR=''` will throw an error.
    */
-  emptyStringAsUndefined: true,
+  emptyStringAsUndefined: true
 });

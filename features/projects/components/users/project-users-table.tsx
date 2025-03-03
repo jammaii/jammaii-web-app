@@ -1,25 +1,25 @@
-"use client";
+'use client';
 
 import {
   TableHead,
   TableRow,
   TableHeader,
   TableBody,
-  Table,
-} from "@/components/ui/table";
+  Table
+} from '@/components/ui/table';
 import {
   Card,
   CardContent,
   CardDescription,
   CardFooter,
   CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { ProjectUserColumn } from "./project-user-column";
-import { ChevronLeft, ChevronRight } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { UserResponse } from "@/features/users/types/app";
-import { UserSingleProjectResponse } from "@/features/projects/types/app";
+  CardTitle
+} from '@/components/ui/card';
+import { ProjectUserColumn } from './project-user-column';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { UserResponse } from '@/features/users/types/app';
+import { UserSingleProjectResponse } from '@/features/projects/types/app';
 
 interface ProjectUsersTableProps {
   users: UserSingleProjectResponse[];
@@ -32,7 +32,7 @@ export function ProjectUsersTable({
   users,
   page,
   totalPages,
-  onPageChangeAction,
+  onPageChangeAction
 }: ProjectUsersTableProps) {
   const itemsPerPage = 10;
   const start = (page - 1) * itemsPerPage + 1;
@@ -77,10 +77,10 @@ export function ProjectUsersTable({
       <CardFooter>
         <div className="flex w-full items-center justify-between">
           <div className="text-xs text-muted-foreground">
-            Showing{" "}
+            Showing{' '}
             <strong>
               {start}-{end}
-            </strong>{" "}
+            </strong>{' '}
             of <strong>{users.length}</strong> users
           </div>
           <div className="flex">

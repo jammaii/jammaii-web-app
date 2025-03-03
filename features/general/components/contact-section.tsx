@@ -1,38 +1,38 @@
-"use client";
+'use client';
 
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { SendIcon } from "lucide-react";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { api } from "@/lib/api";
-import { useToast } from "@/components/ui/use-toast";
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
+import { SendIcon } from 'lucide-react';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { api } from '@/lib/api';
+import { useToast } from '@/components/ui/use-toast';
 import {
   Form,
   FormControl,
   FormField,
   FormItem,
-  FormMessage,
-} from "@/components/ui/form";
-import type { SendSupportMessageRequest } from "../types/app";
-import { sendSupportMessage } from "../types/app";
+  FormMessage
+} from '@/components/ui/form';
+import type { SendSupportMessageRequest } from '../types/app';
+import { sendSupportMessage } from '../types/app';
 
 export function ContactSection() {
   const { toastSuccess, toastError } = useToast();
 
   const form = useForm<SendSupportMessageRequest>({
-    resolver: zodResolver(sendSupportMessage),
+    resolver: zodResolver(sendSupportMessage)
   });
 
   const sendMessage = api.support.sendMessage.useMutation({
     onSuccess: () => {
-      toastSuccess({ message: "Message sent successfully!" });
+      toastSuccess({ message: 'Message sent successfully!' });
       form.reset();
     },
     onError: () => {
-      toastError({ message: "Failed to send message. Please try again." });
-    },
+      toastError({ message: 'Failed to send message. Please try again.' });
+    }
   });
 
   const onSubmit = async (data: SendSupportMessageRequest) => {

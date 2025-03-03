@@ -2,8 +2,8 @@ import {
   CustomDate,
   FormatDateArgs,
   GetDateFnsLocaleArgs,
-  TimeUnit,
-} from "@/types/dates";
+  TimeUnit
+} from '@/types/dates';
 import {
   format,
   subDays,
@@ -22,11 +22,11 @@ import {
   addWeeks,
   subYears,
   subMonths,
-  subWeeks,
-} from "date-fns";
-import * as dateFnsLocales from "date-fns/locale";
-import { removeHyphen } from "./utils";
-import { DEFAULT_LOCALE_WITH_HYPHEN } from "@/constants/dates";
+  subWeeks
+} from 'date-fns';
+import * as dateFnsLocales from 'date-fns/locale';
+import { removeHyphen } from './utils';
+import { DEFAULT_LOCALE_WITH_HYPHEN } from '@/constants/dates';
 
 export const getDate = (date?: CustomDate | null) => {
   return date ? new Date(date) : new Date();
@@ -45,31 +45,31 @@ export function getUserDefaultLocale() {
   /* `if (typeof window !== "undefined")` checks if the `window` object is defined,
      so next js can have access to the navigator object and not throw an error.
     */
-  if (typeof window !== "undefined")
+  if (typeof window !== 'undefined')
     return {
       localeWithoutHyphen: removeHyphen(
-        navigator.language,
-      ) as GetDateFnsLocaleArgs["locale"],
-      localeWithHyphen: navigator.language,
+        navigator.language
+      ) as GetDateFnsLocaleArgs['locale'],
+      localeWithHyphen: navigator.language
     };
   return {
     localeWithoutHyphen: removeHyphen(
-      DEFAULT_LOCALE_WITH_HYPHEN,
-    ) as GetDateFnsLocaleArgs["locale"],
-    localeWithHyphen: DEFAULT_LOCALE_WITH_HYPHEN,
+      DEFAULT_LOCALE_WITH_HYPHEN
+    ) as GetDateFnsLocaleArgs['locale'],
+    localeWithHyphen: DEFAULT_LOCALE_WITH_HYPHEN
   };
 }
 
 export const formatDate = (
   date: CustomDate = new Date(),
-  options: Partial<FormatDateArgs> = {},
+  options: Partial<FormatDateArgs> = {}
 ): string => {
-  const { dateFormat = "P" } = options;
+  const { dateFormat = 'P' } = options;
   const actualDate = new Date(date);
   return format(actualDate, dateFormat, {
     locale: getDateFnsLocale({
-      locale: getUserDefaultLocale().localeWithoutHyphen,
-    }),
+      locale: getUserDefaultLocale().localeWithoutHyphen
+    })
   });
 };
 
@@ -79,7 +79,7 @@ export const getDateTimeString = (date: CustomDate = new Date()): string =>
 export const addToDate = (
   date: CustomDate,
   amount: number,
-  degree: TimeUnit = "days",
+  degree: TimeUnit = 'days'
 ) => {
   const baseDate = getDate(date);
   if (amount === 0) {
@@ -89,21 +89,21 @@ export const addToDate = (
   }
 
   switch (degree) {
-    case "years":
+    case 'years':
       return addYears(baseDate, amount);
-    case "months":
+    case 'months':
       return addMonths(baseDate, amount);
-    case "weeks":
+    case 'weeks':
       return addWeeks(baseDate, amount);
-    case "days":
+    case 'days':
       return addDays(baseDate, amount);
-    case "hours":
+    case 'hours':
       return addHours(baseDate, amount);
-    case "minutes":
+    case 'minutes':
       return addMinutes(baseDate, amount);
-    case "seconds":
+    case 'seconds':
       return addSeconds(baseDate, amount);
-    case "milliseconds":
+    case 'milliseconds':
       return addMilliseconds(baseDate, amount);
     default:
       return addDays(baseDate, amount);
@@ -113,26 +113,26 @@ export const addToDate = (
 const subtractFromDate = (
   date: CustomDate,
   amount: number,
-  degree: TimeUnit = "days",
+  degree: TimeUnit = 'days'
 ) => {
   const baseDate = getDate(date);
 
   switch (degree) {
-    case "years":
+    case 'years':
       return subYears(baseDate, amount);
-    case "months":
+    case 'months':
       return subMonths(baseDate, amount);
-    case "weeks":
+    case 'weeks':
       return subWeeks(baseDate, amount);
-    case "days":
+    case 'days':
       return subDays(baseDate, amount);
-    case "hours":
+    case 'hours':
       return subHours(baseDate, amount);
-    case "minutes":
+    case 'minutes':
       return subMinutes(baseDate, amount);
-    case "seconds":
+    case 'seconds':
       return subSeconds(baseDate, amount);
-    case "milliseconds":
+    case 'milliseconds':
       return subMilliseconds(baseDate, amount);
     default:
       return subDays(baseDate, amount);

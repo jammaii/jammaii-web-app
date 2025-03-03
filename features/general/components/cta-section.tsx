@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import { motion } from "framer-motion";
-import { Button } from "@/components/ui/button";
-import { ArrowRightIcon } from "lucide-react";
-import Link from "next/link";
+import { motion } from 'framer-motion';
+import { Button } from '@/components/ui/button';
+import { ArrowRightIcon } from 'lucide-react';
+import Link from 'next/link';
 
 export function CTASection() {
   return (
@@ -25,7 +25,7 @@ export function CTASection() {
               estate portfolio today. Get started with as little as ₦100,000.
             </p>
             <div className="flex flex-col gap-4 sm:flex-row sm:justify-center">
-              <Link href="/register">
+              <Link href="/signin">
                 <Button
                   size="lg"
                   variant="secondary"

@@ -1,21 +1,21 @@
-"use client";
+'use client';
 
-import { TableCell, TableRow } from "@/components/ui/table";
-import { Button } from "@/components/ui/button";
+import { TableCell, TableRow } from '@/components/ui/table';
+import { Button } from '@/components/ui/button';
 import {
   Dialog,
   DialogContent,
   DialogFooter,
   DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
-import { Badge } from "@/components/ui/badge";
-import { formatDate } from "@/lib/dates";
-import { useState } from "react";
-import { api } from "@/lib/api";
-import { useToast } from "@/components/ui/use-toast";
-import type { SupportMessageResponse } from "@/features/general/types/app";
-import { CheckCircle, XCircle } from "lucide-react";
+  DialogTitle
+} from '@/components/ui/dialog';
+import { Badge } from '@/components/ui/badge';
+import { formatDate } from '@/lib/dates';
+import { useState } from 'react';
+import { api } from '@/lib/api';
+import { useToast } from '@/components/ui/use-toast';
+import type { SupportMessageResponse } from '@/features/general/types/app';
+import { CheckCircle, XCircle } from 'lucide-react';
 
 interface SupportMessageColumnProps {
   message: SupportMessageResponse;
@@ -27,18 +27,18 @@ export function SupportMessageColumn({ message }: SupportMessageColumnProps) {
 
   const updateMessageStatus = api.support.updateMessageStatus.useMutation({
     onSuccess: () => {
-      toastSuccess({ message: "Message status updated successfully" });
+      toastSuccess({ message: 'Message status updated successfully' });
       setIsOpen(false);
     },
     onError: () => {
-      toastError({ message: "Failed to update message status" });
-    },
+      toastError({ message: 'Failed to update message status' });
+    }
   });
 
   const handleResolve = () => {
     updateMessageStatus.mutate({
       id: message.id,
-      isResolved: true,
+      isResolved: true
     });
   };
 
@@ -57,8 +57,8 @@ export function SupportMessageColumn({ message }: SupportMessageColumnProps) {
           {message.content.slice(0, 50)}...
         </TableCell>
         <TableCell className="hidden md:table-cell">
-          <Badge variant={message.isResolved ? "default" : "secondary"}>
-            {message.isResolved ? "Resolved" : "Pending"}
+          <Badge variant={message.isResolved ? 'default' : 'secondary'}>
+            {message.isResolved ? 'Resolved' : 'Pending'}
           </Badge>
         </TableCell>
         <TableCell className="hidden md:table-cell">
@@ -96,8 +96,8 @@ export function SupportMessageColumn({ message }: SupportMessageColumnProps) {
                 <p className="text-sm font-medium text-muted-foreground">
                   Status
                 </p>
-                <Badge variant={message.isResolved ? "default" : "secondary"}>
-                  {message.isResolved ? "Resolved" : "Pending"}
+                <Badge variant={message.isResolved ? 'default' : 'secondary'}>
+                  {message.isResolved ? 'Resolved' : 'Pending'}
                 </Badge>
               </div>
             </div>

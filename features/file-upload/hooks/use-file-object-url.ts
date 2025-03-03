@@ -1,5 +1,5 @@
-import { useMemo, useRef } from "react";
-import { useSingleEffect } from "@/hooks/use-single-effect";
+import { useMemo, useRef } from 'react';
+import { useSingleEffect } from '@/hooks/use-single-effect';
 
 export const useFileObjectUrl = (file?: File) => {
   // Keep ref of each file url so we are able to revoke it.

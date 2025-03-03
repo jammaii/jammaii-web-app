@@ -1,12 +1,12 @@
-import { createTRPCRouter, protectedProcedure } from "@/server/api/trpc";
-import { ProjectService } from "@/server/api/features/services/project.service";
+import { createTRPCRouter, protectedProcedure } from '@/server/api/trpc';
+import { ProjectService } from '@/server/api/features/services/project.service';
 import {
   createProjectSchema,
   createUserInvestmentSchema,
-  getSingleProjectSchema,
-} from "@/features/projects/types/app";
-import { getRequestUserFromSession } from "@/server/api/utils/get-request-user";
-import { paginationRequestSchema } from "@/features/general/types/app";
+  getSingleProjectSchema
+} from '@/features/projects/types/app';
+import { getRequestUserFromSession } from '@/server/api/utils/get-request-user';
+import { paginationRequestSchema } from '@/features/general/types/app';
 
 export const projectRouter = createTRPCRouter({
   createProject: protectedProcedure
@@ -44,5 +44,5 @@ export const projectRouter = createTRPCRouter({
 
   getDashboardStats: protectedProcedure.query(async () => {
     return ProjectService.getDashboardStats();
-  }),
+  })
 });

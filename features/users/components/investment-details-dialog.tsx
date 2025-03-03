@@ -1,24 +1,24 @@
-"use client";
+'use client';
 
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-import { Progress } from "@/components/ui/progress";
-import { formatCurrency } from "@/lib/utils";
-import { format } from "date-fns";
+  DialogTrigger
+} from '@/components/ui/dialog';
+import { Progress } from '@/components/ui/progress';
+import { formatCurrency } from '@/lib/utils';
+import { format } from 'date-fns';
 import {
   ArrowUpRight,
   CalendarDays,
   CircleDollarSign,
-  Clock,
-} from "lucide-react";
-import { UserInvestmentResponse } from "@/features/users/types/app";
-import Link from "next/link";
-import { ProjectTimeline } from "@/features/projects/components/timeline";
+  Clock
+} from 'lucide-react';
+import { UserInvestmentResponse } from '@/features/users/types/app';
+import Link from 'next/link';
+import { ProjectTimeline } from '@/features/projects/components/timeline';
 
 interface InvestmentDetailsProps {
   investment: UserInvestmentResponse;
@@ -27,22 +27,22 @@ interface InvestmentDetailsProps {
 
 export function InvestmentDetailsDialog({
   investment,
-  children,
+  children
 }: InvestmentDetailsProps) {
   const totalInvestment = investment.slots * investment.slotPrice;
   const today = new Date();
   const totalDays = Math.ceil(
     (investment.project.endDate.getTime() -
       investment.project.startDate.getTime()) /
-      (1000 * 60 * 60 * 24),
+      (1000 * 60 * 60 * 24)
   );
   const remainingDays = Math.ceil(
     (investment.project.endDate.getTime() - today.getTime()) /
-      (1000 * 60 * 60 * 24),
+      (1000 * 60 * 60 * 24)
   );
   const progressPercentage = Math.max(
     0,
-    Math.min(100, ((totalDays - remainingDays) / totalDays) * 100),
+    Math.min(100, ((totalDays - remainingDays) / totalDays) * 100)
   );
 
   return (

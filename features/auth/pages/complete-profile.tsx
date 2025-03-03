@@ -1,29 +1,29 @@
-"use client";
+'use client';
 
-import { useRouter } from "next/navigation";
-import { useToast } from "@/components/ui/use-toast";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from 'next/navigation';
+import { useToast } from '@/components/ui/use-toast';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
 import {
   Form,
   FormField,
   FormItem,
   FormControl,
-  FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Button } from "@/components/ui/button";
+  FormMessage
+} from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Button } from '@/components/ui/button';
 import {
   ProfileUpdateRequestDto,
-  profileUpdateSchema,
-} from "@/features/auth/types/app";
-import { AuthCard } from "@/features/auth/components/auth-card";
-import { CopyrightText } from "@/features/general/components/copyright";
-import { PhoneNumberInput } from "@/components/ui/phone-input";
-import { api } from "@/lib/api";
-import { GENERIC_ERROR_MESSAGE } from "@/constants/strings";
-import { useUserStore } from "@/hooks/stores/user.store";
+  profileUpdateSchema
+} from '@/features/auth/types/app';
+import { AuthCard } from '@/features/auth/components/auth-card';
+import { CopyrightText } from '@/features/general/components/copyright';
+import { PhoneNumberInput } from '@/components/ui/phone-input';
+import { api } from '@/lib/api';
+import { GENERIC_ERROR_MESSAGE } from '@/constants/strings';
+import { useUserStore } from '@/hooks/stores/user.store';
 
 export function CompleteProfilePage() {
   const setUser = useUserStore((state) => state.setUser);
@@ -32,24 +32,24 @@ export function CompleteProfilePage() {
 
   const updateUserProfile = api.user.updateUserProfile.useMutation({
     onSuccess: (user) => {
-      toastSuccess({ message: "Profile updated successfully" });
+      toastSuccess({ message: 'Profile updated successfully' });
 
       // Update user in store.
       setUser(user);
 
-      if (user.role === "ADMIN" || user.role === "SUPER_ADMIN") {
-        router.push("/admin");
+      if (user.role === 'ADMIN' || user.role === 'SUPER_ADMIN') {
+        router.push('/admin');
         return;
       }
-      router.push("/user");
+      router.push('/user');
     },
     onError: (error) => {
       toastError({ message: GENERIC_ERROR_MESSAGE });
-    },
+    }
   });
 
   const form = useForm<ProfileUpdateRequestDto>({
-    resolver: zodResolver(profileUpdateSchema),
+    resolver: zodResolver(profileUpdateSchema)
   });
 
   const completeUserProfile = async (data: ProfileUpdateRequestDto) => {
@@ -65,7 +65,7 @@ export function CompleteProfilePage() {
           <AuthCard
             headerContent={
               <div className="space-y-2 text-center">
-                <h1 className="text-2xl font-bold">Welcome to Jammai</h1>
+                <h1 className="text-2xl font-bold">Welcome to Jammaii</h1>
                 <p className="text-sm text-muted-foreground">
                   Complete your profile to get started!
                 </p>

@@ -1,18 +1,18 @@
-"use client";
+'use client';
 
 import {
   Tooltip,
   TooltipContent,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
-import clsx from "clsx";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+  TooltipTrigger
+} from '@/components/ui/tooltip';
+import clsx from 'clsx';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 export function NavItem({
   href,
   label,
-  children,
+  children
 }: {
   href: string;
   label: string;
@@ -26,10 +26,10 @@ export function NavItem({
         <Link
           href={href}
           className={clsx(
-            "flex h-24 w-24 flex-col items-center justify-center rounded-lg text-white transition-colors hover:text-white/50",
+            'flex h-24 w-24 flex-col items-center justify-center rounded-lg text-white transition-colors hover:text-white/50',
             {
-              "bg-accent bg-green-500 font-bold text-white": pathname === href,
-            },
+              'bg-accent bg-green-500 font-bold text-white': pathname === href
+            }
           )}
         >
           {children}

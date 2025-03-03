@@ -1,3 +1,3 @@
 export const GENERIC_ERROR_MESSAGE =
-  "Something went wrong. Please try again later.";
-export const GENERIC_SUCCESS_MESSAGE = "Success!";
+  'Something went wrong. Please try again later.';
+export const GENERIC_SUCCESS_MESSAGE = 'Success!';

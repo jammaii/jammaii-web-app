@@ -1,5 +1,5 @@
-import { type Session } from "next-auth";
-import { ApiRequestUser } from "@/server/api/types";
+import { type Session } from 'next-auth';
+import { ApiRequestUser } from '@/server/api/types';
 
 /**
  * This retrieves the API request user from TRPC session.
@@ -7,11 +7,11 @@ import { ApiRequestUser } from "@/server/api/types";
  * @returns ApiRequestUser
  */
 export const getRequestUserFromSession = <
-  T extends { session: Session | null },
+  T extends { session: Session | null }
 >({
-  session,
+  session
 }: T): ApiRequestUser => {
   return {
-    id: session?.user.id ?? "",
+    id: session?.user.id ?? ''
   };
 };

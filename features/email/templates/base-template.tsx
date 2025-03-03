@@ -6,10 +6,10 @@ import {
   Preview,
   Section,
   Text,
-  Hr,
-} from "@react-email/components";
-import * as React from "react";
-import { Tailwind } from "@react-email/tailwind";
+  Hr
+} from '@react-email/components';
+import * as React from 'react';
+import { Tailwind } from '@react-email/tailwind';
 
 interface BaseTemplateProps {
   previewText: string;
@@ -58,7 +58,7 @@ export function EmailText({ children }: { children: React.ReactNode }) {
 
 export function EmailButton({
   href,
-  children,
+  children
 }: {
   href: string;
   children: React.ReactNode;

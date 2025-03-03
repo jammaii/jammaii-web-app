@@ -1,10 +1,10 @@
-import { Suspense } from "react";
-import Image from "next/image";
-import { belongsToFileCategory } from "@/features/file-upload/utils";
-import { type DivProps } from "@/types/index";
-import { cn } from "@/lib/utils";
-import { FILE_MIME_TYPE_CATEGORY } from "@/features/file-upload/constants";
-import { useFileObjectUrl } from "@/features/file-upload/hooks/use-file-object-url";
+import { Suspense } from 'react';
+import Image from 'next/image';
+import { belongsToFileCategory } from '@/features/file-upload/utils';
+import { type DivProps } from '@/types/index';
+import { cn } from '@/lib/utils';
+import { FILE_MIME_TYPE_CATEGORY } from '@/features/file-upload/constants';
+import { useFileObjectUrl } from '@/features/file-upload/hooks/use-file-object-url';
 
 interface FileUploadPreviewProps extends DivProps {
   file: File;

@@ -7,12 +7,12 @@
  * need to use are documented accordingly near the end.
  */
 
-import { initTRPC, TRPCError } from "@trpc/server";
-import superjson from "superjson";
-import { ZodError } from "zod";
+import { initTRPC, TRPCError } from '@trpc/server';
+import superjson from 'superjson';
+import { ZodError } from 'zod';
 
-import { db } from "@/server/db";
-import { auth } from "@/server/auth";
+import { db } from '@/server/db';
+import { auth } from '@/server/auth';
 
 /**
  * 1. CONTEXT
@@ -32,7 +32,7 @@ export const createTRPCContext = async (opts: { headers: Headers }) => {
   return {
     db,
     session,
-    ...opts,
+    ...opts
   };
 };
 
@@ -50,11 +50,10 @@ const t = initTRPC.context<typeof createTRPCContext>().create({
       ...shape,
       data: {
         ...shape.data,
-        zodError:
-          error.cause instanceof ZodError ? error.cause.flatten() : null,
-      },
+        zodError: error.cause instanceof ZodError ? error.cause.flatten() : null
+      }
     };
-  },
+  }
 });
 
 /**
@@ -83,13 +82,13 @@ export const publicProcedure = t.procedure;
 /** Reusable middleware that enforces users are logged in before running the procedure. */
 const enforceUserIsAuthed = t.middleware(({ ctx, next }) => {
   if (!ctx.session || !ctx.session.user) {
-    throw new TRPCError({ code: "UNAUTHORIZED" });
+    throw new TRPCError({ code: 'UNAUTHORIZED' });
   }
   return next({
     ctx: {
       // infers the `session` as non-nullable
-      session: { ...ctx.session, user: ctx.session.user },
-    },
+      session: { ...ctx.session, user: ctx.session.user }
+    }
   });
 });
 

@@ -1,30 +1,30 @@
-"use client";
+'use client';
 
 import {
   TableHead,
   TableRow,
   TableHeader,
   TableBody,
-  Table,
-} from "@/components/ui/table";
+  Table
+} from '@/components/ui/table';
 import {
   Card,
   CardContent,
   CardDescription,
   CardFooter,
   CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { ProjectColumn } from "./project-column";
-import { useRouter } from "next/navigation";
-import { ChevronLeft, ChevronRight } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { ProjectResponse } from "@/features/projects/types/app";
+  CardTitle
+} from '@/components/ui/card';
+import { ProjectColumn } from './project-column';
+import { useRouter } from 'next/navigation';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { ProjectResponse } from '@/features/projects/types/app';
 
 export function ProjectsTable({
   projects,
   offset,
-  totalProjects,
+  totalProjects
 }: {
   projects: ProjectResponse[];
   offset: number;
@@ -76,11 +76,11 @@ export function ProjectsTable({
       <CardFooter>
         <form className="flex w-full items-center justify-between">
           <div className="text-xs text-muted-foreground">
-            Showing{" "}
+            Showing{' '}
             <strong>
               {Math.max(0, Math.min(offset - itemsPerPage, totalProjects) + 1)}-
               {offset}
-            </strong>{" "}
+            </strong>{' '}
             of <strong>{totalProjects}</strong> projects
           </div>
           <div className="flex">

@@ -1,12 +1,12 @@
-import { PaginatedResponse } from "@/features/general/types/app";
-import { ProjectStatus } from "@/features/projects/types/app";
-import { USER_ROLES } from "@/server/db/schemas/auth/enums/user-roles";
-import { TRANSACTION_STATUSES } from "@/server/db/schemas/project/enums/transaction-status.schema";
-import { numberSchema } from "@/validation/shared.schema";
-import { z } from "zod";
+import { PaginatedResponse } from '@/features/general/types/app';
+import { ProjectStatus } from '@/features/projects/types/app';
+import { USER_ROLES } from '@/server/db/schemas/auth/enums/user-roles';
+import { TRANSACTION_STATUSES } from '@/server/db/schemas/project/enums/transaction-status.schema';
+import { numberSchema } from '@/validation/shared.schema';
+import { z } from 'zod';
 
 export const purchaseFormSchema = z.object({
-  slots: numberSchema("Slots", { min: 1, max: 20 }),
+  slots: numberSchema('Slots', { min: 1, max: 20 })
 });
 export type PurchaseFormRequest = z.infer<typeof purchaseFormSchema>;
 

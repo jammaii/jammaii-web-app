@@ -1,12 +1,12 @@
-import * as React from "react";
+import * as React from 'react';
 import {
   BaseTemplate,
   EmailHeading,
   EmailText,
   EmailButton,
   EmailFootnote,
-  EmailDivider,
-} from "./base-template";
+  EmailDivider
+} from './base-template';
 
 interface InvestmentConfirmationTemplateProps {
   name: string;
@@ -23,7 +23,7 @@ export function InvestmentConfirmationTemplate({
   slots,
   totalAmount,
   transactionReference,
-  investmentstUrl,
+  investmentstUrl
 }: InvestmentConfirmationTemplateProps) {
   return (
     <BaseTemplate previewText={`Investment Confirmation - ${projectName}`}>
@@ -38,57 +38,57 @@ export function InvestmentConfirmationTemplate({
 
       <div
         style={{
-          padding: "16px",
-          margin: "24px 0",
-          borderRadius: "8px",
-          backgroundColor: "#f9fafb",
+          padding: '16px',
+          margin: '24px 0',
+          borderRadius: '8px',
+          backgroundColor: '#f9fafb'
         }}
       >
-        <table style={{ width: "100%", borderCollapse: "collapse" }}>
+        <table style={{ width: '100%', borderCollapse: 'collapse' }}>
           <tbody>
             <tr>
-              <td style={{ padding: "8px 0" }}>Project:</td>
+              <td style={{ padding: '8px 0' }}>Project:</td>
               <td
                 style={{
-                  padding: "8px 0",
-                  textAlign: "right",
-                  fontWeight: "bold",
+                  padding: '8px 0',
+                  textAlign: 'right',
+                  fontWeight: 'bold'
                 }}
               >
                 {projectName}
               </td>
             </tr>
             <tr>
-              <td style={{ padding: "8px 0" }}>Number of Slots:</td>
+              <td style={{ padding: '8px 0' }}>Number of Slots:</td>
               <td
                 style={{
-                  padding: "8px 0",
-                  textAlign: "right",
-                  fontWeight: "bold",
+                  padding: '8px 0',
+                  textAlign: 'right',
+                  fontWeight: 'bold'
                 }}
               >
                 {slots}
               </td>
             </tr>
             <tr>
-              <td style={{ padding: "8px 0" }}>Total Amount:</td>
+              <td style={{ padding: '8px 0' }}>Total Amount:</td>
               <td
                 style={{
-                  padding: "8px 0",
-                  textAlign: "right",
-                  fontWeight: "bold",
+                  padding: '8px 0',
+                  textAlign: 'right',
+                  fontWeight: 'bold'
                 }}
               >
                 ₦{totalAmount.toLocaleString()}
               </td>
             </tr>
             <tr>
-              <td style={{ padding: "8px 0" }}>Transaction Reference:</td>
+              <td style={{ padding: '8px 0' }}>Transaction Reference:</td>
               <td
                 style={{
-                  padding: "8px 0",
-                  textAlign: "right",
-                  fontFamily: "monospace",
+                  padding: '8px 0',
+                  textAlign: 'right',
+                  fontFamily: 'monospace'
                 }}
               >
                 {transactionReference}

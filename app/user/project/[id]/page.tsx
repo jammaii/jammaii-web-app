@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import { SingleProjectPage } from "@/features/projects/pages/single-project-page";
-import { notFound, useParams } from "next/navigation";
+import { SingleProjectPage } from '@/features/projects/pages/single-project-page';
+import { notFound, useParams } from 'next/navigation';
 
 export default function Page() {
   const route = useParams();

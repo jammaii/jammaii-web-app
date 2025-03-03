@@ -1,6 +1,6 @@
-import { create } from "zustand";
-import { persist } from "zustand/middleware";
-import type { UserResponse } from "@/features/users/types/app";
+import { create } from 'zustand';
+import { persist } from 'zustand/middleware';
+import type { UserResponse } from '@/features/users/types/app';
 
 interface UserState {
   user: UserResponse | null;
@@ -13,10 +13,10 @@ export const useUserStore = create<UserState>()(
     (set) => ({
       user: null,
       setUser: (user) => set({ user }),
-      clearUser: () => set({ user: null }),
+      clearUser: () => set({ user: null })
     }),
     {
-      name: "user-storage",
-    },
-  ),
+      name: 'user-storage'
+    }
+  )
 );

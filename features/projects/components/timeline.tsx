@@ -1,6 +1,6 @@
-import { Progress } from "@/components/ui/progress";
-import { formatDate } from "@/lib/dates";
-import { CalendarDays } from "lucide-react";
+import { Progress } from '@/components/ui/progress';
+import { formatDate } from '@/lib/dates';
+import { CalendarDays } from 'lucide-react';
 
 interface ProjectTimelineProps {
   startDate: Date;
@@ -9,18 +9,18 @@ interface ProjectTimelineProps {
 
 export const ProjectTimeline = ({
   startDate,
-  endDate,
+  endDate
 }: ProjectTimelineProps) => {
   const today = new Date();
   const totalDays = Math.ceil(
-    (endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24),
+    (endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24)
   );
   const remainingDays = Math.ceil(
-    (endDate.getTime() - today.getTime()) / (1000 * 60 * 60 * 24),
+    (endDate.getTime() - today.getTime()) / (1000 * 60 * 60 * 24)
   );
   const progressPercentage = Math.max(
     0,
-    Math.min(100, ((totalDays - remainingDays) / totalDays) * 100),
+    Math.min(100, ((totalDays - remainingDays) / totalDays) * 100)
   );
 
   return (
@@ -39,13 +39,13 @@ export const ProjectTimeline = ({
         <div>
           <p className="text-muted-foreground">Start Date</p>
           <p className="font-medium">
-            {formatDate(startDate, { dateFormat: "PP" })}
+            {formatDate(startDate, { dateFormat: 'PP' })}
           </p>
         </div>
         <div>
           <p className="text-muted-foreground">End Date</p>
           <p className="font-medium">
-            {formatDate(endDate, { dateFormat: "PP" })}
+            {formatDate(endDate, { dateFormat: 'PP' })}
           </p>
         </div>
       </div>

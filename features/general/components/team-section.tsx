@@ -1,34 +1,34 @@
-"use client";
+'use client';
 
-import { motion } from "framer-motion";
-import { LinkedinIcon, TwitterIcon } from "lucide-react";
-import Image from "next/image";
+import { motion } from 'framer-motion';
+import { LinkedinIcon, TwitterIcon } from 'lucide-react';
+import Image from 'next/image';
 
 const team = [
   {
-    name: "John Smith",
-    role: "CEO & Founder",
-    image: "/images/team/melania.jpg",
-    bio: "Over 15 years of real estate investment experience",
-    linkedin: "#",
-    twitter: "#",
+    name: 'John Smith',
+    role: 'CEO & Founder',
+    image: '/images/team/melania.jpg',
+    bio: 'Over 15 years of real estate investment experience',
+    linkedin: '#',
+    twitter: '#'
   },
   {
-    name: "Sarah Johnson",
-    role: "Investment Director",
-    image: "/images/team/melania.jpg",
-    bio: "Former VP at Goldman Sachs Real Estate Division",
-    linkedin: "#",
-    twitter: "#",
+    name: 'Sarah Johnson',
+    role: 'Investment Director',
+    image: '/images/team/melania.jpg',
+    bio: 'Former VP at Goldman Sachs Real Estate Division',
+    linkedin: '#',
+    twitter: '#'
   },
   {
-    name: "Michael Chen",
-    role: "Head of Operations",
-    image: "/images/team/melania.jpg",
-    bio: "Managed $500M+ in real estate portfolios",
-    linkedin: "#",
-    twitter: "#",
-  },
+    name: 'Michael Chen',
+    role: 'Head of Operations',
+    image: '/images/team/melania.jpg',
+    bio: 'Managed $500M+ in real estate portfolios',
+    linkedin: '#',
+    twitter: '#'
+  }
 ];
 
 export function TeamSection() {

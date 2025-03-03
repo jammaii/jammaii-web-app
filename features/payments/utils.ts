@@ -1,12 +1,12 @@
-import { getDateTimeString } from "@/lib/dates";
-import { PAYMENT_AMOUNT_SCALE } from "./constants";
+import { getDateTimeString } from '@/lib/dates';
+import { PAYMENT_AMOUNT_SCALE } from './constants';
 
 export const formatPaymentAmount = (amount: number): number =>
   amount * PAYMENT_AMOUNT_SCALE;
 
 export const createTransactionReference = (
   userId: string,
-  projectId: string,
+  projectId: string
 ): string => `${userId}-${projectId}-${getDateTimeString()}`;
 
 export const addTransactionFeeToAmount = (amount: number): number => {

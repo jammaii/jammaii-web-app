@@ -1,9 +1,9 @@
 import {
   type CustomDialogProps,
   Dialog,
-  DialogContent,
-} from "@/components/ui/dialog";
-import Image from "next/image";
+  DialogContent
+} from '@/components/ui/dialog';
+import Image from 'next/image';
 
 interface ImageFullDisplayDialogProps extends CustomDialogProps {
   imageUrl: string;

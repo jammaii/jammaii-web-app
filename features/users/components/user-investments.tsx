@@ -1,8 +1,8 @@
-import { UserInvestmentResponse } from "@/features/users/types/app";
-import { InvestmentDetailsDialog } from "./investment-details-dialog";
-import { formatCurrency } from "@/lib/utils";
-import { CircleDollarSign } from "lucide-react";
-import { ProjectStatus } from "@/features/projects/types/app";
+import { UserInvestmentResponse } from '@/features/users/types/app';
+import { InvestmentDetailsDialog } from './investment-details-dialog';
+import { formatCurrency } from '@/lib/utils';
+import { CircleDollarSign } from 'lucide-react';
+import { ProjectStatus } from '@/features/projects/types/app';
 
 interface UserInvestmentsProps {
   investments: UserInvestmentResponse[];
@@ -57,9 +57,9 @@ export const UserInvestments = ({ investments }: UserInvestmentsProps) => {
 
 const ProjectStatusBadge = ({ status }: { status: ProjectStatus }) => {
   const statusStyles = {
-    COMPLETED: "bg-green-100 text-green-700",
-    IN_PROGRESS: "bg-blue-100 text-blue-700",
-    PENDING: "bg-yellow-100 text-yellow-700",
+    COMPLETED: 'bg-green-100 text-green-700',
+    IN_PROGRESS: 'bg-blue-100 text-blue-700',
+    PENDING: 'bg-yellow-100 text-yellow-700'
   };
 
   return (

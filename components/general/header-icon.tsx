@@ -1,7 +1,9 @@
-export const HeaderIcon = () => {
+import Link from 'next/link';
+
+export const HeaderIcon = ({ url }: { url: string }) => {
   return (
-    <h1 className="text-xl font-extrabold text-green-800 md:text-2xl">
-      JAMMAII
-    </h1>
+    <Link href={url}>
+      <h1 className="text-xl font-extrabold md:text-2xl">JAMMAII</h1>
+    </Link>
   );
 };

@@ -1,13 +1,13 @@
-export type ImageType = "jpg" | "png" | "webp";
+export type ImageType = 'jpg' | 'png' | 'webp';
 
-export type FileType = "pdf" | "csv" | ImageType;
+export type FileType = 'pdf' | 'csv' | ImageType;
 
-export type FileCategory = "image" | "video";
+export type FileCategory = 'image' | 'video';
 export type FileCategoryType = Record<FileCategory, Record<string, string[]>>;
 
 export type Crop = { x: number; y: number; width: number; height: number };
 
-export type SupplementaryFileVariant = "blurred";
+export type SupplementaryFileVariant = 'blurred';
 
 export type FileManipulationOptions = {
   blur?: boolean;
@@ -18,4 +18,4 @@ export type FileManipulationOptions = {
 // workflow.
 export type AlreadyUploadedFile = { url: string; mimeType: string };
 
-export type ImageUploadAction = "save" | "delete";
+export type ImageUploadAction = 'save' | 'delete';

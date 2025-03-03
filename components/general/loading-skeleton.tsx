@@ -1,20 +1,20 @@
-import { type VariantProps, cva } from "class-variance-authority";
-import { Skeleton } from "@/components/ui/skeleton";
-import { cn } from "@/lib/utils";
+import { type VariantProps, cva } from 'class-variance-authority';
+import { Skeleton } from '@/components/ui/skeleton';
+import { cn } from '@/lib/utils';
 
-export const skeletonVariants = cva("", {
+export const skeletonVariants = cva('', {
   variants: {
     size: {
-      "table-row": "h-8",
-      sm: "h-16",
-      default: "h-20",
-      lg: "h-24",
-      full: "h-full",
-    },
+      'table-row': 'h-8',
+      sm: 'h-16',
+      default: 'h-20',
+      lg: 'h-24',
+      full: 'h-full'
+    }
   },
   defaultVariants: {
-    size: "default",
-  },
+    size: 'default'
+  }
 });
 
 export interface LoadingSkeletonProps
@@ -38,7 +38,7 @@ export const LoadingSkeleton = ({
       {Array.from({ length: numSkeletons }).map((_, index) => (
         <Skeleton
           key={index}
-          className={cn("col-span-1", skeletonVariants({ size }))}
+          className={cn('col-span-1', skeletonVariants({ size }))}
         />
       ))}
     </div>

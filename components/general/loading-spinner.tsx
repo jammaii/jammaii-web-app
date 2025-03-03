@@ -1,22 +1,22 @@
-import React from "react";
+import React from 'react';
 
 const sizeClass = {
-  default: "h-8 w-8",
-  sm: "h-6 w-6",
-  xs: "h-4 w-4",
+  default: 'h-8 w-8',
+  sm: 'h-6 w-6',
+  xs: 'h-4 w-4'
 };
 
 export const LoadingSpinner = ({
-  size,
+  size
 }: {
-  size?: "default" | "sm" | "xs";
+  size?: 'default' | 'sm' | 'xs';
 }) => {
   return (
     <div role="status">
       <svg
         aria-hidden="true"
         className={`animate-spin fill-blue-600 text-gray-200 dark:text-gray-600 ${
-          sizeClass[size || "default"]
+          sizeClass[size || 'default']
         }`}
         viewBox="0 0 100 101"
         fill="none"

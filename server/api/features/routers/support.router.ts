@@ -1,15 +1,15 @@
 import {
   createTRPCRouter,
   protectedProcedure,
-  publicProcedure,
-} from "@/server/api/trpc";
+  publicProcedure
+} from '@/server/api/trpc';
 import {
   paginationRequestSchema,
-  sendSupportMessage,
-} from "@/features/general/types/app";
-import { getRequestUserFromSession } from "@/server/api/utils/get-request-user";
-import { SupportMessageService } from "@/server/api/features/services/support.service";
-import { updateSupportMessageSchema } from "@/features/admin/types/app";
+  sendSupportMessage
+} from '@/features/general/types/app';
+import { getRequestUserFromSession } from '@/server/api/utils/get-request-user';
+import { SupportMessageService } from '@/server/api/features/services/support.service';
+import { updateSupportMessageSchema } from '@/features/admin/types/app';
 
 export const supportRouter = createTRPCRouter({
   sendMessage: publicProcedure
@@ -30,7 +30,7 @@ export const supportRouter = createTRPCRouter({
     .mutation(async ({ input }) => {
       return SupportMessageService.updateMessageStatus(
         input.id,
-        input.isResolved,
+        input.isResolved
       );
-    }),
+    })
 });

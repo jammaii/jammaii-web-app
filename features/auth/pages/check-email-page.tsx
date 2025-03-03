@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { MailCheckIcon } from "lucide-react";
-import { useRouter } from "next/navigation";
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader } from '@/components/ui/card';
+import { MailCheckIcon } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 
 export function CheckEmailPage() {
   const router = useRouter();
@@ -28,7 +28,7 @@ export function CheckEmailPage() {
           </p>
           <div className="mt-4 space-y-2 text-sm text-muted-foreground">
             <p>Didn't receive an email?</p>
-            <Button onClick={() => router.push("/signin")}>Try again</Button>
+            <Button onClick={() => router.push('/signin')}>Try again</Button>
           </div>
         </CardContent>
       </Card>

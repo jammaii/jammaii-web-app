@@ -22,33 +22,38 @@ import {
   profileUpdateSchema,
   type ProfileUpdateRequestDto
 } from '@/features/auth/types/app';
-import { useUser } from '@/hooks/use-user';
 import { PhoneNumberInput } from '@/components/ui/phone-input';
-import { useEffect } from 'react';
+import { UserResponse } from '../types/app';
+import { Separator } from '@/components/ui/separator';
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectTrigger,
+  SelectValue,
+  SelectItem
+} from '@/components/ui/select';
+import { Nuban } from 'ng-bank-account-validator';
 
 interface ProfilePageProps {
-  id?: string;
+  proxy?: boolean;
+  user: UserResponse;
 }
 
-export function ProfilePage({ id }: ProfilePageProps) {
+export function ProfilePage({ proxy, user }: ProfilePageProps) {
   const { toastSuccess, toastError } = useToast();
-  const { data: user, isLoading } = api.user.getUser.useQuery({ id });
+  // const [bankCode, setBankCode];
 
   const form = useForm<ProfileUpdateRequestDto>({
-    resolver: zodResolver(profileUpdateSchema)
-  });
-
-  useEffect(() => {
-    if (user) {
-      form.reset({
-        firstName: user.firstName || '',
-        lastName: user.lastName || '',
-        middleName: user.middleName || '',
-        phoneNumber: user.phoneNumber || '',
-        image: user.image || ''
-      });
+    resolver: zodResolver(profileUpdateSchema),
+    defaultValues: {
+      firstName: user.firstName ?? '',
+      lastName: user.lastName ?? '',
+      middleName: user.middleName ?? '',
+      phoneNumber: user.phoneNumber ?? '',
+      image: user.image ?? ''
     }
-  }, [user, form]);
+  });
 
   const updateProfile = api.user.updateUserProfile.useMutation({
     onSuccess: () => {
@@ -59,26 +64,20 @@ export function ProfilePage({ id }: ProfilePageProps) {
     }
   });
 
-  const submit = async (data: ProfileUpdateRequestDto) => {
+  const onSubmit = async (data: ProfileUpdateRequestDto) => {
     await updateProfile.mutateAsync(data);
   };
-
-  if (isLoading) {
-    return <ProfileSkeleton />;
-  }
-
-  if (!user) {
-    return <div>Something went wrong, retry again</div>;
-  }
 
   return (
     <Card>
       <CardHeader>
-        <CardTitle>{id ? 'Edit User Profile' : 'Profile Settings'} </CardTitle>
+        <CardTitle>
+          {proxy ? 'Edit User Profile' : 'Profile Settings'}{' '}
+        </CardTitle>
       </CardHeader>
       <CardContent>
         <Form {...form}>
-          <form className="space-y-6" onSubmit={form.handleSubmit(submit)}>
+          <form className="space-y-6" onSubmit={form.handleSubmit(onSubmit)}>
             <div className="flex flex-col items-center gap-6">
               <Avatar className="h-64 w-64">
                 <AvatarImage src={form.watch('image')} />
@@ -154,10 +153,55 @@ export function ProfilePage({ id }: ProfilePageProps) {
               />
             </div>
 
+            <Separator />
+
+            <h1>Bank Details</h1>
+
+            <FormField
+              control={form.control}
+              name="bankDetails.bank"
+              render={({ field }) => (
+                <FormItem className="w-full grow">
+                  <FormLabel>Bank</FormLabel>
+                  <FormControl>
+                    <Select {...field} onValueChange={field.onChange}>
+                      <SelectTrigger className="w-full">
+                        <SelectValue placeholder="Select bank" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectGroup>
+                          {Nuban.weightedBanks.map((bank, index) => {
+                            return (
+                              <SelectItem key={bank.id} value={bank.code}>
+                                {bank.name}
+                              </SelectItem>
+                            );
+                          })}
+                        </SelectGroup>
+                      </SelectContent>
+                    </Select>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="bankDetails.accountNumber"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Account number</FormLabel>
+                  <FormControl>
+                    <Input placeholder="Account number" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
             <div className="flex justify-end">
-              <Button type="submit" isLoading={updateProfile.isPending}>
-                Save Changes
-              </Button>
+              <Button type="submit">Save Changes</Button>
             </div>
           </form>
         </Form>
@@ -166,7 +210,7 @@ export function ProfilePage({ id }: ProfilePageProps) {
   );
 }
 
-function ProfileSkeleton() {
+export function ProfileSkeleton() {
   return (
     <Card>
       <CardHeader>

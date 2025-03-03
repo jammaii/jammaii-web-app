@@ -1,21 +1,21 @@
-"use client";
+'use client';
 
-import { type UserResponse } from "@/features/users/types/app";
-import { api } from "@/lib/api";
-import { useSession } from "next-auth/react";
-import { useUserStore } from "@/hooks/stores/user.store";
-import { useEffect } from "react";
+import { type UserResponse } from '@/features/users/types/app';
+import { api } from '@/lib/api';
+import { useSession } from 'next-auth/react';
+import { useUserStore } from '@/hooks/stores/user.store';
+import { useEffect } from 'react';
 
 export interface UseUserReturnType {
   user?: UserResponse;
-  status: "authenticated" | "loading" | "unauthenticated";
+  status: 'authenticated' | 'loading' | 'unauthenticated';
   isAuthenticated: boolean;
 }
 
 export const useUser = (): UseUserReturnType => {
   const session = useSession();
   const status = session.status;
-  const isAuthenticated = status === "authenticated";
+  const isAuthenticated = status === 'authenticated';
 
   const storedUser = useUserStore((state) => state.user);
   const setUser = useUserStore((state) => state.setUser);
@@ -24,8 +24,8 @@ export const useUser = (): UseUserReturnType => {
     {},
     {
       enabled: isAuthenticated && !storedUser,
-      refetchOnWindowFocus: false,
-    },
+      refetchOnWindowFocus: false
+    }
   );
 
   useEffect(() => {
@@ -43,14 +43,14 @@ export const useUser = (): UseUserReturnType => {
 
   if (isLoading) {
     return {
-      status: "loading",
-      isAuthenticated,
+      status: 'loading',
+      isAuthenticated
     };
   }
 
   return {
     user: storedUser ?? user,
     status,
-    isAuthenticated,
+    isAuthenticated
   };
 };
