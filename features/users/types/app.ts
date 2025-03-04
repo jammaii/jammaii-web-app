@@ -29,12 +29,12 @@ export interface UserResponse {
   role: UserRole;
   profileCompleted: boolean;
   image: string | null;
-  bankDetail?: {
+  bankDetail: {
     bank: string;
     code: string;
     accountNumber: string;
     accountName: string;
-  };
+  } | null;
   metaCreatedAt: Date;
 }
 

@@ -122,6 +122,7 @@ export class ProjectService {
               phoneNumber: user.phoneNumber,
               role: user.role,
               profileCompleted: user.profileCompleted,
+              bankDetail: user.bankDetail,
               metaCreatedAt: user.metaCreatedAt
             },
             totalSlots: sql<number>`SUM(${userInvestment.slots})`.as(
