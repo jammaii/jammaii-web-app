@@ -5,9 +5,11 @@ import { Button } from '@/components/ui/button';
 import { ArrowRightIcon, PlayCircle } from 'lucide-react';
 import { useState } from 'react';
 import { YouTubePlayer } from '@/features/file-upload/components/youtube-player';
+import { useRouter } from 'next/navigation';
 
 export const HeroSection = () => {
   const [videoModalOpen, setVideoModalOpen] = useState(false);
+  const router = useRouter();
 
   return (
     <>
@@ -47,6 +49,7 @@ export const HeroSection = () => {
                 rightIcon={
                   <ArrowRightIcon className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                 }
+                onClick={() => router.push('/signin')}
               >
                 Join JREIT
               </Button>

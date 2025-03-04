@@ -11,22 +11,22 @@ export const signinSchema = z.object({
 });
 export type SignInRequestDto = z.infer<typeof signinSchema>;
 
-export const bankDetailsSchema = z.object({
-  bank: genericStringSchema('Bank name', 3, 50),
-  code: genericStringSchema('Bank code', 3, 6),
-  accountNumber: genericStringSchema('Account number', 3, 100),
-  accountName: genericStringSchema('Account name', 3, 100)
+export const bankDetailSchema = z.object({
+  bank: genericStringSchema('Bank name', 0, 50),
+  code: genericStringSchema('Bank code', 0, 6),
+  accountNumber: genericStringSchema('Account number', 0, 100),
+  accountName: genericStringSchema('Account name', 0, 100)
 });
 
 export const profileUpdateSchema = z.object({
   firstName: genericStringSchema('First Name', 2, 50, true, true),
   lastName: genericStringSchema('Last Name', 2, 50, true, true),
-  middleName: genericStringSchema('Middle Name', 2, 50, true, true).optional(),
+  middleName: genericStringSchema('Middle Name', 0, 50, true, true).optional(),
   phoneNumber: z.string().refine((value) => {
     return isValidPhoneNumber(value);
   }, 'Invalid phone number'),
-  image: genericStringSchema('Image', 2, 50, true, true).optional(),
+  image: genericStringSchema('Image', 0, 200, true, true).optional(),
   isNewUser: booleanSchema('isNewUser').optional(),
-  bankDetails: bankDetailsSchema.optional()
+  bankDetail: bankDetailSchema.optional()
 });
 export type ProfileUpdateRequestDto = z.infer<typeof profileUpdateSchema>;

@@ -1,4 +1,4 @@
-import { boolean, text, timestamp, uuid } from 'drizzle-orm/pg-core';
+import { boolean, json, text, timestamp } from 'drizzle-orm/pg-core';
 import { tableCreator, metaDataSchema } from '@/server/db/schemas';
 import { userRoleSchema } from './enums/user-roles';
 
@@ -13,6 +13,14 @@ export const userSchema = tableCreator('user', {
   phoneNumber: text('phone_number'),
   role: userRoleSchema('role').notNull().default('USER'),
   profileCompleted: boolean('profile_completed').notNull().default(false),
+
+  // Bank detail.
+  bankDetail: json('bank_detail').$type<{
+    bank: string;
+    code: string;
+    accountNumber: string;
+    accountName: string;
+  }>(),
 
   // For auth, but not used in the app.
   emailVerified: timestamp('emailVerified', {

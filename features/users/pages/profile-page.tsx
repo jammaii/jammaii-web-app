@@ -33,7 +33,13 @@ import {
   SelectValue,
   SelectItem
 } from '@/components/ui/select';
-import { Nuban } from 'ng-bank-account-validator';
+import {
+  AccountValidationResponse,
+  Bank,
+  Nuban
+} from 'ng-bank-account-validator';
+import { useEffect, useMemo, useState } from 'react';
+import { LoadingSpinner } from '@/components/general/loading-spinner';
 
 interface ProfilePageProps {
   proxy?: boolean;
@@ -42,7 +48,7 @@ interface ProfilePageProps {
 
 export function ProfilePage({ proxy, user }: ProfilePageProps) {
   const { toastSuccess, toastError } = useToast();
-  // const [bankCode, setBankCode];
+  const [userDetails, setUserDetails] = useState<AccountValidationResponse>();
 
   const form = useForm<ProfileUpdateRequestDto>({
     resolver: zodResolver(profileUpdateSchema),
@@ -51,7 +57,13 @@ export function ProfilePage({ proxy, user }: ProfilePageProps) {
       lastName: user.lastName ?? '',
       middleName: user.middleName ?? '',
       phoneNumber: user.phoneNumber ?? '',
-      image: user.image ?? ''
+      image: user.image ?? '',
+      bankDetail: {
+        bank: user?.bankDetail?.bank ?? '',
+        code: user?.bankDetail?.code ?? '',
+        accountNumber: user?.bankDetail?.accountNumber ?? '',
+        accountName: user?.bankDetail?.accountName ?? ''
+      }
     }
   });
 
@@ -66,6 +78,48 @@ export function ProfilePage({ proxy, user }: ProfilePageProps) {
 
   const onSubmit = async (data: ProfileUpdateRequestDto) => {
     await updateProfile.mutateAsync(data);
+  };
+
+  const accountNumber = form.watch('bankDetail.accountNumber');
+  const bankCode = form.watch('bankDetail.code');
+
+  const verifyAccount = api.user.verifyAccount.useMutation({
+    onSuccess: (data) => {
+      form.setValue('bankDetail.accountName', data.data?.account_name ?? '');
+      setUserDetails(data);
+    },
+    onError: (error) => {
+      toastError({ message: error.message });
+    }
+  });
+
+  useEffect(() => {
+    if (accountNumber?.length === 10 && bankCode) {
+      verifyAccount.mutate({
+        accountNumber,
+        bankCode
+      });
+    }
+  }, [accountNumber, bankCode]);
+
+  const processedBanks = useMemo(() => {
+    try {
+      if (accountNumber?.length === 10) {
+        return Nuban.getPossibleNubanBanks(accountNumber, Nuban.weightedBanks);
+      }
+      return Nuban.weightedBanks;
+    } catch (error) {
+      console.error('Error processing banks:', error);
+      return [] as Bank[];
+    }
+  }, [accountNumber]);
+
+  const resolveAccount = () => {
+    if (userDetails?.status) {
+      return <p className="text-xs">{userDetails.data?.account_name}</p>;
+    }
+
+    return <p>Invalid account details</p>;
   };
 
   return (
@@ -159,7 +213,21 @@ export function ProfilePage({ proxy, user }: ProfilePageProps) {
 
             <FormField
               control={form.control}
-              name="bankDetails.bank"
+              name="bankDetail.accountNumber"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Account number</FormLabel>
+                  <FormControl>
+                    <Input placeholder="Account number" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="bankDetail.code"
               render={({ field }) => (
                 <FormItem className="w-full grow">
                   <FormLabel>Bank</FormLabel>
@@ -170,9 +238,13 @@ export function ProfilePage({ proxy, user }: ProfilePageProps) {
                       </SelectTrigger>
                       <SelectContent>
                         <SelectGroup>
-                          {Nuban.weightedBanks.map((bank, index) => {
+                          {processedBanks.map((bank, index) => {
+                            form.setValue('bankDetail.accountName', bank.name);
                             return (
-                              <SelectItem key={bank.id} value={bank.code}>
+                              <SelectItem
+                                key={bank.id}
+                                value={bank?.oldCode ?? bank.code}
+                              >
                                 {bank.name}
                               </SelectItem>
                             );
@@ -186,19 +258,9 @@ export function ProfilePage({ proxy, user }: ProfilePageProps) {
               )}
             />
 
-            <FormField
-              control={form.control}
-              name="bankDetails.accountNumber"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Account number</FormLabel>
-                  <FormControl>
-                    <Input placeholder="Account number" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+            {verifyAccount.isPending && <LoadingSpinner />}
+
+            {!verifyAccount.isPending && userDetails && resolveAccount()}
 
             <div className="flex justify-end">
               <Button type="submit">Save Changes</Button>

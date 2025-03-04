@@ -14,6 +14,11 @@ export type UserRole = (typeof USER_ROLES)[number];
 
 export type TransactionStatus = (typeof TRANSACTION_STATUSES)[number];
 
+export const verifyAccountSchema = z.object({
+  accountNumber: z.string().length(10),
+  bankCode: z.string()
+});
+
 export interface UserResponse {
   id: string;
   email: string;
@@ -24,6 +29,12 @@ export interface UserResponse {
   role: UserRole;
   profileCompleted: boolean;
   image: string | null;
+  bankDetail?: {
+    bank: string;
+    code: string;
+    accountNumber: string;
+    accountName: string;
+  };
   metaCreatedAt: Date;
 }
 
