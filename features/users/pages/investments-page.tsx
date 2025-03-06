@@ -29,9 +29,9 @@ export function UserInvestmentsPage() {
       {/* User's Current Investments */}
       <Card>
         <CardHeader>
-          <CardTitle>My Investments</CardTitle>
+          <CardTitle>My Assets</CardTitle>
           <CardDescription>
-            Track your current real estate investments
+            Track your current property development assets
           </CardDescription>
         </CardHeader>
         <CardContent>

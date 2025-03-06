@@ -63,7 +63,7 @@ function DesktopNav() {
 
         <NavItem href="/user/investments" label="Investments">
           <DollarSignIcon className="h-5 w-5" />
-          Investments
+          Assets
         </NavItem>
       </nav>
       <nav className="mt-auto flex flex-col items-center gap-4 px-2 sm:py-5">
@@ -113,7 +113,7 @@ function MobileNav() {
 
           <MobileNavItem href="/user/investments" label="Users">
             <Package className="h-5 w-5" />
-            Investments
+            Projects & Assets
           </MobileNavItem>
           {/* <Link
             href="#"

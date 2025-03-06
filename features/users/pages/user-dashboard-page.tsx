@@ -42,7 +42,7 @@ export function UserDashboardPage() {
               Hello, {user.firstName}!
             </h2>
             <p className="text-muted-foreground">
-              Here's an overview of your investment portfolio
+              Here's an overview of your portfolio
             </p>
           </div>
 
@@ -51,7 +51,7 @@ export function UserDashboardPage() {
             <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">
-                  Total Invested
+                  Total Assets
                 </CardTitle>
                 <CircleDollarSignIcon className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
@@ -77,7 +77,7 @@ export function UserDashboardPage() {
                   {data.totalActiveProjects}
                 </div>
                 <p className="text-xs text-muted-foreground">
-                  Currently active investments
+                  Currently active assets
                 </p>
               </CardContent>
             </Card>
@@ -91,14 +91,16 @@ export function UserDashboardPage() {
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold">{data.totalSlots}</div>
-                <p className="text-xs text-muted-foreground">Slots purchased</p>
+                <p className="text-xs text-muted-foreground">
+                  Assets purchased
+                </p>
               </CardContent>
             </Card>
 
             <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">
-                  Latest Investment
+                  Latest Slot Purchased
                 </CardTitle>
                 <CalendarIcon className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
@@ -118,9 +120,9 @@ export function UserDashboardPage() {
             <CardHeader>
               <div className="flex items-center justify-between">
                 <div>
-                  <CardTitle>Your Investments</CardTitle>
+                  <CardTitle>Your Assets</CardTitle>
                   <CardDescription>
-                    Overview of your real estate investments
+                    Overview of your real estate crowdfunding portfolio
                   </CardDescription>
                 </div>
                 <Link href="/user/investments">

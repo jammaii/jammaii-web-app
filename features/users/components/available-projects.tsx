@@ -31,13 +31,13 @@ export function AvailableProjects() {
         <CardHeader>
           <CardTitle>Available Projects</CardTitle>
           <CardDescription>
-            Explore new investment opportunities
+            Explore new crowdfunding opportunities
           </CardDescription>
         </CardHeader>
         <CardContent>
           {data.projects?.length === 0 ? (
             <div className="py-8 text-center text-muted-foreground">
-              No projects available for investment at the moment.
+              No projects available for crowdfunding at the moment.
             </div>
           ) : (
             <div className="space-y-4">

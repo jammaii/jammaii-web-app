@@ -1,3 +1,5 @@
+'use client';
+
 import { PaystackButton } from 'react-paystack';
 import {
   addTransactionFeeToAmount,
@@ -10,6 +12,8 @@ import { useToast } from '@/components/ui/use-toast';
 import { api } from '@/lib/api';
 import { GENERIC_ERROR_MESSAGE } from '@/constants/strings';
 import { useRouter } from 'next/navigation';
+import { useState } from 'react';
+import { LoadingScreen } from '@/components/general/loading-screen';
 
 interface PaymentButtonProps {
   userId: string;
@@ -33,6 +37,7 @@ export const PaymentButton = ({
   totalAmount,
   slots
 }: PaymentButtonProps) => {
+  const [isLoading, setIsLoading] = useState(false);
   const config: PaymentConfig = {
     reference: createTransactionReference(userId, projectId),
     email,
@@ -56,15 +61,19 @@ export const PaymentButton = ({
     }
   });
 
-  const handlePaystackSuccessAction = async (reference: unknown) => {
+  const handlePaystackSuccessAction = async (reference: {
+    reference: string;
+  }) => {
+    setIsLoading(true);
     const data = {
-      transactionReference: JSON.stringify(reference),
+      transactionReference: reference.reference,
       projectId,
       slots,
       totalAmount
     };
 
     await createProject.mutateAsync(data);
+    setIsLoading(false);
   };
 
   const handlePaystackCloseAction = () => {
@@ -75,9 +84,14 @@ export const PaymentButton = ({
   const componentProps = {
     ...config,
     text: 'Proceed to Payment',
-    onSuccess: (reference: string) => handlePaystackSuccessAction(reference),
+    onSuccess: (reference: { reference: string }) =>
+      handlePaystackSuccessAction(reference),
     onClose: handlePaystackCloseAction
   };
+
+  if (isLoading) {
+    return <LoadingScreen fullScreen />;
+  }
 
   return (
     <Button isLoading={createProject.isPending}>

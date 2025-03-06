@@ -263,7 +263,9 @@ export function ProfilePage({ proxy, user }: ProfilePageProps) {
             {!verifyAccount.isPending && userDetails && resolveAccount()}
 
             <div className="flex justify-end">
-              <Button type="submit">Save Changes</Button>
+              <Button type="submit" isLoading={updateProfile.isPending}>
+                Save Changes
+              </Button>
             </div>
           </form>
         </Form>

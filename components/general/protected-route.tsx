@@ -37,7 +37,7 @@ export function withProtectedRoute<T extends object>(
     // Check if user has required role
     const userRole = user?.role;
     if (userRole && !allowedRoles.includes(userRole)) {
-      redirect('/');
+      redirect('/signin');
     }
 
     return <WrappedComponent {...props} />;

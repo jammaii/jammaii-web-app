@@ -35,6 +35,7 @@ import { AdminProjectHeader } from '@/features/projects/components/admin-project
 import { ProjectUsers } from '@/features/projects/components/users/project-users';
 import { ProjectTimeline } from '@/features/projects/components/timeline';
 import { ImageFullDisplayDialog } from '@/features/general/components/image-full-display-dialog';
+import { ProjectShareDialog } from '@/features/projects/components/share-dialog';
 
 interface SingleProjectPageProps {
   id: string;
@@ -165,9 +166,7 @@ export function SingleProjectPage({ id, isAdmin }: SingleProjectPageProps) {
                     <Badge variant="outline" className="capitalize">
                       {data.status}
                     </Badge>
-                    <Button variant="ghost" size="icon">
-                      <Share2Icon className="h-4 w-4" />
-                    </Button>
+                    <ProjectShareDialog />
                   </div>
                   <h1 className="mt-2 text-3xl font-bold">{data.name}</h1>
                   <p className="text-lg text-muted-foreground">{data.type}</p>

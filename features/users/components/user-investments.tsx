@@ -13,7 +13,7 @@ export const UserInvestments = ({ investments }: UserInvestmentsProps) => {
     <>
       {investments.length === 0 ? (
         <div className="py-8 text-center text-muted-foreground">
-          You haven't made any investments yet.
+          You haven't bought any asset yet
         </div>
       ) : (
         <div className="space-y-4">
