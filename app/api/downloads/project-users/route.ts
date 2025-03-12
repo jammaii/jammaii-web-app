@@ -28,6 +28,7 @@ export async function GET(req: NextRequest) {
       }
     });
   } catch (error) {
+    console.error('Download failed', error);
     return new Response(JSON.stringify({ error: 'Download failed' }), {
       status: 500,
       headers: { 'Content-Type': 'application/json' }
