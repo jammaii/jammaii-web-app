@@ -52,7 +52,10 @@ export async function UserPopup({ accountType }: UserPopupProps) {
             <form
               action={async () => {
                 'use server';
-                await signOut();
+                await signOut({
+                  redirect: true,
+                  redirectTo: '/'
+                });
               }}
             >
               <button type="submit">Sign Out</button>

@@ -5,7 +5,8 @@ import type {
   CreateProjectRequestDto,
   CreateUserInvestmentDto,
   ProjectResponse,
-  ProjectsResponse
+  ProjectsResponse,
+  UserSingleProjectResponse
 } from '@/features/projects/types/app';
 import { generateUUID } from '@/lib/ids';
 import { and, desc, eq, inArray, like, or, sql } from 'drizzle-orm';
@@ -18,6 +19,9 @@ import { AdminDashboardResponse } from '@/features/admin/types/app';
 import { MailService } from './mail.service';
 import { getHostName } from '@/server/api/utils/get-host-name';
 import { InvestmentConfirmationTemplate } from '@/features/email/templates/investment-confirmation-template';
+import writeXlsxFile from 'write-excel-file/node';
+import internal from 'stream';
+import { userProjectSchema } from '@/features/projects/constants';
 
 export class ProjectService {
   static async createProject(userId: string, data: CreateProjectRequestDto) {
@@ -456,5 +460,67 @@ export class ProjectService {
         cause: error
       });
     }
+  }
+
+  static async getProjectUsers(
+    projectId: string,
+    isAdmin?: boolean
+  ): Promise<internal.Readable> {
+    // Get investors for project details
+    const investors = await db
+      .select({
+        user: {
+          id: user.id,
+          firstName: user.firstName,
+          lastName: user.lastName,
+          middleName: user.middleName,
+          email: user.email,
+          phoneNumber: user.phoneNumber,
+          role: user.role,
+          profileCompleted: user.profileCompleted,
+          image: user.image,
+          bankDetail: user.bankDetail,
+          metaCreatedAt: user.metaCreatedAt
+        },
+        totalSlots: sql<number>`SUM(${userInvestment.slots})`.as('total_slots'),
+        totalAmount:
+          sql<number>`SUM(${userInvestment.slots} * ${project.slotPrice})`.as(
+            'total_amount'
+          )
+      })
+      .from(userInvestment)
+      .innerJoin(user, eq(userInvestment.userId, user.id))
+      .innerJoin(project, eq(project.id, userInvestment.projectId))
+      .where(eq(userInvestment.projectId, projectId))
+      .groupBy(user.id)
+      .orderBy(desc(user.metaCreatedAt))
+      .limit(10);
+
+    const [projectRecord] = await db
+      .select({ id: project.id, roi: project.roi })
+      .from(project)
+      .where(eq(project.id, projectId));
+
+    const roi = projectRecord.roi;
+    const processedInvestors: UserSingleProjectResponse[] = investors.map(
+      (investor) => {
+        const totalSlots = Number(investor.totalSlots);
+        const totalAmount = Number(investor.totalAmount);
+
+        const payoutAmount = (roi / 100) * totalAmount + totalAmount;
+
+        return {
+          ...investor,
+          payoutAmount,
+          totalSlots,
+          totalAmount,
+          roi
+        };
+      }
+    );
+
+    return await writeXlsxFile(processedInvestors, {
+      schema: userProjectSchema
+    });
   }
 }

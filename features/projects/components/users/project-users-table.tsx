@@ -16,15 +16,17 @@ import {
   CardTitle
 } from '@/components/ui/card';
 import { ProjectUserColumn } from './project-user-column';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Upload } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { UserResponse } from '@/features/users/types/app';
 import { UserSingleProjectResponse } from '@/features/projects/types/app';
+import { api } from '@/lib/api';
+import { downloadExcelFile } from '@/features/projects/utils';
 
 interface ProjectUsersTableProps {
   users: UserSingleProjectResponse[];
   page: number;
   totalPages: number;
+  projectId: string;
   onPageChangeAction: (page: number) => void;
 }
 
@@ -32,18 +34,35 @@ export function ProjectUsersTable({
   users,
   page,
   totalPages,
+  projectId,
   onPageChangeAction
 }: ProjectUsersTableProps) {
   const itemsPerPage = 10;
   const start = (page - 1) * itemsPerPage + 1;
   const end = Math.min(page * itemsPerPage, users.length);
 
+  const downloadMutation = api.project.getProjectUsers.useMutation();
+
+  const handleDownload = async () => {
+    await downloadExcelFile(projectId);
+  };
+
   return (
     <Card>
       <CardHeader>
         <CardTitle>Users</CardTitle>
-        <CardDescription>
-          Users that have invested in this project
+        <CardDescription className="flex justify-between">
+          <div>Users that have invested in this project</div>
+          <Button
+            size="sm"
+            variant="outline"
+            className="h-8 gap-1"
+            leftIcon={<Upload className="h-3.5 w-3.5" />}
+            isLoading={downloadMutation.isPending}
+            onClick={handleDownload}
+          >
+            <span className="sr-only sm:not-sr-only">Export</span>
+          </Button>
         </CardDescription>
       </CardHeader>
       <CardContent>

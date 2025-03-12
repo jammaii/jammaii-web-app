@@ -35,7 +35,7 @@ import {
 } from '@/components/ui/select';
 import {
   AccountValidationResponse,
-  Bank,
+  BankProperty,
   Nuban
 } from 'ng-bank-account-validator';
 import { useEffect, useMemo, useState } from 'react';
@@ -85,7 +85,15 @@ export function ProfilePage({ proxy, user }: ProfilePageProps) {
 
   const verifyAccount = api.user.verifyAccount.useMutation({
     onSuccess: (data) => {
+      const bankName = Nuban.getBank(bankCode, BankProperty.OLD_CODE)?.name;
+
+      if (!bankName) {
+        toastError({ message: 'Validation failed' });
+        return;
+      }
+
       form.setValue('bankDetail.accountName', data.data?.account_name ?? '');
+      form.setValue('bankDetail.bank', bankName);
       setUserDetails(data);
     },
     onError: (error) => {
@@ -102,17 +110,17 @@ export function ProfilePage({ proxy, user }: ProfilePageProps) {
     }
   }, [accountNumber, bankCode]);
 
-  const processedBanks = useMemo(() => {
-    try {
-      if (accountNumber?.length === 10) {
-        return Nuban.getPossibleNubanBanks(accountNumber, Nuban.weightedBanks);
-      }
-      return Nuban.weightedBanks;
-    } catch (error) {
-      console.error('Error processing banks:', error);
-      return [] as Bank[];
-    }
-  }, [accountNumber]);
+  // const processedBanks = useMemo(() => {
+  //   try {
+  //     if (accountNumber?.length === 10) {
+  //       return Nuban.getPossibleNubanBanks(accountNumber, Nuban.weightedBanks);
+  //     }
+  //     return Nuban.weightedBanks;
+  //   } catch (error) {
+  //     console.error('Error processing banks:', error);
+  //     return [] as Bank[];
+  //   }
+  // }, [accountNumber]);
 
   const resolveAccount = () => {
     if (userDetails?.status) {
@@ -238,8 +246,7 @@ export function ProfilePage({ proxy, user }: ProfilePageProps) {
                       </SelectTrigger>
                       <SelectContent>
                         <SelectGroup>
-                          {processedBanks.map((bank, index) => {
-                            form.setValue('bankDetail.accountName', bank.name);
+                          {Nuban.weightedBanks.map((bank, index) => {
                             return (
                               <SelectItem
                                 key={bank.id}

@@ -149,6 +149,8 @@ export interface UserSingleProjectResponse {
   user: UserResponse;
   totalSlots: number;
   totalAmount: number;
+  roi?: number;
+  payoutAmount?: number;
 }
 export interface AdminProjectDetails {
   totalAmountInvested: number;

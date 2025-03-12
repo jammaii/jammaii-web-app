@@ -7,9 +7,10 @@ import { useState } from 'react';
 
 interface ProjectUsersProps {
   details: Pick<AdminProjectDetails, 'investors'>;
+  projectId: string;
 }
 
-export const ProjectUsers = ({ details }: ProjectUsersProps) => {
+export const ProjectUsers = ({ details, projectId }: ProjectUsersProps) => {
   const [search, setSearch] = useState('');
   const [page, setPage] = useState(1);
 
@@ -17,8 +18,9 @@ export const ProjectUsers = ({ details }: ProjectUsersProps) => {
     <ProjectUsersTable
       users={details.investors.users}
       totalPages={Math.ceil((details?.investors.meta.total || 0) / 10)}
-      onPageChangeAction={setPage}
+      projectId={projectId}
       page={page}
+      onPageChangeAction={setPage}
     />
   );
 };
