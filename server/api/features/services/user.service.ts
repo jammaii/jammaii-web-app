@@ -126,6 +126,7 @@ export class UserService {
           id: item.projectDetails.id,
           name: item.projectDetails.name,
           description: item.projectDetails.description,
+          roi: item.projectDetails.roi,
           status: item.projectDetails.status,
           location: item.projectDetails.location,
           startDate: item.projectDetails.startDate,
@@ -236,6 +237,7 @@ export class UserService {
         project: {
           id: item.project.id,
           name: item.project.name,
+          roi: item.project.roi,
           description: item.project.description,
           status: item.project.status,
           location: item.project.location,
