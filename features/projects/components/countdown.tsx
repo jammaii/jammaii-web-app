@@ -2,6 +2,8 @@
 
 import { formatDate } from '@/lib/dates';
 import { Separator } from '@radix-ui/react-dropdown-menu';
+
+// @ts-ignore - package probably don't support ts.
 import FlipCountdown from '@rumess/react-flip-countdown';
 
 export const Countdown = ({ startDate }: { startDate: Date }) => {
