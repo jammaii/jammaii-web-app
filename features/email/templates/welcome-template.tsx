@@ -18,14 +18,15 @@ export function WelcomeEmailTemplate({
 }: WelcomeEmailTemplateProps) {
   return (
     <BaseTemplate previewText="Welcome to JAMMAII">
-      <EmailHeading>Welcome to Jammaii, {name}!</EmailHeading>
+      <EmailHeading>Hello {name}, Welcome to Jammaii!</EmailHeading>
       <EmailText>
-        We're excited to have you on board. Get started by exploring our
-        platform.
+        Your favorite Real Estate Crowdfunding Platform. We're excited to have
+        you on board.
       </EmailText>
-      <EmailButton href={dashboardUrl}>View Dashboard</EmailButton>
+      <EmailText>Get started by exploring our platform</EmailText>
+      <EmailButton href={dashboardUrl}>Your Dashboard</EmailButton>
       <EmailFootnote>
-        Need help? Reply to this email and we'll be happy to assist.
+        Need help? Contact support@jammaii.com and we'll be happy to assist
       </EmailFootnote>
     </BaseTemplate>
   );

@@ -6,7 +6,8 @@ import {
   Preview,
   Section,
   Text,
-  Hr
+  Hr,
+  Img
 } from '@react-email/components';
 import * as React from 'react';
 import { Tailwind } from '@react-email/tailwind';
@@ -25,16 +26,20 @@ export function BaseTemplate({ previewText, children }: BaseTemplateProps) {
         <Body className="bg-gray-50 py-8">
           <Container className="mx-auto max-w-2xl px-5">
             <Section className="mb-8 text-center">
-              <Text className="m-0 text-2xl font-semibold text-gray-900">
-                JAMMAII
-              </Text>
+              <Img
+                alt="Jammaii Logo"
+                className="mx-auto"
+                height={100}
+                src="https://jammaii-bucket.s3.eu-north-1.amazonaws.com/next-s3-uploads/a9e42571-bf15-4552-9760-f813f2bf6370/jammaii-logo.png"
+              />
             </Section>
-            <Section className="rounded-lg bg-white p-8 shadow-sm">
+            <Section className="rounded-lg bg-green-500 p-8 shadow-sm">
               {children}
             </Section>
             <Hr className="my-6 border-gray-200" />
-            <Text className="text-center text-xs text-gray-500">
-              JAMMAII - Premium Real Estate Investment Platform
+            <Text className="text-center text-xs text-gray-900">
+              Jammaii - A Private Real Estate Crowdfunding Platform of Jammaii
+              Premium Properties Limited
             </Text>
           </Container>
         </Body>

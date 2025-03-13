@@ -3,20 +3,19 @@ import {
   Home,
   MessageCircleIcon,
   Package,
-  Package2,
   PanelLeft,
   Settings,
   Users2
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
+import Image from 'next/image';
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger
 } from '@/components/ui/tooltip';
 import { Analytics } from '@vercel/analytics/react';
-import { VercelLogo } from '@/components/icons';
 import Providers from './providers';
 import { NavItem } from '@/components/general/nav-item';
 import { HeaderIcon } from '@/components/general/header-icon';
@@ -53,7 +52,13 @@ function DesktopNav() {
     <aside className="fixed inset-y-0 left-0 z-10 hidden w-24 flex-col border-r bg-background sm:flex">
       <nav className="flex flex-col items-center gap-4 px-2 sm:py-5">
         <Link href="/admin">
-          <VercelLogo className="h-3 w-3 transition-all group-hover:scale-110" />
+          <Image
+            src={'/jammaii-logo-0.jpg'}
+            height={50}
+            width={50}
+            alt="Avatar"
+            className="mx-auto rounded-lg"
+          />
           <span className="sr-only">JAMMAII</span>
         </Link>
 
@@ -110,7 +115,13 @@ function MobileNav() {
             href="/admin"
             className="group flex h-10 w-10 shrink-0 items-center justify-center gap-2 rounded-full bg-primary text-lg font-semibold text-primary-foreground md:text-base"
           >
-            <Package2 className="h-5 w-5 transition-all group-hover:scale-110" />
+            <Image
+              src={'/jammaii-logo-0.jpg'}
+              height={50}
+              width={50}
+              alt="Avatar"
+              className="mx-auto rounded-lg"
+            />
             <span className="sr-only">JAMMAII</span>
           </Link>
 

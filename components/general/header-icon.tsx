@@ -1,9 +1,16 @@
 import Link from 'next/link';
+import Image from 'next/image';
 
 export const HeaderIcon = ({ url }: { url: string }) => {
   return (
     <Link href={url}>
-      <h1 className="text-xl font-extrabold md:text-2xl">JAMMAII</h1>
+      <Image
+        src={'/jammaii-logo.png'}
+        height={100}
+        width={150}
+        alt="Avatar"
+        className="mx-auto"
+      />
     </Link>
   );
 };

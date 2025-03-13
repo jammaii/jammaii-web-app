@@ -27,12 +27,12 @@ export function InvestmentConfirmationTemplate({
 }: InvestmentConfirmationTemplateProps) {
   return (
     <BaseTemplate previewText={`Investment Confirmation - ${projectName}`}>
-      <EmailHeading>Investment Successful!</EmailHeading>
+      <EmailHeading>Crowdfunding Successful!</EmailHeading>
 
-      <EmailText>Dear {name},</EmailText>
+      <EmailText>Congratulations {name},</EmailText>
 
       <EmailText>
-        Your investment in {projectName} has been successfully processed. Here
+        Your slot acquisition in {projectName} is successfully processed. Here
         are your transaction details:
       </EmailText>
 
@@ -98,18 +98,18 @@ export function InvestmentConfirmationTemplate({
         </table>
       </div>
 
-      <EmailButton href={investmentstUrl}>View Project Details</EmailButton>
+      <EmailButton href={investmentstUrl}>Project Information</EmailButton>
 
       <EmailDivider />
 
       <EmailText>
-        Thank you for choosing to invest with Jammaii. You can track your
-        investment's progress through your dashboard.
+        Thank you for crowdfunding with Jammaii. You can track your asset
+        progress on your dashboard.
       </EmailText>
 
       <EmailFootnote>
-        For any questions about your investment, please contact our support team
-        with your transaction reference.
+        For any questions about your crowdfunding asset, kindly contact
+        support@jammaii.com with your transaction reference.
       </EmailFootnote>
     </BaseTemplate>
   );
