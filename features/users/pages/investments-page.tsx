@@ -31,7 +31,7 @@ export function UserInvestmentsPage() {
         <CardHeader>
           <CardTitle>My Assets</CardTitle>
           <CardDescription>
-            Track your current property development assets
+            Track your current crowdfunding assets
           </CardDescription>
         </CardHeader>
         <CardContent>

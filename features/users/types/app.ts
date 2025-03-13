@@ -49,6 +49,7 @@ export type UserInvestmentResponse = {
     id: string;
     name: string;
     description: string;
+    roi: number;
     status: ProjectStatus;
     location: string;
     startDate: Date;

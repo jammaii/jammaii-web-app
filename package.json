@@ -35,6 +35,7 @@
     "@radix-ui/react-toast": "^1.2.6",
     "@radix-ui/react-tooltip": "^1.1.6",
     "@react-email/components": "^0.0.33",
+    "@rumess/react-flip-countdown": "^1.2.6",
     "@tanstack/react-query": "^5.66.7",
     "@trpc/client": "11.0.0-rc.791",
     "@trpc/next": "11.0.0-rc.791",

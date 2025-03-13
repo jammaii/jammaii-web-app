@@ -14,11 +14,14 @@ import {
   ArrowUpRight,
   CalendarDays,
   CircleDollarSign,
-  Clock
+  Clock,
+  HandCoinsIcon
 } from 'lucide-react';
 import { UserInvestmentResponse } from '@/features/users/types/app';
 import Link from 'next/link';
 import { ProjectTimeline } from '@/features/projects/components/timeline';
+import { SLOT_ADMIN_FEE } from '../constants';
+import { Separator } from '@/components/ui/separator';
 
 interface InvestmentDetailsProps {
   investment: UserInvestmentResponse;
@@ -30,6 +33,9 @@ export function InvestmentDetailsDialog({
   children
 }: InvestmentDetailsProps) {
   const totalInvestment = investment.slots * investment.slotPrice;
+  const expectedReturns =
+    (totalInvestment * investment.project.roi) / 100 + totalInvestment;
+
   const today = new Date();
   const totalDays = Math.ceil(
     (investment.project.endDate.getTime() -
@@ -65,7 +71,7 @@ export function InvestmentDetailsDialog({
             <div className="text-lg font-semibold">
               ₦{formatCurrency(totalInvestment)}
               <span className="ml-2 text-sm text-muted-foreground">
-                Total invested
+                Total Funding
               </span>
             </div>
           </div>
@@ -105,7 +111,20 @@ export function InvestmentDetailsDialog({
               <span className="text-sm font-medium">Expected Returns</span>
             </div>
             <div className="mt-2 text-2xl font-bold">
-              ₦{formatCurrency(totalInvestment * 1.25)}
+              ₦{formatCurrency(expectedReturns)}
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="text-sm font-medium">
+                Slot Admin Fee: ₦{formatCurrency(SLOT_ADMIN_FEE)}
+              </span>
+            </div>
+            <Separator className="my-2" />
+            <div className="flex items-center gap-2">
+              <HandCoinsIcon className="h-4 w-4 text-primary" />
+              <span className="text-sm font-medium">Payable Return</span>
+            </div>
+            <div className="mt-2 text-2xl font-bold">
+              ₦{formatCurrency(expectedReturns - SLOT_ADMIN_FEE)}
             </div>
             <p className="text-xs text-muted-foreground">
               Estimated return at maturity

@@ -37,7 +37,7 @@ export function DashboardPage() {
           <div>
             <h2 className="text-3xl font-bold tracking-tight">Dashboard</h2>
             <p className="text-muted-foreground">
-              Your real estate investment platform overview.
+              Platform Overview; Engagements & Activities.
             </p>
           </div>
 
@@ -47,7 +47,7 @@ export function DashboardPage() {
             <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">
-                  Total Investment
+                  Total Funding
                 </CardTitle>
                 <CircleDollarSignIcon className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
@@ -92,7 +92,7 @@ export function DashboardPage() {
               <CardContent>
                 <div className="text-2xl font-bold">{data.users.total}</div>
                 <p className="text-xs text-muted-foreground">
-                  {data.users.active} active users
+                  {data.users.active} active affiliate developers
                 </p>
               </CardContent>
             </Card>
@@ -139,7 +139,7 @@ export function DashboardPage() {
             <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0">
                 <CardTitle className="text-sm font-medium">
-                  Active Users
+                  Affiliate Developers
                 </CardTitle>
                 <Users2Icon className="h-4 w-4 text-violet-500" />
               </CardHeader>

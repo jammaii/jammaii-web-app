@@ -125,7 +125,7 @@ export function SingleUserPage({ id }: SingleUserPageProps) {
             <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">
-                  Total Investment
+                  Total Funding
                 </CardTitle>
                 <BadgeCheckIcon className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
@@ -157,7 +157,8 @@ export function SingleUserPage({ id }: SingleUserPageProps) {
                 </p>
               </CardContent>
             </Card>
-            <Card>
+
+            {/* <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">
                   Latest Investment
@@ -172,15 +173,15 @@ export function SingleUserPage({ id }: SingleUserPageProps) {
                   Last transaction date
                 </p>
               </CardContent>
-            </Card>
+            </Card> */}
           </div>
 
           {/* Projects Table */}
           <Card>
             <CardHeader>
-              <CardTitle>Investment History</CardTitle>
+              <CardTitle>ASSET OWNERSHIP HISTORY</CardTitle>
               <CardDescription>
-                Overview of all projects invested in by {fullName}
+                Projects crowdfunded by {fullName}
               </CardDescription>
             </CardHeader>
             <CardContent>

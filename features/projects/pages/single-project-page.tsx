@@ -10,15 +10,12 @@ import {
   CardTitle
 } from '@/components/ui/card';
 import {
-  CalendarDaysIcon,
   CalendarIcon,
   TrendingUpIcon,
   UsersIcon,
   FileIcon,
-  CircleDollarSignIcon,
   BathIcon,
   BedIcon,
-  Share2Icon,
   ChevronLeftIcon,
   ChevronRightIcon
 } from 'lucide-react';
@@ -26,7 +23,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 import { YouTubePlayer } from '@/features/file-upload/components/youtube-player';
-import { addToDate, formatDate } from '@/lib/dates';
+import { addToDate, compareDates } from '@/lib/dates';
 import { PurchaseSlotsDialog } from '@/features/users/components/purchase-slots-dialog';
 import { api } from '@/lib/api';
 import { LoadingScreen } from '@/components/general/loading-screen';
@@ -36,6 +33,7 @@ import { ProjectUsers } from '@/features/projects/components/users/project-users
 import { ProjectTimeline } from '@/features/projects/components/timeline';
 import { ImageFullDisplayDialog } from '@/features/general/components/image-full-display-dialog';
 import { ProjectShareDialog } from '@/features/projects/components/share-dialog';
+import { Countdown } from '../components/countdown';
 
 interface SingleProjectPageProps {
   id: string;
@@ -75,6 +73,8 @@ export function SingleProjectPage({ id, isAdmin }: SingleProjectPageProps) {
   };
 
   const closeImageView = () => setOpen(false);
+
+  const availableSlots = data.slots - data.totalSlotsSold;
 
   return (
     <>
@@ -193,6 +193,10 @@ export function SingleProjectPage({ id, isAdmin }: SingleProjectPageProps) {
                         <span>{data.slots} slots</span>
                       </div>
                       <div className="flex items-center gap-2">
+                        <UsersIcon className="h-4 w-4 text-muted-foreground" />
+                        <span>{availableSlots} slots available</span>
+                      </div>
+                      <div className="flex items-center gap-2">
                         <TrendingUpIcon className="h-4 w-4 text-muted-foreground" />
                         <span>{data.roi}% ROI</span>
                       </div>
@@ -200,27 +204,28 @@ export function SingleProjectPage({ id, isAdmin }: SingleProjectPageProps) {
                         <CalendarIcon className="h-4 w-4 text-muted-foreground" />
                         <span>{data.duration} months</span>
                       </div>
-                      <div className="flex items-center gap-2">
-                        <CalendarDaysIcon className="h-4 w-4 text-muted-foreground" />
-                        <span>{formatDate(data.startDate)}</span>
-                      </div>
                     </div>
 
-                    {/* Project Timeline */}
-                    <ProjectTimeline
-                      startDate={data.startDate}
-                      endDate={addToDate(
-                        data.startDate,
-                        data.duration,
-                        'months'
-                      )}
-                    />
+                    {compareDates(data.startDate, new Date(), 'gt') ? (
+                      <Countdown startDate={data.startDate} />
+                    ) : (
+                      <ProjectTimeline
+                        startDate={data.startDate}
+                        endDate={addToDate(
+                          data.startDate,
+                          data.duration,
+                          'months'
+                        )}
+                      />
+                    )}
 
-                    <PurchaseSlotsDialog
-                      projectId={data.id}
-                      slotPrice={data.slotPrice}
-                      availableSlots={data.slots}
-                    />
+                    {!isAdmin && (
+                      <PurchaseSlotsDialog
+                        projectId={data.id}
+                        slotPrice={data.slotPrice}
+                        availableSlots={availableSlots}
+                      />
+                    )}
                   </CardContent>
                 </Card>
               </div>

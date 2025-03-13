@@ -50,9 +50,9 @@ export function ProjectUsersTable({
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Users</CardTitle>
+        <CardTitle>Affiliate Developers</CardTitle>
         <CardDescription className="flex justify-between">
-          <div>Users that have invested in this project</div>
+          <div>Funders of this project</div>
           <Button
             size="sm"
             variant="outline"

@@ -22,7 +22,10 @@ import {
   addWeeks,
   subYears,
   subMonths,
-  subWeeks
+  subWeeks,
+  isAfter,
+  isEqual,
+  isBefore
 } from 'date-fns';
 import * as dateFnsLocales from 'date-fns/locale';
 import { removeHyphen } from './utils';
@@ -136,5 +139,61 @@ const subtractFromDate = (
       return subMilliseconds(baseDate, amount);
     default:
       return subDays(baseDate, amount);
+  }
+};
+
+const getCompareDates = (date1: CustomDate, date2: CustomDate) => {
+  const leftCompareDate = getDate(date1);
+  const rightCompareDate = getDate(date2);
+
+  return {
+    leftCompareDate,
+    rightCompareDate
+  };
+};
+
+/**
+ * Returns comparison operation for date
+ * @param date1 - The first date
+ * @param date2 - The second date
+ * @param operation - The logical operation (optional, defaults to 'eq') :
+ * ```json
+ *          'gte' represents 'greater than or equal to',
+ *          'lte' represents 'less than or equal to',
+ *          'gt' represents 'greater than',
+ *          'lt' represents 'less than',
+ *          'eq' respresents 'equal to'
+ * ```
+ *@returns The boolean result of comparison
+ *@example
+ * ```ts
+ *    // This translates to is date1 greater than date2
+ *    const isGreaterThan = compareDates(date1, date2, "gt");
+ * ```
+ */
+export const compareDates = (
+  date1: CustomDate,
+  date2: CustomDate,
+  operation?: 'gte' | 'lte' | 'lt' | 'gt' | 'eq'
+) => {
+  const { leftCompareDate, rightCompareDate } = getCompareDates(date1, date2);
+
+  switch (operation) {
+    case 'gte':
+      return (
+        isAfter(leftCompareDate, rightCompareDate) ||
+        isEqual(leftCompareDate, rightCompareDate)
+      );
+    case 'lte':
+      return (
+        isBefore(leftCompareDate, rightCompareDate) ||
+        isEqual(leftCompareDate, rightCompareDate)
+      );
+    case 'gt':
+      return isAfter(leftCompareDate, rightCompareDate);
+    case 'lt':
+      return isBefore(leftCompareDate, rightCompareDate);
+    default:
+      return isEqual(leftCompareDate, rightCompareDate);
   }
 };

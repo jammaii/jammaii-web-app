@@ -155,7 +155,7 @@ export class ProjectService {
                 return {
                   ...i,
                   totalSlots: Number(i?.totalSlots) || 0,
-                  totalAmount: Number(i?.totalSlots) || 0
+                  totalAmount: Number(i?.totalAmount) || 0
                 };
               }),
               meta: {
@@ -346,6 +346,7 @@ export class ProjectService {
             id: item.project.id,
             name: item.project.name,
             description: item.project.description,
+            roi: Number(item.project.roi),
             status: item.project.status,
             location: item.project.location,
             startDate: item.project.startDate,

@@ -4,13 +4,7 @@ import { useState } from 'react';
 import { AboutForm } from '@/features/projects/components/create/about-form';
 import { MediaForm } from '@/features/projects/components/create/media-form';
 import { InvestmentForm } from '@/features/projects/components/create/investment-form';
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle
-} from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Preview } from '@/features/projects/components/create/preview';
 import {
   CreateFormDto,

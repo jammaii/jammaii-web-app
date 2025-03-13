@@ -46,7 +46,7 @@ export function ProjectsTable({
       <CardHeader>
         <CardTitle>Projects</CardTitle>
         <CardDescription>
-          Manage your projects and view their sales performance.
+          Create, manage & monitor projects and their sales performance.
         </CardDescription>
       </CardHeader>
       <CardContent>

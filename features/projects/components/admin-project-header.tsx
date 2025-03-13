@@ -27,7 +27,7 @@ export const AdminProjectHeader = ({
         <div className="space-y-8 py-8">
           <div>
             <h2 className="text-3xl font-bold tracking-tight">{name}</h2>
-            <p className="text-muted-foreground">Overview of project.</p>
+            <p className="text-muted-foreground">Project Overview</p>
           </div>
 
           {/* Key Metrics Grid */}
@@ -36,7 +36,7 @@ export const AdminProjectHeader = ({
             <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">
-                  Total Investment
+                  Total Funding
                 </CardTitle>
                 <CircleDollarSignIcon className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
@@ -54,7 +54,7 @@ export const AdminProjectHeader = ({
             <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">
-                  Total Slots Sold
+                  Slots Sold
                 </CardTitle>
                 <HomeIcon className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
@@ -71,7 +71,7 @@ export const AdminProjectHeader = ({
             <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">
-                  Total Users
+                  Affiliate Developers
                 </CardTitle>
                 <Users2Icon className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
