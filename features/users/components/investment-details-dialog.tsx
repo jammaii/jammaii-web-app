@@ -124,7 +124,7 @@ export function InvestmentDetailsDialog({
               <span className="text-sm font-medium">Payable Return</span>
             </div>
             <div className="mt-2 text-2xl font-bold">
-              ₦{formatCurrency(expectedReturns - SLOT_ADMIN_FEE)}
+              ₦{formatCurrency(expectedReturns)}
             </div>
             <p className="text-xs text-muted-foreground">
               Estimated return at maturity

@@ -25,12 +25,12 @@ export function BaseTemplate({ previewText, children }: BaseTemplateProps) {
       <Tailwind>
         <Body className="bg-gray-50 py-8">
           <Container className="mx-auto max-w-2xl px-5">
-            <Section className="mb-8 text-center">
+            <Section className="mb-8">
               <Img
                 alt="Jammaii Logo"
                 className="mx-auto"
                 height={100}
-                src="https://jammaii-bucket.s3.eu-north-1.amazonaws.com/next-s3-uploads/a9e42571-bf15-4552-9760-f813f2bf6370/jammaii-logo.png"
+                src="https://jammaii-bucket.s3.eu-north-1.amazonaws.com/next-s3-uploads/0857bda8-3d79-46c0-bce0-c18407b77da2/jammaii-logo-2.png"
               />
             </Section>
             <Section className="rounded-lg bg-green-500 p-8 shadow-sm">
