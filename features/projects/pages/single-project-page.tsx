@@ -138,24 +138,29 @@ export function SingleProjectPage({ id, isAdmin }: SingleProjectPageProps) {
                 </Button>
 
                 {/* Thumbnail Navigation */}
-                <div className="mt-4 flex gap-2 px-4 pb-4">
-                  {data.images.map((image, index) => (
-                    <button
-                      key={index}
-                      onClick={() => emblaApi?.scrollTo(index)}
-                      className={`relative aspect-square w-20 overflow-hidden rounded-lg border-2 ${
-                        selectedIndex === index
-                          ? 'border-primary'
-                          : 'border-transparent'
-                      }`}
-                    >
-                      <img
-                        src={image.fileUploadUrl}
-                        alt={`Thumbnail ${index + 1}`}
-                        className="h-full w-full object-cover"
-                      />
-                    </button>
-                  ))}
+                <div className="flex flex-col items-center">
+                  <div className="mt-4 flex gap-2 px-4 pb-4 w-72 md:w-full overflow-x-auto">
+                    {data.images.map((image, index) => (
+                      <button
+                        key={index}
+                        onClick={() => {
+                          emblaApi?.scrollTo(index);
+                          setSelectedIndex(index);
+                        }}
+                        className={`relative aspect-square w-20 overflow-hidden rounded-lg border-2 flex-shrink-0 ${
+                          selectedIndex === index
+                            ? 'border-primary'
+                            : 'border-transparent'
+                        }`}
+                      >
+                        <img
+                          src={image.fileUploadUrl}
+                          alt={`Thumbnail ${index + 1}`}
+                          className="h-full w-full object-cover"
+                        />
+                      </button>
+                    ))}
+                  </div>
                 </div>
               </div>
 
