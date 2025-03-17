@@ -26,7 +26,7 @@ export const FaqPage = () => {
 
         <Accordion type="single" collapsible className="w-full p-4">
           <AccordionItem value="item-1">
-            <AccordionTrigger>How do I invest?</AccordionTrigger>
+            <AccordionTrigger>How do I buy an assett?</AccordionTrigger>
             <AccordionContent>
               Yes. It adheres to the WAI-ARIA design pattern.
             </AccordionContent>

@@ -47,7 +47,8 @@ export function ContactSection() {
             Get in Touch
           </h2>
           <p className="mb-8 text-muted-foreground">
-            Have questions about investing? We're here to help you get started.
+            Have questions about our crowdfunding community? Send us a message
+            now.
           </p>
         </div>
 

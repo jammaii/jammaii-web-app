@@ -22,6 +22,7 @@ import { InvestmentConfirmationTemplate } from '@/features/email/templates/inves
 import writeXlsxFile from 'write-excel-file/node';
 import internal from 'stream';
 import { userProjectSchema } from '@/features/projects/constants';
+import { getProjectStatus } from '../../utils/get-project-status';
 
 export class ProjectService {
   static async createProject(userId: string, data: CreateProjectRequestDto) {
@@ -335,6 +336,12 @@ export class ProjectService {
       }
 
       const investments = userWithInvestments.map((item) => {
+        const endDate = addToDate(
+          item.project.startDate,
+          item.project.duration,
+          'months'
+        );
+
         return {
           id: item.userInvestment.id,
           slots: item.userInvestment.slots,
@@ -347,14 +354,10 @@ export class ProjectService {
             name: item.project.name,
             description: item.project.description,
             roi: Number(item.project.roi),
-            status: item.project.status,
+            status: getProjectStatus(item.project.startDate, endDate),
             location: item.project.location,
             startDate: item.project.startDate,
-            endDate: addToDate(
-              item.project.startDate,
-              item.project.duration,
-              'months'
-            )
+            endDate
           }
         };
       });

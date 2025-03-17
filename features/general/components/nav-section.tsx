@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { MenuIcon, XIcon } from 'lucide-react';
 import Image from 'next/image';
+import { HeaderIcon } from '@/components/general/header-icon';
 
 const navLinks = [
   { label: 'Home', href: '/' },
@@ -41,21 +42,7 @@ export function NavSection() {
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2">
-            {/* <Image
-              src="/images/logo.png"
-              alt="EstateInvest Logo"
-              width={32}
-              height={32}
-              className="h-8 w-8"
-            /> */}
-            <span
-              className={cn(
-                'text-lg font-bold',
-                isScrolled ? 'text-foreground' : 'text-white'
-              )}
-            >
-              JAMMAII
-            </span>
+            <HeaderIcon url="/" />
           </Link>
 
           {/* Desktop Navigation */}

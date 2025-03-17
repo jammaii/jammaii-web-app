@@ -60,7 +60,8 @@ export const FeaturedProjectsSection = () => {
         >
           <h2 className="text-3xl font-bold sm:text-4xl">Featured Project</h2>
           <p className="mt-4 text-lg text-muted-foreground">
-            Explore our current premium real estate opportunity
+            Explore our premium real estate developments carefully handpicked
+            for you.
           </p>
         </motion.div>
 

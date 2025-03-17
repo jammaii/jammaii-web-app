@@ -44,7 +44,7 @@ export const InvestmentForm = ({
         className="flex flex-col space-y-4"
         onSubmit={form.handleSubmit(saveInvestmentDetails)}
       >
-        <h2 className="text-center font-bold">INVESTMENT INFORMATION</h2>
+        <h2 className="text-center font-bold">ASSET INFORMATION</h2>
         <FormField
           control={form.control}
           name="slots"
@@ -93,7 +93,7 @@ export const InvestmentForm = ({
           name="roi"
           render={({ field }) => (
             <FormItem>
-              <Label htmlFor="roi">Return on Investments (PERCENTAGE)</Label>
+              <Label htmlFor="roi">Return on Assets (PERCENTAGE)</Label>
               <FormControl>
                 <Input
                   type="number"

@@ -32,7 +32,7 @@ export const HeroSection = () => {
             className="space-y-8"
           >
             <h1 className="text-4xl font-bold tracking-tight text-white sm:text-6xl lg:text-7xl">
-              JAMMAII PREMIUM PROPERTIES
+              Jammaii
               <span className="mt-2 block text-amber-400 drop-shadow-lg">
                 Buy | Crowdfund | Develop
               </span>

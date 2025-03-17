@@ -12,27 +12,28 @@ const steps = [
   {
     title: 'Browse Projects',
     description:
-      'Explore our curated selection of premium real estate investments.',
+      'Explore our curated selection of premium real estate developments.',
     icon: SearchIcon,
     color: 'bg-blue-500/10 text-blue-500'
   },
   {
-    title: 'Choose Your Investment',
+    title: 'Choose Your Preferred Project',
     description:
-      'Select the number of slots you want to purchase in your chosen project.',
+      'Select the number of slots you like to own in your preferred project.',
     icon: BuildingIcon,
     color: 'bg-green-500/10 text-green-500'
   },
   {
     title: 'Secure Payment',
-    description: 'Make your investment using our secure payment platform.',
+    description:
+      'Complete transaction to own the number of your selected slots using our secure payment platform.',
     icon: CreditCardIcon,
     color: 'bg-yellow-500/10 text-yellow-500'
   },
   {
-    title: 'Track Returns',
+    title: 'Track Slot Performance',
     description:
-      'Monitor your investment performance and receive regular returns.',
+      'Monitor your slot performance, time of project completion, cash back your invested sum plus your profit.',
     icon: BarChart2Icon,
     color: 'bg-purple-500/10 text-purple-500'
   }
@@ -50,7 +51,7 @@ export function HowItWorksSection() {
         >
           <h2 className="text-3xl font-bold sm:text-4xl">How It Works</h2>
           <p className="mt-4 text-lg text-muted-foreground">
-            Start your investment journey in four simple steps
+            Start your crowdfunding journey in four simple steps
           </p>
         </motion.div>
 

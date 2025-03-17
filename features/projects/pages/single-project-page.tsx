@@ -174,9 +174,9 @@ export function SingleProjectPage({ id, isAdmin }: SingleProjectPageProps) {
 
                 <Card>
                   <CardHeader>
-                    <CardTitle>Investment Details</CardTitle>
+                    <CardTitle>Asset Details</CardTitle>
                     <CardDescription>
-                      Investment opportunity information
+                      Asset opportunity information
                     </CardDescription>
                   </CardHeader>
                   <CardContent className="space-y-6">

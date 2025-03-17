@@ -207,7 +207,7 @@ export const Preview = ({
         <Separator />
         {/* Investment Details */}
         <section className="space-y-4">
-          <h2 className="text-xl font-semibold">Investment Details</h2>
+          <h2 className="text-xl font-semibold">Asset Details</h2>
           <div className="grid grid-cols-2 gap-4 rounded-lg border bg-card p-4">
             <InfoItem
               label="Available Slots"

@@ -152,16 +152,14 @@ export function SingleUserPage({ id }: SingleUserPageProps) {
                 <div className="text-2xl font-bold">
                   {data.investments.reduce((acc, p) => acc + p.slots, 0)}
                 </div>
-                <p className="text-xs text-muted-foreground">
-                  Active investments
-                </p>
+                <p className="text-xs text-muted-foreground">Active assets</p>
               </CardContent>
             </Card>
 
             {/* <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">
-                  Latest Investment
+                  Latest Assets
                 </CardTitle>
                 <CalendarIcon className="h-4 w-4 text-muted-foreground" />
               </CardHeader>

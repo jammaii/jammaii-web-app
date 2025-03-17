@@ -42,7 +42,7 @@ export function UsersTable({
       <CardHeader>
         <CardTitle>Users</CardTitle>
         <CardDescription>
-          Manage platform users and their investments.
+          Manage platform users and their assets.
         </CardDescription>
       </CardHeader>
       <CardContent>

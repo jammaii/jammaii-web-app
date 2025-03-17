@@ -6,6 +6,7 @@ import { Label } from '@/components/ui/label';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { ArrowLeft } from 'lucide-react';
+import { HeaderIcon } from '@/components/general/header-icon';
 
 export const AuthHeader = () => {
   const router = useRouter();
@@ -19,9 +20,7 @@ export const AuthHeader = () => {
       >
         Back to Home
       </Button>
-      <Link href="/" className="text-2xl font-bold text-primary">
-        JAMMAII
-      </Link>
+      <HeaderIcon url="/" />
     </div>
   );
 };

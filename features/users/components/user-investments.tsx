@@ -39,7 +39,7 @@ export const UserInvestments = ({ investments }: UserInvestmentsProps) => {
                       ₦{formatCurrency(investment.slots * investment.slotPrice)}
                     </p>
                     <p className="text-xs text-muted-foreground">
-                      Total invested
+                      Total assets value
                     </p>
                   </div>
                   <div>

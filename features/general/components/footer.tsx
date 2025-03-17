@@ -30,7 +30,7 @@ const footerLinks = {
   ],
   investments: [
     { label: 'Projects', href: '/#' },
-    { label: 'Investment Guide', href: '/#' },
+    { label: 'Crowdfunding Guide', href: '/#' },
     { label: 'Market Updates', href: '/#' },
     { label: 'Success Stories', href: '/#' }
   ]
@@ -63,12 +63,12 @@ export function Footer() {
                 className="h-10 w-10 transition-transform group-hover:scale-105"
               /> */}
               <span className="bg-gradient-to-r from-primary to-primary/80 bg-clip-text text-xl font-bold text-transparent">
-                JAMMAII REAL ESTATES
+                JAMMAII PREMIUM PROPERTIES
               </span>
             </Link>
             <p className="mt-4 max-w-xs text-sm text-muted-foreground">
-              Join our newsletter for the latest investment opportunities and
-              market insights.
+              Join our newsletter for the latest development opportunities, jobs
+              and market insights.
             </p>
             <form
               onSubmit={handleSubscribe}

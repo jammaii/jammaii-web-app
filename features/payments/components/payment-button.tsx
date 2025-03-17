@@ -51,7 +51,7 @@ export const PaymentButton = ({
   const createProject = api.project.createInvestment.useMutation({
     onSuccess: () => {
       toastSuccess({
-        message: 'Congratulations! you have invested successfully'
+        message: 'Congratulations! you have bought an asset successfully'
       });
 
       router.push(`/user/investments/`);

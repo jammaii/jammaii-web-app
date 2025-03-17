@@ -16,6 +16,7 @@ import { addToDate } from '@/lib/dates';
 import { MailService } from './mail.service';
 import { WelcomeEmailTemplate } from '@/features/email/templates/welcome-template';
 import { getHostName } from '@/server/api/utils/get-host-name';
+import { getProjectStatus } from '../../utils/get-project-status';
 
 export class UserService {
   static async getUserById(id: string): Promise<UserResponse> {
@@ -228,27 +229,31 @@ export class UserService {
         };
       }
 
-      const mappedInvestments = investments.map((item) => ({
-        id: item.userInvestment.id,
-        slots: item.userInvestment.slots,
-        transactionStatus: item.userInvestment.status,
-        slotPrice: item.project.slotPrice,
-        metaCreatedAt: item.userInvestment.metaCreatedAt,
-        project: {
-          id: item.project.id,
-          name: item.project.name,
-          roi: item.project.roi,
-          description: item.project.description,
-          status: item.project.status,
-          location: item.project.location,
-          startDate: item.project.startDate,
-          endDate: addToDate(
-            item.project.startDate,
-            item.project.duration,
-            'months'
-          )
-        }
-      }));
+      const mappedInvestments = investments.map((item) => {
+        const endDate = addToDate(
+          item.project.startDate,
+          item.project.duration,
+          'months'
+        );
+
+        return {
+          id: item.userInvestment.id,
+          slots: item.userInvestment.slots,
+          transactionStatus: item.userInvestment.status,
+          slotPrice: item.project.slotPrice,
+          metaCreatedAt: item.userInvestment.metaCreatedAt,
+          project: {
+            id: item.project.id,
+            name: item.project.name,
+            roi: item.project.roi,
+            description: item.project.description,
+            status: getProjectStatus(item.project.startDate, endDate),
+            location: item.project.location,
+            startDate: item.project.startDate,
+            endDate
+          }
+        };
+      });
 
       return {
         totalAmountInvested: investments.reduce(

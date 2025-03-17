@@ -71,13 +71,13 @@ export function PurchaseSlotsDialog({
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button className="w-full">Invest Now</Button>
+        <Button className="w-full">Buy Now</Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle>Purchase Slots</DialogTitle>
           <DialogDescription>
-            Select the number of slots you want to invest in.
+            Select the number of slots you want to buy.
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>

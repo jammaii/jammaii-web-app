@@ -18,11 +18,12 @@ export function CTASection() {
             className="space-y-8"
           >
             <h2 className="text-3xl font-bold sm:text-4xl">
-              Ready to Start Your Investment Journey?
+              Begin your real estate development journey with use now
             </h2>
             <p className="text-lg text-primary-foreground/90">
-              Join our community of investors and start building your real
-              estate portfolio today. Get started with as little as ₦100,000.
+              Join our Real Estate crowdfunding community and become an
+              affiliate developer to earn upto 50% ROI. Get started with
+              ₦500,000 per slot.
             </p>
             <div className="flex flex-col gap-4 sm:flex-row sm:justify-center">
               <Link href="/signin">

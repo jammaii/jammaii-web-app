@@ -9,13 +9,13 @@ const team = [
     name: 'John Smith',
     role: 'CEO & Founder',
     image: '/images/team/melania.jpg',
-    bio: 'Over 15 years of real estate investment experience',
+    bio: 'Over 15 years of real estate crowdfunding experience',
     linkedin: '#',
     twitter: '#'
   },
   {
     name: 'Sarah Johnson',
-    role: 'Investment Director',
+    role: 'Crowdfunding Director',
     image: '/images/team/melania.jpg',
     bio: 'Former VP at Goldman Sachs Real Estate Division',
     linkedin: '#',
@@ -43,7 +43,7 @@ export function TeamSection() {
         >
           <h2 className="text-3xl font-bold sm:text-4xl">Meet Our Team</h2>
           <p className="mt-4 text-lg text-muted-foreground">
-            Industry experts committed to your investment success
+            Industry experts committed to your crowdfunding success
           </p>
         </motion.div>
 
