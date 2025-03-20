@@ -184,7 +184,7 @@ export const TermsPage = () => {
                 <div className="space-y-1 pl-4">
                   <p>JPIL</p>
                   <p>Email: support@jammaii.com</p>
-                  <p>Call/Chat: 07062666957</p>
+                  <p>Call/Chat: +234 706 266 6957</p>
                   <p>Location: Lagos, Nigeria</p>
                 </div>
               </div>

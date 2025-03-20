@@ -93,7 +93,7 @@ export const InvestmentForm = ({
           name="roi"
           render={({ field }) => (
             <FormItem>
-              <Label htmlFor="roi">Return on Assets (PERCENTAGE)</Label>
+              <Label htmlFor="roi">Return on Assets (%)</Label>
               <FormControl>
                 <Input
                   type="number"

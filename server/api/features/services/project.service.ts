@@ -35,7 +35,7 @@ export class ProjectService {
           ...data.propertyDetails,
           ...data.mediaDetails,
           ...data.investmentDetails,
-          status: 'PENDING',
+          status: 'CROWDFUNDING',
           metaCreatedAt: new Date(),
           metaUpdatedAt: new Date()
         })
@@ -389,11 +389,11 @@ export class ProjectService {
             'total_projects'
           ),
           inProgressProjects: sql<number>`
-            COUNT(CASE WHEN ${project.status} = 'IN_PROGRESS' THEN 1 END)
-          `.as('in_progress'),
+            COUNT(CASE WHEN ${project.status} = 'CONSTRUCTION' THEN 1 END)
+          `.as('construction'),
           pendingProjects: sql<number>`
-            COUNT(CASE WHEN ${project.status} = 'PENDING' THEN 1 END)
-          `.as('pending'),
+            COUNT(CASE WHEN ${project.status} = 'CROWDFUNDING' THEN 1 END)
+          `.as('crowdfunding'),
           completedProjects: sql<number>`
             COUNT(CASE WHEN ${project.status} = 'COMPLETED' THEN 1 END)
           `.as('completed')
@@ -441,21 +441,30 @@ export class ProjectService {
         totalAmountInvested: Number(stats?.totalAmountInvested) || 0,
         projects: {
           total: Number(stats?.totalProjects) || 0,
-          in_progress: Number(stats?.inProgressProjects) || 0,
-          pending: Number(stats?.pendingProjects) || 0,
+          construction: Number(stats?.inProgressProjects) || 0,
+          crowdfunding: Number(stats?.pendingProjects) || 0,
           completed: Number(stats?.completedProjects) || 0
         },
         users: {
           total: Number(userStats?.total) || 0,
           active: Number(userStats?.active) || 0
         },
-        recentProjects: recentProjects.map((project) => ({
-          ...project,
-          totalSlotsSold: slotsSoldMap.get(project.id) || 0,
-          images: project.images || [],
-          videos: project.videos || [],
-          brochure: project.brochure || null
-        }))
+        recentProjects: recentProjects.map((project) => {
+          const endDate = addToDate(
+            project.startDate,
+            project.duration,
+            'months'
+          );
+
+          return {
+            ...project,
+            status: getProjectStatus(project.startDate, endDate),
+            totalSlotsSold: slotsSoldMap.get(project.id) || 0,
+            images: project.images || [],
+            videos: project.videos || [],
+            brochure: project.brochure || null
+          };
+        })
       };
     } catch (error) {
       throw new TRPCError({

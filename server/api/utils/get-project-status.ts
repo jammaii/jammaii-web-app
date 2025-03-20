@@ -6,11 +6,11 @@ export const getProjectStatus = (
 ): ProjectStatus => {
   const now = new Date();
   if (now < startDate) {
-    return 'PENDING';
+    return 'CROWDFUNDING';
   }
 
   if (now >= startDate && now <= endDate) {
-    return 'IN_PROGRESS';
+    return 'CONSTRUCTION';
   }
 
   return 'COMPLETED';

@@ -18,7 +18,7 @@ export function CTASection() {
             className="space-y-8"
           >
             <h2 className="text-3xl font-bold sm:text-4xl">
-              Begin your real estate development journey with use now
+              Begin your real estate development journey with us now
             </h2>
             <p className="text-lg text-primary-foreground/90">
               Join our Real Estate crowdfunding community and become an

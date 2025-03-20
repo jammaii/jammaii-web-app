@@ -121,7 +121,7 @@ export function InvestmentDetailsDialog({
             <Separator className="my-2" />
             <div className="flex items-center gap-2">
               <HandCoinsIcon className="h-4 w-4 text-primary" />
-              <span className="text-sm font-medium">Payable Return</span>
+              <span className="text-sm font-medium">Expected Payout</span>
             </div>
             <div className="mt-2 text-2xl font-bold">
               ₦{formatCurrency(expectedReturns)}

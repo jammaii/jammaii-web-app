@@ -48,8 +48,8 @@ export function UserInvestmentsPage() {
 function ProjectStatusBadge({ status }: { status: ProjectStatus }) {
   const statusStyles = {
     COMPLETED: 'bg-green-100 text-green-700',
-    IN_PROGRESS: 'bg-blue-100 text-blue-700',
-    PENDING: 'bg-yellow-100 text-yellow-700'
+    CONSTRUCTION: 'bg-blue-100 text-blue-700',
+    CROWDFUNDING: 'bg-yellow-100 text-yellow-700'
   };
 
   return (

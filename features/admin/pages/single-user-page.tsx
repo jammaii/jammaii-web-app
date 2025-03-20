@@ -206,9 +206,9 @@ export function SingleUserPage({ id }: SingleUserPageProps) {
                         <TableCell>
                           <Badge
                             variant={
-                              investment.project.status === 'IN_PROGRESS'
+                              investment.project.status === 'CONSTRUCTION'
                                 ? 'default'
-                                : investment.project.status === 'PENDING'
+                                : investment.project.status === 'CROWDFUNDING'
                                   ? 'destructive'
                                   : 'secondary'
                             }

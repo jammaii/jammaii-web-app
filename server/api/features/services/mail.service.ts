@@ -14,7 +14,7 @@ export class MailService {
   static async sendEmail({ to, subject, template }: SendEmailOptions) {
     try {
       await resend.emails.send({
-        from: process.env.EMAIL_FROM ?? 'info@jammaii.com',
+        from: process.env.EMAIL_FROM ?? 'support@jammaii.com',
         to,
         subject,
         react: template

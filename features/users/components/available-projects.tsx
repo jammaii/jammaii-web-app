@@ -12,6 +12,7 @@ import { CircleDollarSign } from 'lucide-react';
 import { formatCurrency, truncateText } from '@/lib/utils';
 import { LoadingSkeleton } from '@/components/general/loading-skeleton';
 import Link from 'next/link';
+import Image from 'next/image';
 
 export function AvailableProjects() {
   const { data, isLoading } = api.project.getProjects.useQuery({});
@@ -49,6 +50,14 @@ export function AvailableProjects() {
                 >
                   <div className="space-y-1">
                     <p className="font-medium">{project.name}</p>
+                    <Image
+                      src={
+                        project.images[0].fileUploadUrl ?? '/jammaii-logo.png'
+                      }
+                      height={200}
+                      width={250}
+                      alt="Avatar"
+                    />
                     <p className="text-sm text-muted-foreground">
                       {truncateText(project.description, 100)}
                     </p>

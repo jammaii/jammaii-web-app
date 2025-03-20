@@ -33,7 +33,7 @@ const steps = [
   {
     title: 'Track Slot Performance',
     description:
-      'Monitor your slot performance, time of project completion, cash back your invested sum plus your profit.',
+      'Monitor your slot performance, time of project completion, and payout.',
     icon: BarChart2Icon,
     color: 'bg-purple-500/10 text-purple-500'
   }

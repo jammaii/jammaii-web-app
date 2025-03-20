@@ -5,7 +5,7 @@ import { projectStatusSchema } from './enums/project-status.schema';
 
 export const projectSchema = tableCreator('project', {
   id: uuid('id').notNull().primaryKey(),
-  status: projectStatusSchema('status').notNull().default('PENDING'),
+  status: projectStatusSchema('status').notNull().default('CROWDFUNDING'),
 
   // Property Details
   name: text('name').notNull(),

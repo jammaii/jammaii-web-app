@@ -101,8 +101,8 @@ export const PrivacyPolicyPage = () => {
                 practices, please contact us at:
               </p>
               <div className="mt-2">
-                <p>Email: privacy@jammaii.com</p>
-                <p>Phone: +234 123 456 7890</p>
+                <p>Email: support@jammaii.com</p>
+                <p>Phone: +234 706 266 6957</p>
                 <p>Address: 123 Investment Street, Lagos, Nigeria</p>
               </div>
             </section>

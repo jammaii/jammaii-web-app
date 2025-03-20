@@ -28,7 +28,7 @@ export const FaqPage = () => {
           <AccordionItem value="item-1">
             <AccordionTrigger>How do I buy an assett?</AccordionTrigger>
             <AccordionContent>
-              Yes. It adheres to the WAI-ARIA design pattern.
+              You can buy an asset by buying a slot in a project.
             </AccordionContent>
           </AccordionItem>
           <AccordionItem value="item-2">
@@ -36,15 +36,8 @@ export const FaqPage = () => {
               What happens if i want to withdraw my money before the due date?
             </AccordionTrigger>
             <AccordionContent>
-              Yes. It comes with default styles that matches the other
-              components&apos; aesthetic.
-            </AccordionContent>
-          </AccordionItem>
-          <AccordionItem value="item-3">
-            <AccordionTrigger>Is it animated?</AccordionTrigger>
-            <AccordionContent>
-              Yes. It's animated by default, but you can disable it if you
-              prefer.
+              You might lose your interest if you withdraw your money before the
+              due date.
             </AccordionContent>
           </AccordionItem>
         </Accordion>

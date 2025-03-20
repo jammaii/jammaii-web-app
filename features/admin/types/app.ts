@@ -6,8 +6,8 @@ export type AdminDashboardResponse = {
   totalAmountInvested: number;
   projects: {
     total: number;
-    in_progress: number;
-    pending: number;
+    construction: number;
+    crowdfunding: number;
     completed: number;
   };
   users: {

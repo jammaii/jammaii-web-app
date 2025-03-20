@@ -72,9 +72,9 @@ export function DashboardPage() {
               <CardContent>
                 <div className="text-2xl font-bold">{data.projects.total}</div>
                 <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                  <span>{data.projects.in_progress} active</span>
+                  <span>{data.projects.construction} construction</span>
                   <span>•</span>
-                  <span>{data.projects.pending} pending</span>
+                  <span>{data.projects.crowdfunding} crowdfunding</span>
                   <span>•</span>
                   <span>{data.projects.completed} completed</span>
                 </div>
@@ -92,7 +92,7 @@ export function DashboardPage() {
               <CardContent>
                 <div className="text-2xl font-bold">{data.users.total}</div>
                 <p className="text-xs text-muted-foreground">
-                  {data.users.active} active affiliate developers
+                  {data.users.active} affiliate developers
                 </p>
               </CardContent>
             </Card>
@@ -107,19 +107,21 @@ export function DashboardPage() {
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold">
-                  {data.projects.in_progress}
+                  {data.projects.crowdfunding}
                 </div>
               </CardContent>
             </Card>
 
             <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0">
-                <CardTitle className="text-sm font-medium">Pending</CardTitle>
+                <CardTitle className="text-sm font-medium">
+                  Crowdfunding
+                </CardTitle>
                 <ClockIcon className="h-4 w-4 text-yellow-500" />
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold">
-                  {data.projects.pending}
+                  {data.projects.crowdfunding}
                 </div>
               </CardContent>
             </Card>
@@ -183,7 +185,7 @@ export function DashboardPage() {
                       <div>
                         <span
                           className={`inline-flex rounded-full px-2 py-1 text-xs font-semibold ${
-                            project.status === 'IN_PROGRESS'
+                            project.status === 'CONSTRUCTION'
                               ? 'bg-blue-100 text-blue-700'
                               : project.status === 'COMPLETED'
                                 ? 'bg-green-100 text-green-700'

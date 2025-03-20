@@ -1,8 +1,8 @@
 import { pgEnum } from 'drizzle-orm/pg-core';
 
 export const PROJECT_STATUSES = [
-  'PENDING',
-  'IN_PROGRESS',
+  'CROWDFUNDING',
+  'CONSTRUCTION',
   'COMPLETED'
 ] as const;
 

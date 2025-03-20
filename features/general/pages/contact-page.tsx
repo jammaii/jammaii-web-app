@@ -6,8 +6,8 @@ import { ContactSection } from '@/features/general/components/contact-section';
 import { AtSignIcon, Mail, Phone } from 'lucide-react';
 
 export const ContactPage = () => {
-  const phoneNumber = '+2341234567890'; // Remove spaces for WhatsApp link
-  const emailAddress = 'info@jammaii.com';
+  const phoneNumber = '+234 706 266 6957'; // Remove spaces for WhatsApp link
+  const emailAddress = 'support@jammaii.com';
 
   return (
     <GeneralWrapper>

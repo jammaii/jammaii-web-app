@@ -17,7 +17,8 @@ import {
   BathIcon,
   BedIcon,
   ChevronLeftIcon,
-  ChevronRightIcon
+  ChevronRightIcon,
+  MapPinIcon
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -260,6 +261,10 @@ export function SingleProjectPage({ id, isAdmin }: SingleProjectPageProps) {
                       <BathIcon className="h-4 w-4 text-muted-foreground" />
                       <span>{data.unitDetail.toilets} Toilets</span>
                     </div>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <MapPinIcon className="h-4 w-4 text-muted-foreground" />
+                    <span>Location: {data.location}</span>
                   </div>
                 </CardContent>
               </Card>

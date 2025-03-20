@@ -7,6 +7,7 @@ import { useRouter } from 'next/navigation';
 import { Footer } from '@/features/general/components/footer';
 import { DivProps } from '@/types/index';
 import { cn } from '@/lib/utils';
+import { HeaderIcon } from '@/components/general/header-icon';
 
 interface GeneralWrapperProps extends DivProps {
   children: React.ReactNode;
@@ -29,9 +30,7 @@ export const GeneralWrapper = ({
         >
           Back to Home
         </Button>
-        <Link href="/" className="text-2xl font-bold text-primary">
-          JAMMAII
-        </Link>
+        <HeaderIcon url="/" />
       </div>
       <>{children}</>
       <Footer />

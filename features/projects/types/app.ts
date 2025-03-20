@@ -118,7 +118,7 @@ export type CreateUserInvestmentDto = z.infer<
 
 export interface ProjectResponseDto {
   id: string;
-  status: 'Pending' | 'Active' | 'Completed';
+  status: ProjectStatus;
   propertyDetails: {
     name: string;
     description: string;

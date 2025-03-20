@@ -32,9 +32,8 @@ export const HeroSection = () => {
             className="space-y-8"
           >
             <h1 className="text-4xl font-bold tracking-tight text-white sm:text-6xl lg:text-7xl">
-              Jammaii
               <span className="mt-2 block text-amber-400 drop-shadow-lg">
-                Buy | Crowdfund | Develop
+                Buy . Crowdfund . Develop
               </span>
             </h1>
             <p className="max-w-xl text-xl text-white/90">

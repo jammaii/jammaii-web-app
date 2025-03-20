@@ -262,7 +262,7 @@ export class UserService {
           0
         ),
         totalActiveProjects: investments.filter(
-          (inv) => inv.project.status === 'IN_PROGRESS'
+          (inv) => inv.project.status === 'CONSTRUCTION'
         ).length,
         totalProjects: investments.length,
         totalSlots: investments.reduce(
