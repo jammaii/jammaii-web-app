@@ -1,0 +1,1 @@
+ALTER TABLE "project" ADD COLUMN "admin_fee" integer DEFAULT 0 NOT NULL;

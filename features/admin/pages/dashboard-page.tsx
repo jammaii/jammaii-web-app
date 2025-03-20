@@ -102,12 +102,14 @@ export function DashboardPage() {
           <div className="grid gap-4 md:grid-cols-4">
             <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0">
-                <CardTitle className="text-sm font-medium">Active</CardTitle>
+                <CardTitle className="text-sm font-medium">
+                  Construction
+                </CardTitle>
                 <ActivityIcon className="h-4 w-4 text-blue-500" />
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold">
-                  {data.projects.crowdfunding}
+                  {data.projects.construction}
                 </div>
               </CardContent>
             </Card>

@@ -50,7 +50,7 @@ export const MediaForm = ({
 
   const directUpload = (
     <div>
-      <FileUploadDropzone maximum={10} files={images} setFiles={setImages} />
+      <FileUploadDropzone maximum={50} files={images} setFiles={setImages} />
       <div className="flex justify-between border-t-2 py-2">
         <div>Selected {images.length} items</div>
       </div>

@@ -40,6 +40,7 @@ export const projectSchema = tableCreator('project', {
   slotPrice: integer('slot_price').notNull(),
   duration: integer('duration').notNull(),
   roi: integer('roi').notNull(),
+  adminFee: integer('admin_fee').notNull().default(0),
   startDate: timestamp('start_date', { mode: 'date' }).notNull(),
 
   // Relations

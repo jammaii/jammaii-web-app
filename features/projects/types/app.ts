@@ -7,7 +7,7 @@ import {
   idSchema,
   numberSchema
 } from 'validation/shared.schema';
-import { number, z } from 'zod';
+import { z } from 'zod';
 import type { File as BufferFile } from 'buffer';
 import { getByIdSchema, PaginatedResponse } from '@/features/general/types/app';
 import { PROJECT_STATUSES } from '@/server/db/schemas/project/enums/project-status.schema';
@@ -63,6 +63,7 @@ export const propertyInvestmentSchema = z.object({
   slotPrice: numberSchema('Slot Price', { min: 100 }),
   duration: numberSchema('Duration', { min: 1 }),
   roi: numberSchema('ROI', { min: 1 }),
+  adminFee: numberSchema('Admin Fee', { min: 1 }),
   startDate: dateSchema('Start Date')
 });
 export type PropertyInvestmentRequestDto = z.infer<

@@ -225,13 +225,19 @@ export function SingleProjectPage({ id, isAdmin }: SingleProjectPageProps) {
                       />
                     )}
 
-                    {!isAdmin && (
-                      <PurchaseSlotsDialog
-                        projectId={data.id}
-                        slotPrice={data.slotPrice}
-                        availableSlots={availableSlots}
-                      />
-                    )}
+                    {!isAdmin &&
+                      data.status === 'CROWDFUNDING' &&
+                      data.slots < data.totalSlotsSold && (
+                        <PurchaseSlotsDialog
+                          projectId={data.id}
+                          slotPrice={data.slotPrice}
+                          availableSlots={availableSlots}
+                        />
+                      )}
+
+                    <div className="flex justify-center gap-2">
+                      <Badge>{data.status}</Badge>
+                    </div>
                   </CardContent>
                 </Card>
               </div>

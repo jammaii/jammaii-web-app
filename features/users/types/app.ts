@@ -50,6 +50,7 @@ export type UserInvestmentResponse = {
     name: string;
     description: string;
     roi: number;
+    slotAdminFee: number;
     status: ProjectStatus;
     location: string;
     startDate: Date;

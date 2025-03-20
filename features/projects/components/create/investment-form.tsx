@@ -105,6 +105,23 @@ export const InvestmentForm = ({
             </FormItem>
           )}
         />
+        <FormField
+          control={form.control}
+          name="adminFee"
+          render={({ field }) => (
+            <FormItem>
+              <Label htmlFor="roi">Slot admin fee</Label>
+              <FormControl>
+                <Input
+                  type="number"
+                  placeholder="Enter slot admin fee"
+                  {...field}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
 
         <FormField
           control={form.control}

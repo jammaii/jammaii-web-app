@@ -13,7 +13,8 @@ import {
   FileIcon,
   CircleDollarSignIcon,
   BathIcon,
-  BedIcon
+  BedIcon,
+  CoinsIcon
 } from 'lucide-react';
 import { YouTubePlayer } from '@/features/file-upload/components/youtube-player';
 import {
@@ -33,6 +34,7 @@ import { GENERIC_ERROR_MESSAGE } from '@/constants/strings';
 import { useToast } from '@/components/ui/use-toast';
 import { Button } from '@/components/ui/button';
 import { useState } from 'react';
+import { formatCurrency } from '@/lib/utils';
 
 export const Preview = ({
   disablePreviousStep,
@@ -216,7 +218,7 @@ export const Preview = ({
             />
             <InfoItem
               label="Slot Price"
-              value={`NGN ${previewData.investmentDetails.slotPrice.toLocaleString()}`}
+              value={`₦ ${formatCurrency(previewData.investmentDetails.slotPrice)}`}
               icon={CircleDollarSignIcon}
             />
             <InfoItem
@@ -228,6 +230,11 @@ export const Preview = ({
               label="ROI"
               value={`${previewData.investmentDetails.roi}%`}
               icon={TrendingUpIcon}
+            />
+            <InfoItem
+              label="Admin Fee"
+              value={`₦${previewData.investmentDetails.adminFee}`}
+              icon={CoinsIcon}
             />
             <InfoItem
               label="Start Date"

@@ -115,7 +115,8 @@ export function InvestmentDetailsDialog({
             </div>
             <div className="flex items-center gap-2">
               <span className="text-sm font-medium">
-                Slot Admin Fee: ₦{formatCurrency(SLOT_ADMIN_FEE)}
+                Admin fee per slot: ₦
+                {formatCurrency(investment.project.slotAdminFee)}
               </span>
             </div>
             <Separator className="my-2" />
@@ -124,7 +125,11 @@ export function InvestmentDetailsDialog({
               <span className="text-sm font-medium">Expected Payout</span>
             </div>
             <div className="mt-2 text-2xl font-bold">
-              ₦{formatCurrency(expectedReturns)}
+              ₦
+              {formatCurrency(
+                expectedReturns -
+                  investment.slots * investment.project.slotAdminFee
+              )}
             </div>
             <p className="text-xs text-muted-foreground">
               Estimated return at maturity

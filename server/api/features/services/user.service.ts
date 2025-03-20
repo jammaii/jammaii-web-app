@@ -128,6 +128,7 @@ export class UserService {
           name: item.projectDetails.name,
           description: item.projectDetails.description,
           roi: item.projectDetails.roi,
+          slotAdminFee: item.projectDetails.adminFee,
           status: item.projectDetails.status,
           location: item.projectDetails.location,
           startDate: item.projectDetails.startDate,
@@ -246,6 +247,7 @@ export class UserService {
             id: item.project.id,
             name: item.project.name,
             roi: item.project.roi,
+            slotAdminFee: item.project.adminFee,
             description: item.project.description,
             status: getProjectStatus(item.project.startDate, endDate),
             location: item.project.location,
@@ -262,7 +264,11 @@ export class UserService {
           0
         ),
         totalActiveProjects: investments.filter(
-          (inv) => inv.project.status === 'CONSTRUCTION'
+          (inv) =>
+            getProjectStatus(
+              inv.project.startDate,
+              addToDate(inv.project.startDate, inv.project.duration, 'months')
+            ) === 'CONSTRUCTION'
         ).length,
         totalProjects: investments.length,
         totalSlots: investments.reduce(

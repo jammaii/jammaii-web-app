@@ -9,11 +9,10 @@ import type {
   UserSingleProjectResponse
 } from '@/features/projects/types/app';
 import { generateUUID } from '@/lib/ids';
-import { and, desc, eq, inArray, like, or, sql } from 'drizzle-orm';
+import { desc, eq, inArray, like, or, sql } from 'drizzle-orm';
 import { PaginationRequest } from '@/features/general/types/app';
 import { project, user, userInvestment } from '@/server/db/schema';
 import { UserInvestmentsResponse } from '@/features/users/types/app';
-import { map } from 'zod';
 import { addToDate } from '@/lib/dates';
 import { AdminDashboardResponse } from '@/features/admin/types/app';
 import { MailService } from './mail.service';
@@ -90,6 +89,10 @@ export class ProjectService {
 
       const projectDataWithSlotsData = {
         ...projectData,
+        status: getProjectStatus(
+          projectData.startDate,
+          addToDate(projectData.startDate, projectData.duration, 'months')
+        ),
         totalSlotsSold: Number(slotsData?.totalSlotsSold) || 0
       };
 
@@ -354,6 +357,7 @@ export class ProjectService {
             name: item.project.name,
             description: item.project.description,
             roi: Number(item.project.roi),
+            slotAdminFee: item.project.adminFee,
             status: getProjectStatus(item.project.startDate, endDate),
             location: item.project.location,
             startDate: item.project.startDate,
@@ -389,14 +393,26 @@ export class ProjectService {
             'total_projects'
           ),
           inProgressProjects: sql<number>`
-            COUNT(CASE WHEN ${project.status} = 'CONSTRUCTION' THEN 1 END)
-          `.as('construction'),
+            COUNT(DISTINCT
+              CASE WHEN 
+                CURRENT_TIMESTAMP >= ${project.startDate} 
+                AND CURRENT_TIMESTAMP <= ${project.startDate} + (${project.duration} * INTERVAL '1 month')
+                THEN ${project.id} END
+            )
+          `.as('in_progress'),
           pendingProjects: sql<number>`
-            COUNT(CASE WHEN ${project.status} = 'CROWDFUNDING' THEN 1 END)
-          `.as('crowdfunding'),
+          COUNT(DISTINCT
+            CASE WHEN CURRENT_TIMESTAMP < ${project.startDate}
+            THEN ${project.id} END
+          )
+        `.as('upcoming'),
           completedProjects: sql<number>`
-            COUNT(CASE WHEN ${project.status} = 'COMPLETED' THEN 1 END)
-          `.as('completed')
+          COUNT(DISTINCT
+            CASE WHEN 
+              CURRENT_TIMESTAMP > ${project.startDate} + (${project.duration} * INTERVAL '1 month')
+              THEN ${project.id} END
+          )
+        `.as('completed')
         })
         .from(project)
         .leftJoin(userInvestment, eq(userInvestment.projectId, project.id));
