@@ -9,6 +9,7 @@ import {
   CardTitle
 } from '@/components/ui/card';
 import { api } from '@/lib/api';
+import { formatCurrency } from '@/lib/utils';
 import {
   CircleDollarSignIcon,
   Users2Icon,
@@ -53,7 +54,7 @@ export function DashboardPage() {
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold">
-                  ₦{data.totalAmountInvested.toLocaleString()}
+                  {formatCurrency(data.totalAmountInvested)}
                 </div>
                 <p className="text-xs text-muted-foreground">
                   Across all projects
@@ -178,7 +179,7 @@ export function DashboardPage() {
                     <div className="flex items-center gap-4">
                       <div className="text-right">
                         <p className="text-sm font-medium">
-                          ₦{project.slotPrice.toLocaleString()}
+                          {formatCurrency(project.slotPrice)}
                         </p>
                         <p className="text-xs text-muted-foreground">
                           per slot

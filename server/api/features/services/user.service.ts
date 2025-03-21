@@ -225,7 +225,7 @@ export class UserService {
           totalProjects: 0,
           totalActiveProjects: 0,
           totalSlots: 0,
-          latestInvestmentDate: 0,
+          totalRoi: 0,
           recentInvestments: []
         };
       }
@@ -275,8 +275,11 @@ export class UserService {
           (total, inv) => total + inv.userInvestment.slots,
           0
         ),
-        latestInvestmentDate:
-          investments[0]?.userInvestment.metaCreatedAt.getTime() || 0,
+        totalRoi: investments.reduce(
+          (total, inv) =>
+            total + (inv.project.roi / 100) * inv.userInvestment.totalAmount,
+          0
+        ),
         recentInvestments: mappedInvestments.slice(0, 5)
       };
     } catch (error) {

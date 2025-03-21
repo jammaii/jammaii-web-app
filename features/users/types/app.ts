@@ -72,6 +72,6 @@ export type UserDashboardResponse = {
   totalProjects: number;
   totalActiveProjects: number;
   totalSlots: number;
-  latestInvestmentDate: number;
+  totalRoi: number;
   recentInvestments: UserInvestmentResponse[];
 };

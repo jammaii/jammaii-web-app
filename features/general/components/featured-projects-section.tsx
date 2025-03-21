@@ -5,6 +5,7 @@ import useEmblaCarousel from 'embla-carousel-react';
 import { Button } from '@/components/ui/button';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
+import { formatCurrency } from '@/lib/utils';
 
 const featuredProperties = [
   {
@@ -88,7 +89,7 @@ export const FeaturedProjectsSection = () => {
                     </p>
                     <div className="mt-4 flex items-center justify-between">
                       <span className="text-lg font-bold">
-                        ₦{property.pricePerSlot.toLocaleString()}/slot
+                        {formatCurrency(property.pricePerSlot)}/slot
                       </span>
                       <Button
                         variant="outline"

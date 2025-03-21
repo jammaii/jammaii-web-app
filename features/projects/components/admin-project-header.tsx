@@ -6,20 +6,26 @@ import {
   CardTitle
 } from '@/components/ui/card';
 import { AdminProjectDetails } from '@/features/projects/types/app';
+import { formatCurrency } from '@/lib/utils';
 import { CircleDollarSignIcon, HomeIcon, Users2Icon } from 'lucide-react';
+import { UpdateProjectDialog } from './update-project-dialog';
 
 interface AdminProjectHeaderProps {
   name: string;
   totalSlots: number;
   totalSlotsSold: number;
   overview: AdminProjectDetails;
+  projectId: string;
+  startDate: Date;
 }
 
 export const AdminProjectHeader = ({
   name,
   totalSlots,
   totalSlotsSold,
-  overview
+  overview,
+  projectId,
+  startDate
 }: AdminProjectHeaderProps) => {
   return (
     <Card>
@@ -42,7 +48,7 @@ export const AdminProjectHeader = ({
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold">
-                  ₦{overview.totalAmountInvested.toLocaleString()}
+                  {formatCurrency(overview.totalAmountInvested)}
                 </div>
                 {/* <p className="text-xs text-muted-foreground">
                   Across all projects
@@ -84,6 +90,8 @@ export const AdminProjectHeader = ({
                 </p> */}
               </CardContent>
             </Card>
+
+            <UpdateProjectDialog projectId={projectId} startDate={startDate} />
           </div>
         </div>
       </CardContent>

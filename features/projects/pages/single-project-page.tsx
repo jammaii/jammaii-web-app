@@ -85,6 +85,8 @@ export function SingleProjectPage({ id, isAdmin }: SingleProjectPageProps) {
           name={data.name}
           totalSlots={data.slots}
           totalSlotsSold={data.totalSlotsSold}
+          projectId={id}
+          startDate={data.startDate}
         />
       )}
 

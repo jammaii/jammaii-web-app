@@ -36,7 +36,7 @@ export const safeParseJSON = <T = unknown>(value: string) => {
 export const isString = (value: unknown): value is string =>
   typeof value === 'string';
 
-export const formatCurrency = (value: number) => value.toLocaleString();
+export const formatCurrency = (value: number) => `₦${value.toLocaleString()}`;
 
 export function truncateText(text: string, maxLength: number): string {
   return text.length > maxLength ? `${text.slice(0, maxLength)}...` : text;

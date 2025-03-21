@@ -28,7 +28,7 @@ export const UserInvestments = ({ investments }: UserInvestmentsProps) => {
                   <div className="flex items-center gap-2 text-sm text-muted-foreground">
                     <CircleDollarSign className="h-4 w-4" />
                     <span>
-                      {investment.slots} slots × ₦
+                      {investment.slots} slots ×
                       {formatCurrency(investment.slotPrice)}
                     </span>
                   </div>
@@ -36,7 +36,7 @@ export const UserInvestments = ({ investments }: UserInvestmentsProps) => {
                 <div className="flex items-center gap-4">
                   <div className="text-right">
                     <p className="text-sm font-medium">
-                      ₦{formatCurrency(investment.slots * investment.slotPrice)}
+                      {formatCurrency(investment.slots * investment.slotPrice)}
                     </p>
                     <p className="text-xs text-muted-foreground">
                       Total assets value

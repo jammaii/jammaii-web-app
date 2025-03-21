@@ -6,6 +6,7 @@ import type {
   CreateUserInvestmentDto,
   ProjectResponse,
   ProjectsResponse,
+  UpdateProjectRequestDto,
   UserSingleProjectResponse
 } from '@/features/projects/types/app';
 import { generateUUID } from '@/lib/ids';
@@ -551,5 +552,35 @@ export class ProjectService {
     return await writeXlsxFile(processedInvestors, {
       schema: userProjectSchema
     });
+  }
+
+  static async updateProject(data: UpdateProjectRequestDto) {
+    try {
+      const [updatedProject] = await db
+        .update(project)
+        .set({
+          startDate: data.startDate,
+          metaUpdatedAt: new Date()
+        })
+        .where(eq(project.id, data.projectId))
+        .returning();
+
+      if (!updatedProject) {
+        throw new TRPCError({
+          code: 'NOT_FOUND',
+          message: 'Project not found'
+        });
+      }
+
+      return updatedProject;
+    } catch (error) {
+      if (error instanceof TRPCError) throw error;
+
+      throw new TRPCError({
+        code: 'INTERNAL_SERVER_ERROR',
+        message: 'Failed to update project',
+        cause: error
+      });
+    }
   }
 }

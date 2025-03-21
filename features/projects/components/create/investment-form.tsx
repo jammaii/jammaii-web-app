@@ -132,7 +132,6 @@ export const InvestmentForm = ({
               <FormControl>
                 <DatePicker
                   {...field}
-                  iconless
                   onChange={(date) => {
                     // Handles it as a UTC date, otherwise the date will be
                     // off by 1 day.

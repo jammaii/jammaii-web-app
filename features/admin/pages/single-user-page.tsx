@@ -29,6 +29,8 @@ import { api } from '@/lib/api';
 import { LoadingScreen } from '@/components/general/loading-screen';
 import { InvestmentDetailsDialog } from '@/features/users/components/investment-details-dialog';
 import Link from 'next/link';
+import { formatCurrency } from '@/lib/utils';
+import { format } from 'path';
 
 interface SingleUserPageProps {
   id: string;
@@ -131,10 +133,12 @@ export function SingleUserPage({ id }: SingleUserPageProps) {
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold">
-                  ₦
-                  {data.investments
-                    .reduce((acc, p) => acc + p.slots * p.slotPrice, 0)
-                    .toLocaleString()}
+                  {formatCurrency(
+                    data.investments.reduce(
+                      (acc, p) => acc + p.slots * p.slotPrice,
+                      0
+                    )
+                  )}
                 </div>
                 <p className="text-xs text-muted-foreground">
                   Across {data.investments.length} projects
@@ -218,10 +222,9 @@ export function SingleUserPage({ id }: SingleUserPageProps) {
                         </TableCell>
                         <TableCell>{investment.slots}</TableCell>
                         <TableCell>
-                          ₦
-                          {(
+                          {formatCurrency(
                             investment.slots * investment.slotPrice
-                          ).toLocaleString()}
+                          )}
                         </TableCell>
                         <TableCell>
                           {formatDate(investment.metaCreatedAt)}

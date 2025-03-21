@@ -63,7 +63,7 @@ export function AvailableProjects() {
                     </p>
                     <div className="flex items-center gap-2 text-sm">
                       <CircleDollarSign className="h-4 w-4" />
-                      <span>₦{formatCurrency(project.slotPrice)} per slot</span>
+                      <span>{formatCurrency(project.slotPrice)} per slot</span>
                     </div>
                   </div>
                   {/* <div>

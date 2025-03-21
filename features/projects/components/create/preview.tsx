@@ -218,7 +218,7 @@ export const Preview = ({
             />
             <InfoItem
               label="Slot Price"
-              value={`₦ ${formatCurrency(previewData.investmentDetails.slotPrice)}`}
+              value={formatCurrency(previewData.investmentDetails.slotPrice)}
               icon={CircleDollarSignIcon}
             />
             <InfoItem
@@ -233,7 +233,7 @@ export const Preview = ({
             />
             <InfoItem
               label="Admin Fee"
-              value={`₦${previewData.investmentDetails.adminFee}`}
+              value={formatCurrency(previewData.investmentDetails.adminFee)}
               icon={CoinsIcon}
             />
             <InfoItem

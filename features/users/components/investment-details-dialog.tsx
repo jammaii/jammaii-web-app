@@ -64,12 +64,11 @@ export function InvestmentDetailsDialog({
             <div className="flex items-center gap-2 text-sm text-muted-foreground">
               <CircleDollarSign className="h-4 w-4" />
               <span>
-                {investment.slots} slots × ₦
-                {formatCurrency(investment.slotPrice)}
+                {investment.slots} slots ×{formatCurrency(investment.slotPrice)}
               </span>
             </div>
             <div className="text-lg font-semibold">
-              ₦{formatCurrency(totalInvestment)}
+              {formatCurrency(totalInvestment)}
               <span className="ml-2 text-sm text-muted-foreground">
                 Total Funding
               </span>
@@ -111,11 +110,11 @@ export function InvestmentDetailsDialog({
               <span className="text-sm font-medium">Expected Returns</span>
             </div>
             <div className="mt-2 text-2xl font-bold">
-              ₦{formatCurrency(expectedReturns)}
+              {formatCurrency(expectedReturns)}
             </div>
             <div className="flex items-center gap-2">
               <span className="text-sm font-medium">
-                Admin fee per slot: ₦
+                Admin fee per slot:
                 {formatCurrency(investment.project.slotAdminFee)}
               </span>
             </div>
@@ -125,7 +124,6 @@ export function InvestmentDetailsDialog({
               <span className="text-sm font-medium">Expected Payout</span>
             </div>
             <div className="mt-2 text-2xl font-bold">
-              ₦
               {formatCurrency(
                 expectedReturns -
                   investment.slots * investment.project.slotAdminFee

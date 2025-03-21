@@ -108,11 +108,11 @@ export function PurchaseSlotsDialog({
             <div className="space-y-2">
               <div className="flex justify-between text-sm">
                 <span>Price per slot:</span>
-                <span>₦{formatCurrency(slotPrice)}</span>
+                <span>{formatCurrency(slotPrice)}</span>
               </div>
               <div className="flex justify-between font-medium">
                 <span>Total Amount:</span>
-                <span>₦{formatCurrency(totalAmount)}</span>
+                <span>{formatCurrency(totalAmount)}</span>
               </div>
             </div>
 

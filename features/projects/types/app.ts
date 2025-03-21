@@ -117,6 +117,12 @@ export type CreateUserInvestmentDto = z.infer<
   typeof createUserInvestmentSchema
 >;
 
+export const updateProjectSchema = z.object({
+  projectId: idSchema('Project Id'),
+  startDate: dateSchema('Start Date')
+});
+export type UpdateProjectRequestDto = z.infer<typeof updateProjectSchema>;
+
 export interface ProjectResponseDto {
   id: string;
   status: ProjectStatus;

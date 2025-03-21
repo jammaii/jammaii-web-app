@@ -3,7 +3,8 @@ import { ProjectService } from '@/server/api/features/services/project.service';
 import {
   createProjectSchema,
   createUserInvestmentSchema,
-  getSingleProjectSchema
+  getSingleProjectSchema,
+  updateProjectSchema
 } from '@/features/projects/types/app';
 import { getRequestUserFromSession } from '@/server/api/utils/get-request-user';
 import { paginationRequestSchema } from '@/features/general/types/app';
@@ -50,5 +51,11 @@ export const projectRouter = createTRPCRouter({
     .input(getSingleProjectSchema)
     .mutation(async ({ input }) => {
       return ProjectService.getProjectUsers(input.id, input?.isAdmin);
+    }),
+
+  updateProject: protectedProcedure
+    .input(updateProjectSchema)
+    .mutation(async ({ input }) => {
+      return ProjectService.updateProject(input);
     })
 });
