@@ -6,48 +6,68 @@ import { Button } from '@/components/ui/button';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { formatCurrency } from '@/lib/utils';
+import Autoplay from 'embla-carousel-autoplay';
 
 const featuredProperties = [
   {
-    title: '12 Bedroom',
-    description: 'Premium 5-bedroom villas with modern amenities',
-    image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800',
-    pricePerSlot: 500000
+    title: 'SOLAR POWERED COMMUNITY',
+    description:
+      'Properties with constant energy supply that supports urban, stylish, and convenient living',
+    image: '/images/features/solar.png'
   },
   {
-    title: 'Urban Apartments',
-    description: 'Contemporary living in the heart of the city',
-    image: 'https://images.unsplash.com/photo-1600573472550-8090b5e0745e?w=800',
-    pricePerSlot: 500000
+    title: 'TERRACES',
+    description:
+      'Attention to detail finishing immersed in the pool & state of the art facilities and amenities',
+    image: '/images/features/pool.jpg'
   },
   {
-    title: 'Swimming pool',
-    description: 'Oceanfront properties with stunning views',
-    image: 'https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=800',
-    pricePerSlot: 500000
+    title: '247 SECURITY SURVEILLANCE',
+    description:
+      'Live assuredly in the style, peace and harmony of our automated security systems',
+    image: '/images/features/security.png'
   },
   {
-    title: 'Gym',
-    description: 'Premium 5-bedroom villas with modern amenities',
-    image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800',
-    pricePerSlot: 500000
+    title: 'INFRASTRUCTURE',
+    description:
+      'Array of self servicing amenities that eases lifestyle and contemporary living in an urban setting',
+    image: '/images/features/infra.png'
   },
   {
-    title: 'Playground',
-    description: 'Contemporary living in the heart of the city',
-    image: 'https://images.unsplash.com/photo-1600573472550-8090b5e0745e?w=800',
-    pricePerSlot: 500000
+    title: 'URBAN LIVING',
+    description:
+      "Contemporary living in the very heart of Nigeria's vibrant commercial and economic cities",
+    image: '/images/features/urban.png'
   },
   {
-    title: '24 hours electricity',
-    description: 'Oceanfront properties with stunning views',
-    image: 'https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=800',
-    pricePerSlot: 500000
+    title: 'LEISURE',
+    description:
+      'Live in a community that supports relaxation, unwinding and socialization in serenity',
+    image: '/images/features/leisure.png'
+  },
+  {
+    title: 'FITNESS',
+    description:
+      'Get the  vigour and strength essential for a healthy lifestyle in a stunning community',
+    image: '/images/features/gym.jpg'
   }
 ];
 
 export const FeaturedProjectsSection = () => {
-  const [emblaRef] = useEmblaCarousel({ loop: true, dragFree: true });
+  const [emblaRef] = useEmblaCarousel(
+    {
+      loop: true,
+      dragFree: true
+    },
+    [
+      Autoplay({
+        delay: 4000, // Scroll every 4 seconds
+        stopOnInteraction: false, // Don't stop on user interaction
+        stopOnMouseEnter: true, // Optional: stops on mouse enter
+        rootNode: (emblaRoot) => emblaRoot.parentElement // Optional: for proper event delegation
+      })
+    ]
+  );
   const router = useRouter();
 
   return (
@@ -79,6 +99,7 @@ export const FeaturedProjectsSection = () => {
                       src={property.image}
                       alt={property.title}
                       fill
+                      sizes="100%"
                       className="object-cover transition-transform group-hover:scale-105"
                     />
                   </div>
@@ -87,7 +108,7 @@ export const FeaturedProjectsSection = () => {
                     <p className="mt-2 text-sm text-muted-foreground">
                       {property.description}
                     </p>
-                    <div className="mt-4 flex items-center justify-between">
+                    {/* <div className="mt-4 flex items-center justify-between">
                       <span className="text-lg font-bold">
                         {formatCurrency(property.pricePerSlot)}/slot
                       </span>
@@ -98,7 +119,7 @@ export const FeaturedProjectsSection = () => {
                       >
                         View Details
                       </Button>
-                    </div>
+                    </div> */}
                   </div>
                 </div>
               </div>
