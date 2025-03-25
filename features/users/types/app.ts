@@ -1,4 +1,4 @@
-import { PaginatedResponse } from '@/features/general/types/app';
+import { PaginationProps } from '@/features/general/types/app';
 import { ProjectStatus } from '@/features/projects/types/app';
 import { USER_ROLES } from '@/server/db/schemas/auth/enums/user-roles';
 import { TRANSACTION_STATUSES } from '@/server/db/schemas/project/enums/transaction-status.schema';
@@ -40,7 +40,7 @@ export interface UserResponse {
 
 export interface UsersResponse {
   users: UserResponse[];
-  meta: PaginatedResponse;
+  meta: PaginationProps;
 }
 
 export type UserInvestmentResponse = {
