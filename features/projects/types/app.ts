@@ -9,7 +9,7 @@ import {
 } from 'validation/shared.schema';
 import { z } from 'zod';
 import type { File as BufferFile } from 'buffer';
-import { getByIdSchema, PaginatedResponse } from '@/features/general/types/app';
+import { getByIdSchema, PaginationProps } from '@/features/general/types/app';
 import { PROJECT_STATUSES } from '@/server/db/schemas/project/enums/project-status.schema';
 import { UserResponse } from '@/features/users/types/app';
 
@@ -164,7 +164,7 @@ export interface AdminProjectDetails {
   totalInvestors: number;
   investors: {
     users: UserSingleProjectResponse[];
-    meta: PaginatedResponse;
+    meta: PaginationProps;
   };
 }
 
@@ -199,7 +199,7 @@ export interface ProjectResponse {
 
 export type ProjectsResponse = {
   projects: ProjectResponse[];
-  meta: PaginatedResponse;
+  meta: PaginationProps;
 };
 
 export type ProjectStatus = (typeof PROJECT_STATUSES)[number];

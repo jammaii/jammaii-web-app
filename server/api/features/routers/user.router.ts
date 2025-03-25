@@ -5,7 +5,7 @@ import { profileUpdateSchema } from '@/features/auth/types/app';
 import {
   getByIdOptionalSchema,
   getByIdSchema,
-  paginationRequestSchema
+  searchAndPaginationSchema
 } from '@/features/general/types/app';
 import { Nuban, PaymentProvider } from 'ng-bank-account-validator';
 import { TRPCError } from '@trpc/server';
@@ -34,7 +34,7 @@ export const userRouter = createTRPCRouter({
     }),
 
   getUsers: protectedProcedure
-    .input(paginationRequestSchema)
+    .input(searchAndPaginationSchema)
     .query(({ ctx, input }) => {
       const requestUser = getRequestUserFromSession(ctx);
       return UserService.getUsers(requestUser, input);

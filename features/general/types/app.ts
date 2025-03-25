@@ -6,19 +6,34 @@ import {
 } from '@/validation/shared.schema';
 import { z } from 'zod';
 
-export const paginationRequestSchema = z.object({
-  page: numberSchema('Page', { min: 1 }).optional(),
-  limit: numberSchema('Limit', { min: 1, max: 100 }).optional(),
-  offset: numberSchema('Offset', { min: 0 }).optional(),
-  search: z.string().optional()
-});
-export type PaginationRequest = z.infer<typeof paginationRequestSchema>;
+// export const paginationRequestSchema = z.object({
+//   page: numberSchema('Page', { min: 1 }).optional(),
+//   limit: numberSchema('Limit', { min: 1, max: 100 }).optional(),
+//   offset: numberSchema('Offset', { min: 0 }).optional(),
+//   search: z.string().optional()
+// });
+// export type PaginationRequest = z.infer<typeof paginationRequestSchema>;
 
-export interface PaginatedResponse {
-  total: number;
+// export interface PaginatedResponse {
+//   total: number;
+//   page: number;
+//   limit: number;
+// }
+
+export const searchAndPaginationSchema = z.object({
+  search: genericStringSchema('Search', 0).optional(),
+  page: numberSchema('Page').optional(),
+  perPage: numberSchema('PerPage').optional()
+});
+
+export type SearchAndPaginationType = z.infer<typeof searchAndPaginationSchema>;
+
+export type PaginationProps = {
   page: number;
-  limit: number;
-}
+  perPage: number;
+  total: number;
+  totalPages: number;
+};
 
 export const getByIdSchema = z.object({
   id: idSchema('id')
@@ -48,5 +63,5 @@ export interface SupportMessageResponse {
 
 export interface SupportMessagesResponse {
   messages: SupportMessageResponse[];
-  meta: PaginatedResponse;
+  meta: PaginationProps;
 }

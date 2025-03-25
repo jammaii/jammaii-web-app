@@ -8,10 +8,24 @@ import { useDebounce } from '@/hooks/use-debounce';
 import { SupportMessagesTable } from '@/features/admin/components/support/messages-table';
 
 export const SupportMessagePage = () => {
-  const { data, isLoading } = api.support.getMessages.useQuery({});
   const [search, setSearch] = useState('');
   const [page, setPage] = useState(1);
-  const debouncedSearch = useDebounce(search, 500);
+  const [perPage, setPerPage] = useState(20);
+
+  const { data, isLoading, isError } = api.support.getMessages.useQuery({
+    page,
+    perPage,
+    search
+  });
+
+  const handleSearchChange = (value: string) => {
+    setSearch(value);
+  };
+
+  const handlePaginationChange = (page: number, perPage: number) => {
+    setPage(page);
+    setPerPage(perPage);
+  };
 
   if (isLoading) return <LoadingScreen fullScreen />;
 
@@ -38,27 +52,33 @@ export const SupportMessagePage = () => {
       <TabsContent value="all" className="space-y-4">
         <SupportMessagesTable
           messages={data.messages}
-          page={page}
-          totalPages={Math.ceil((data?.meta.total || 0) / 10)}
-          onPageChangeAction={setPage}
+          meta={data?.meta || { page: 1, perPage: 10, total: 0, totalPages: 0 }}
+          isLoading={isLoading}
+          isError={isError}
+          onSearchChange={handleSearchChange}
+          onPaginationChange={handlePaginationChange}
         />
       </TabsContent>
 
       <TabsContent value="resolved" className="space-y-4">
         <SupportMessagesTable
           messages={data.messages.filter((message) => message.isResolved)}
-          page={page}
-          totalPages={Math.ceil((data?.meta.total || 0) / 10)}
-          onPageChangeAction={setPage}
+          meta={data?.meta || { page: 1, perPage: 10, total: 0, totalPages: 0 }}
+          isLoading={isLoading}
+          isError={isError}
+          onSearchChange={handleSearchChange}
+          onPaginationChange={handlePaginationChange}
         />
       </TabsContent>
 
       <TabsContent value="unresolved" className="space-y-4">
         <SupportMessagesTable
           messages={data.messages.filter((message) => !message.isResolved)}
-          page={page}
-          totalPages={Math.ceil((data?.meta.total || 0) / 10)}
-          onPageChangeAction={setPage}
+          meta={data?.meta || { page: 1, perPage: 10, total: 0, totalPages: 0 }}
+          isLoading={isLoading}
+          isError={isError}
+          onSearchChange={handleSearchChange}
+          onPaginationChange={handlePaginationChange}
         />
       </TabsContent>
     </Tabs>

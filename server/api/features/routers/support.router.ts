@@ -4,7 +4,7 @@ import {
   publicProcedure
 } from '@/server/api/trpc';
 import {
-  paginationRequestSchema,
+  searchAndPaginationSchema,
   sendSupportMessage
 } from '@/features/general/types/app';
 import { getRequestUserFromSession } from '@/server/api/utils/get-request-user';
@@ -19,7 +19,7 @@ export const supportRouter = createTRPCRouter({
     }),
 
   getMessages: protectedProcedure
-    .input(paginationRequestSchema)
+    .input(searchAndPaginationSchema)
     .query(async ({ ctx, input }) => {
       const requestUser = getRequestUserFromSession(ctx);
       return SupportMessageService.getMessages(input);

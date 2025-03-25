@@ -11,9 +11,25 @@ import { Input } from '@/components/ui/input';
 import { useDebounce } from '@/hooks/use-debounce';
 
 export const UsersPage = () => {
-  const { data, isLoading } = api.user.getUsers.useQuery({});
   const [search, setSearch] = useState('');
   const [page, setPage] = useState(1);
+  const [perPage, setPerPage] = useState(20);
+
+  const { data, isLoading, isError } = api.user.getUsers.useQuery({
+    page,
+    perPage,
+    search
+  });
+
+  const handleSearchChange = (value: string) => {
+    setSearch(value);
+  };
+
+  const handlePaginationChange = (page: number, perPage: number) => {
+    setPage(page);
+    setPerPage(perPage);
+  };
+
   const debouncedSearch = useDebounce(search, 500);
 
   if (isLoading) return <LoadingScreen fullScreen />;
@@ -61,27 +77,33 @@ export const UsersPage = () => {
       <TabsContent value="all" className="space-y-4">
         <UsersTable
           users={data.users}
-          page={page}
-          totalPages={Math.ceil((data?.meta.total || 0) / 10)}
-          onPageChangeAction={setPage}
+          meta={data?.meta || { page: 1, perPage: 10, total: 0, totalPages: 0 }}
+          isLoading={isLoading}
+          isError={isError}
+          onSearchChange={handleSearchChange}
+          onPaginationChange={handlePaginationChange}
         />
       </TabsContent>
 
       <TabsContent value="active" className="space-y-4">
         <UsersTable
           users={data.users.filter((user) => user.profileCompleted)}
-          page={page}
-          totalPages={Math.ceil((data?.meta.total || 0) / 10)}
-          onPageChangeAction={setPage}
+          meta={data?.meta || { page: 1, perPage: 10, total: 0, totalPages: 0 }}
+          isLoading={isLoading}
+          isError={isError}
+          onSearchChange={handleSearchChange}
+          onPaginationChange={handlePaginationChange}
         />
       </TabsContent>
 
       <TabsContent value="inactive" className="space-y-4">
         <UsersTable
           users={data.users.filter((user) => !user.profileCompleted)}
-          page={page}
-          totalPages={Math.ceil((data?.meta.total || 0) / 10)}
-          onPageChangeAction={setPage}
+          meta={data?.meta || { page: 1, perPage: 10, total: 0, totalPages: 0 }}
+          isLoading={isLoading}
+          isError={isError}
+          onSearchChange={handleSearchChange}
+          onPaginationChange={handlePaginationChange}
         />
       </TabsContent>
     </Tabs>

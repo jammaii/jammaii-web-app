@@ -2,10 +2,7 @@
 
 import { motion } from 'framer-motion';
 import useEmblaCarousel from 'embla-carousel-react';
-import { Button } from '@/components/ui/button';
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
-import { formatCurrency } from '@/lib/utils';
 import Autoplay from 'embla-carousel-autoplay';
 
 const featuredProperties = [
@@ -68,7 +65,6 @@ export const FeaturedProjectsSection = () => {
       })
     ]
   );
-  const router = useRouter();
 
   return (
     <section className="py-24">

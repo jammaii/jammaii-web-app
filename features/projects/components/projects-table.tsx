@@ -20,27 +20,27 @@ import { useRouter } from 'next/navigation';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { ProjectResponse } from '@/features/projects/types/app';
+import { PaginationInput } from '@/components/general/pagination-input';
+import { PaginationProps } from '@/features/general/types/app';
+import { LoadingSkeleton } from '@/components/general/loading-skeleton';
+
+interface ProjectsTableProps {
+  projects: ProjectResponse[];
+  meta: PaginationProps;
+  isLoading: boolean;
+  isError: boolean;
+  onSearchChange: (value: string) => void;
+  onPaginationChange: (page: number, perPage: number) => void;
+}
 
 export function ProjectsTable({
   projects,
-  offset,
-  totalProjects
-}: {
-  projects: ProjectResponse[];
-  offset: number;
-  totalProjects: number;
-}) {
-  let router = useRouter();
-  let itemsPerPage = 5;
-
-  function prevPage() {
-    router.back();
-  }
-
-  function nextPage() {
-    router.push(`/?offset=${offset}`, { scroll: false });
-  }
-
+  meta,
+  isLoading,
+  isError,
+  onSearchChange,
+  onPaginationChange
+}: ProjectsTableProps) {
   return (
     <Card>
       <CardHeader>
@@ -74,38 +74,7 @@ export function ProjectsTable({
         </Table>
       </CardContent>
       <CardFooter>
-        <form className="flex w-full items-center justify-between">
-          <div className="text-xs text-muted-foreground">
-            Showing{' '}
-            <strong>
-              {Math.max(0, Math.min(offset - itemsPerPage, totalProjects) + 1)}-
-              {offset}
-            </strong>{' '}
-            of <strong>{totalProjects}</strong> projects
-          </div>
-          <div className="flex">
-            <Button
-              formAction={prevPage}
-              variant="ghost"
-              size="sm"
-              type="submit"
-              disabled={offset === itemsPerPage}
-              leftIcon={<ChevronLeft className="mr-2 h-4 w-4" />}
-            >
-              Prev
-            </Button>
-            <Button
-              formAction={nextPage}
-              variant="ghost"
-              size="sm"
-              type="submit"
-              disabled={offset + itemsPerPage > totalProjects}
-              rightIcon={<ChevronRight className="ml-2 h-4 w-4" />}
-            >
-              Next
-            </Button>
-          </div>
-        </form>
+        <PaginationInput meta={meta} onPaginationChange={onPaginationChange} />
       </CardFooter>
     </Card>
   );

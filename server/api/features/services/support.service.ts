@@ -3,7 +3,7 @@ import { TRPCError } from '@trpc/server';
 import { and, desc, eq, sql } from 'drizzle-orm';
 import { supportMessage } from '@/server/db/schema';
 import type {
-  PaginationRequest,
+  SearchAndPaginationType,
   SendSupportMessageRequest,
   SupportMessageResponse,
   SupportMessagesResponse
@@ -36,9 +36,9 @@ export class SupportMessageService {
 
   static async getMessages({
     page = 1,
-    limit = 10,
-    offset = 0
-  }: PaginationRequest): Promise<SupportMessagesResponse> {
+    perPage = 10,
+    search = ''
+  }: SearchAndPaginationType): Promise<SupportMessagesResponse> {
     try {
       const [total, messages] = await Promise.all([
         db
@@ -50,16 +50,17 @@ export class SupportMessageService {
           .select()
           .from(supportMessage)
           .orderBy(desc(supportMessage.metaCreatedAt))
-          .limit(limit)
-          .offset(offset)
+          .limit(perPage)
+          .offset((page - 1) * perPage)
       ]);
 
       return {
         messages,
         meta: {
           page,
-          limit,
-          total
+          perPage,
+          total,
+          totalPages: Math.ceil(total / perPage)
         }
       };
     } catch (error) {

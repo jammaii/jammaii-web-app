@@ -7,7 +7,7 @@ import {
   updateProjectSchema
 } from '@/features/projects/types/app';
 import { getRequestUserFromSession } from '@/server/api/utils/get-request-user';
-import { paginationRequestSchema } from '@/features/general/types/app';
+import { searchAndPaginationSchema } from '@/features/general/types/app';
 
 export const projectRouter = createTRPCRouter({
   createProject: protectedProcedure
@@ -24,7 +24,7 @@ export const projectRouter = createTRPCRouter({
     }),
 
   getProjects: protectedProcedure
-    .input(paginationRequestSchema)
+    .input(searchAndPaginationSchema)
     .query(({ input }) => {
       return ProjectService.getProjects(input);
     }),
@@ -37,7 +37,7 @@ export const projectRouter = createTRPCRouter({
     }),
 
   getUserInvestments: protectedProcedure
-    .input(paginationRequestSchema)
+    .input(searchAndPaginationSchema)
     .query(({ ctx, input }) => {
       const requestUser = getRequestUserFromSession(ctx);
       return ProjectService.getUserInvestments(requestUser.id, input);

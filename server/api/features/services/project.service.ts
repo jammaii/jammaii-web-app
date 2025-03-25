@@ -11,7 +11,7 @@ import type {
 } from '@/features/projects/types/app';
 import { generateUUID } from '@/lib/ids';
 import { desc, eq, inArray, like, or, sql } from 'drizzle-orm';
-import { PaginationRequest } from '@/features/general/types/app';
+import { SearchAndPaginationType } from '@/features/general/types/app';
 import { project, user, userInvestment } from '@/server/db/schema';
 import { UserInvestmentsResponse } from '@/features/users/types/app';
 import { addToDate } from '@/lib/dates';
@@ -165,8 +165,9 @@ export class ProjectService {
               }),
               meta: {
                 page: 1,
-                limit: 10,
-                total: Number(adminStats?.totalInvestors) || 0
+                perPage: 10,
+                total: Number(adminStats?.totalInvestors) || 0,
+                totalPages: 1
               }
             }
           }
@@ -192,10 +193,9 @@ export class ProjectService {
 
   static async getProjects({
     page = 1,
-    limit = 10,
-    offset = 0,
+    perPage = 10,
     search = ''
-  }: PaginationRequest): Promise<ProjectsResponse> {
+  }: SearchAndPaginationType): Promise<ProjectsResponse> {
     try {
       let whereClause = undefined;
 
@@ -219,8 +219,8 @@ export class ProjectService {
           .from(projectSchema)
           .where(whereClause)
           .orderBy(desc(projectSchema.metaCreatedAt))
-          .limit(limit)
-          .offset(offset)
+          .limit(perPage)
+          .offset((page - 1) * perPage)
       ]);
 
       return {
@@ -233,8 +233,9 @@ export class ProjectService {
         })),
         meta: {
           page,
-          limit,
-          total
+          perPage,
+          total,
+          totalPages: Math.ceil(total / perPage)
         }
       };
     } catch (error) {
@@ -315,7 +316,7 @@ export class ProjectService {
 
   static async getUserInvestments(
     userId: string,
-    { page = 1, limit = 10, offset = 0 }: PaginationRequest
+    { page = 1, perPage = 10, search = '' }: SearchAndPaginationType
   ): Promise<UserInvestmentsResponse> {
     try {
       const userWithInvestments = await db

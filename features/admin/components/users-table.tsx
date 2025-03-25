@@ -19,24 +19,26 @@ import { UserColumn } from './user-column';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { UserResponse } from '@/features/users/types/app';
+import { PaginationProps } from '@/features/general/types/app';
+import { PaginationInput } from '@/components/general/pagination-input';
 
 interface UsersTableProps {
   users: UserResponse[];
-  page: number;
-  totalPages: number;
-  onPageChangeAction: (page: number) => void;
+  meta: PaginationProps;
+  isLoading: boolean;
+  isError: boolean;
+  onSearchChange: (value: string) => void;
+  onPaginationChange: (page: number, perPage: number) => void;
 }
 
 export function UsersTable({
   users,
-  page,
-  totalPages,
-  onPageChangeAction
+  meta,
+  isLoading,
+  isError,
+  onSearchChange,
+  onPaginationChange
 }: UsersTableProps) {
-  const itemsPerPage = 10;
-  const start = (page - 1) * itemsPerPage + 1;
-  const end = Math.min(page * itemsPerPage, users.length);
-
   return (
     <Card>
       <CardHeader>
@@ -70,35 +72,7 @@ export function UsersTable({
         </Table>
       </CardContent>
       <CardFooter>
-        <div className="flex w-full items-center justify-between">
-          <div className="text-xs text-muted-foreground">
-            Showing{' '}
-            <strong>
-              {start}-{end}
-            </strong>{' '}
-            of <strong>{users.length}</strong> users
-          </div>
-          <div className="flex">
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => onPageChangeAction(page - 1)}
-              disabled={page === 1}
-              leftIcon={<ChevronLeft className="mr-2 h-4 w-4" />}
-            >
-              Prev
-            </Button>
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => onPageChangeAction(page + 1)}
-              disabled={page >= totalPages}
-              rightIcon={<ChevronRight className="ml-2 h-4 w-4" />}
-            >
-              Next
-            </Button>
-          </div>
-        </div>
+        <PaginationInput meta={meta} onPaginationChange={onPaginationChange} />
       </CardFooter>
     </Card>
   );

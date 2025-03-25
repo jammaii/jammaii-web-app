@@ -7,9 +7,27 @@ import { ProjectsTable } from '@/features/projects/components/projects-table';
 import Link from 'next/link';
 import { api } from '@/lib/api';
 import { LoadingScreen } from '@/components/general/loading-screen';
+import { useState } from 'react';
 
 export const ProjectsPage = () => {
-  const { data, isLoading } = api.project.getProjects.useQuery({});
+  const [search, setSearch] = useState('');
+  const [page, setPage] = useState(1);
+  const [perPage, setPerPage] = useState(10);
+
+  const { data, isLoading, isError } = api.project.getProjects.useQuery({
+    page,
+    perPage,
+    search
+  });
+
+  const handleSearchChange = (value: string) => {
+    setSearch(value);
+  };
+
+  const handlePaginationChange = (page: number, perPage: number) => {
+    setPage(page);
+    setPerPage(perPage);
+  };
 
   if (isLoading) {
     return <LoadingScreen fullScreen />;
@@ -47,8 +65,11 @@ export const ProjectsPage = () => {
       <TabsContent value="all">
         <ProjectsTable
           projects={data.projects}
-          offset={10}
-          totalProjects={data.projects.length}
+          meta={data?.meta || { page: 1, perPage: 10, total: 0, totalPages: 0 }}
+          isLoading={isLoading}
+          isError={isError}
+          onSearchChange={handleSearchChange}
+          onPaginationChange={handlePaginationChange}
         />
       </TabsContent>
     </Tabs>

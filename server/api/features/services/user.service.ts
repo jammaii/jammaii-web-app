@@ -10,7 +10,7 @@ import {
 } from '@/features/users/types/app';
 import { ProfileUpdateRequestDto } from '@/features/auth/types/app';
 import { project, user, userInvestment } from '@/server/db/schema';
-import { PaginationRequest } from '@/features/general/types/app';
+import { SearchAndPaginationType } from '@/features/general/types/app';
 import { ApiRequestUser } from '@/server/api/types';
 import { addToDate } from '@/lib/dates';
 import { MailService } from './mail.service';
@@ -117,28 +117,36 @@ export class UserService {
         .where(eq(userInvestment.userId, userId))
         .orderBy(desc(userInvestment.metaCreatedAt));
 
-      const mappedInvestments = investments.map((item) => ({
-        id: item.investment.id,
-        slots: item.investment.slots,
-        slotPrice: item.projectDetails.slotPrice,
-        transactionStatus: item.investment.status,
-        metaCreatedAt: item.investment.metaCreatedAt,
-        project: {
-          id: item.projectDetails.id,
-          name: item.projectDetails.name,
-          description: item.projectDetails.description,
-          roi: item.projectDetails.roi,
-          slotAdminFee: item.projectDetails.adminFee,
-          status: item.projectDetails.status,
-          location: item.projectDetails.location,
-          startDate: item.projectDetails.startDate,
-          endDate: addToDate(
-            item.projectDetails.startDate,
-            item.projectDetails.duration,
-            'months'
-          )
-        }
-      }));
+      const mappedInvestments = investments.map((item) => {
+        const endDate = addToDate(
+          item.projectDetails.startDate,
+          item.projectDetails.duration,
+          'months'
+        );
+
+        return {
+          id: item.investment.id,
+          slots: item.investment.slots,
+          slotPrice: item.projectDetails.slotPrice,
+          transactionStatus: item.investment.status,
+          metaCreatedAt: item.investment.metaCreatedAt,
+          project: {
+            id: item.projectDetails.id,
+            name: item.projectDetails.name,
+            description: item.projectDetails.description,
+            roi: item.projectDetails.roi,
+            slotAdminFee: item.projectDetails.adminFee,
+            status: getProjectStatus(item.projectDetails.startDate, endDate),
+            location: item.projectDetails.location,
+            startDate: item.projectDetails.startDate,
+            endDate: addToDate(
+              item.projectDetails.startDate,
+              item.projectDetails.duration,
+              'months'
+            )
+          }
+        };
+      });
 
       return {
         user: userRecord,
@@ -157,7 +165,7 @@ export class UserService {
 
   static async getUsers(
     requestUser: ApiRequestUser,
-    { page = 1, limit = 10, offset = 0, search = '' }: PaginationRequest
+    { page = 1, perPage = 10, search = '' }: SearchAndPaginationType
   ): Promise<UsersResponse> {
     try {
       let whereClause = undefined;
@@ -182,16 +190,17 @@ export class UserService {
           .from(user)
           .where(whereClause)
           .orderBy(desc(user.id))
-          .limit(limit)
-          .offset(offset)
+          .limit(perPage)
+          .offset((page - 1) * perPage)
       ]);
 
       return {
         users: results,
         meta: {
           page,
-          limit,
-          total
+          perPage,
+          total,
+          totalPages: Math.ceil(total / perPage)
         }
       };
     } catch (error) {
