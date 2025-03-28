@@ -13,9 +13,11 @@ export const addTransactionFeeToAmount = (amount: number): number => {
   const FLAT_FEE = 100;
   const PERCENTAGE_FEE = 0.015; // 1.5%
   const MAX_FEE = 2000;
+  const FLAT_FEE_THRESHOLD = 2500;
 
   const percentageFee = amount * PERCENTAGE_FEE;
-  const totalFee = Math.min(percentageFee + FLAT_FEE, MAX_FEE);
+  const flatFeeToAdd = amount > FLAT_FEE_THRESHOLD ? FLAT_FEE : 0;
+  const totalFee = Math.min(percentageFee + flatFeeToAdd, MAX_FEE);
 
   return amount + totalFee;
 };

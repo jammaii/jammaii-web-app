@@ -70,7 +70,7 @@ export const HeroSection = () => {
       {videoModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm">
           <div className="relative aspect-video w-full max-w-4xl">
-            <YouTubePlayer url="https://youtu.be/4jnzf1yj48M?si=nOipCygQBXbUmcXG" />
+            <YouTubePlayer url="https://www.youtube.com/watch?v=5-MOyVEFFBs" />
             {/* <iframe
                   width="100%"
                   height="100%"
