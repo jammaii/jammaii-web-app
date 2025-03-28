@@ -214,7 +214,7 @@ export function SingleProjectPage({ id, isAdmin }: SingleProjectPageProps) {
                       </div>
                     </div>
 
-                    {compareDates(data.startDate, new Date(), 'gt') ? (
+                    {data.status === 'CROWDFUNDING' ? (
                       <Countdown startDate={data.startDate} />
                     ) : (
                       <ProjectTimeline
@@ -229,7 +229,7 @@ export function SingleProjectPage({ id, isAdmin }: SingleProjectPageProps) {
 
                     {!isAdmin &&
                       data.status === 'CROWDFUNDING' &&
-                      data.slots < data.totalSlotsSold && (
+                      data.slots > data.totalSlotsSold && (
                         <PurchaseSlotsDialog
                           projectId={data.id}
                           slotPrice={data.slotPrice}

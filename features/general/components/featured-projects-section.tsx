@@ -16,7 +16,7 @@ const featuredProperties = [
     title: 'TERRACES',
     description:
       'Attention to detail finishing immersed in the pool & state of the art facilities and amenities',
-    image: '/images/features/pool.jpg'
+    image: '/images/features/leisure.png'
   },
   {
     title: '247 SECURITY SURVEILLANCE',
@@ -40,7 +40,7 @@ const featuredProperties = [
     title: 'LEISURE',
     description:
       'Live in a community that supports relaxation, unwinding and socialization in serenity',
-    image: '/images/features/leisure.png'
+    image: '/images/features/pool.jpg'
   },
   {
     title: 'FITNESS',

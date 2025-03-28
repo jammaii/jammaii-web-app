@@ -226,6 +226,10 @@ export class ProjectService {
       return {
         projects: results.map((project) => ({
           ...project,
+          status: getProjectStatus(
+            project.startDate,
+            addToDate(project.startDate, project.duration, 'months')
+          ),
           totalSlotsSold: 0,
           images: project.images || [],
           videos: project.videos || [],
