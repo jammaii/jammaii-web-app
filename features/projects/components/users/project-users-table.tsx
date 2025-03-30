@@ -39,9 +39,6 @@ export function ProjectUsersTable({
   onSearchChange,
   onPaginationChange
 }: ProjectUsersTableProps) {
-  const [search, setSearch] = useState('');
-  const [page, setPage] = useState(1);
-  const [perPage, setPerPage] = useState(10);
   const [isLoading, setIsLoading] = useState(false);
 
   const handleDownload = async () => {

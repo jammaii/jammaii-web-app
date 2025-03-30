@@ -12,7 +12,7 @@ interface ProjectUsersProps {
 export const ProjectUsers = ({ projectId }: ProjectUsersProps) => {
   const [search, setSearch] = useState('');
   const [page, setPage] = useState(1);
-  const [perPage, setPerPage] = useState(4);
+  const [perPage, setPerPage] = useState(20);
 
   const { data, isLoading } = api.project.getProjectUsers.useQuery({
     id: projectId,
