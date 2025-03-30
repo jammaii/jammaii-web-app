@@ -24,7 +24,11 @@ export const useUser = (): UseUserReturnType => {
     {},
     {
       enabled: isAuthenticated && !storedUser,
-      refetchOnWindowFocus: false
+      refetchOnWindowFocus: false,
+      retry: false, // Disable retries
+      retryOnMount: false, // Prevent retry on component mount
+      refetchOnMount: false, // Prevent refetch on component mount
+      refetchOnReconnect: false // Prevent refetch on reconnect
     }
   );
 

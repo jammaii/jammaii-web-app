@@ -49,8 +49,14 @@ export const projectRouter = createTRPCRouter({
 
   getProjectUsers: protectedProcedure
     .input(getSingleProjectSchema)
+    .query(async ({ input }) => {
+      return ProjectService.getProjectUsers(input);
+    }),
+
+  downloadProjectUsers: protectedProcedure
+    .input(getSingleProjectSchema)
     .mutation(async ({ input }) => {
-      return ProjectService.getProjectUsers(input.id, input?.isAdmin);
+      return ProjectService.downloadProjectUsers(input.id, input?.isAdmin);
     }),
 
   updateProject: protectedProcedure

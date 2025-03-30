@@ -1,26 +1,46 @@
 'use client';
 
-import { Card, CardContent } from '@/components/ui/card';
 import { ProjectUsersTable } from './project-users-table';
-import { AdminProjectDetails } from '../../types/app';
 import { useState } from 'react';
+import { api } from '@/lib/api';
+import { LoadingScreen } from '@/components/general/loading-screen';
 
 interface ProjectUsersProps {
-  details: Pick<AdminProjectDetails, 'investors'>;
   projectId: string;
 }
 
-export const ProjectUsers = ({ details, projectId }: ProjectUsersProps) => {
+export const ProjectUsers = ({ projectId }: ProjectUsersProps) => {
   const [search, setSearch] = useState('');
   const [page, setPage] = useState(1);
+  const [perPage, setPerPage] = useState(4);
+
+  const { data, isLoading } = api.project.getProjectUsers.useQuery({
+    id: projectId,
+    page,
+    perPage,
+    search
+  });
+
+  const handleSearchChange = (value: string) => {
+    setSearch(value);
+  };
+
+  const handlePaginationChange = (page: number, perPage: number) => {
+    setPage(page);
+    setPerPage(perPage);
+  };
+
+  if (isLoading) {
+    <LoadingScreen />;
+  }
 
   return (
     <ProjectUsersTable
-      users={details.investors.users}
-      totalPages={Math.ceil((details?.investors.meta.total || 0) / 10)}
+      users={data?.users || []}
       projectId={projectId}
-      page={page}
-      onPageChangeAction={setPage}
+      meta={data?.meta || { page, perPage, total: 0, totalPages: 0 }}
+      onSearchChange={handleSearchChange}
+      onPaginationChange={handlePaginationChange}
     />
   );
 };

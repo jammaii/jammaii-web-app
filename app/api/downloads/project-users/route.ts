@@ -15,7 +15,7 @@ export async function GET(req: NextRequest) {
     }
 
     // Get the Readable stream from ProjectService
-    const readableStream = await ProjectService.getProjectUsers(projectId);
+    const readableStream = await ProjectService.downloadProjectUsers(projectId);
 
     // Convert the Node.js Readable stream to a Buffer
     const buffer = await readableToBuffer(readableStream);

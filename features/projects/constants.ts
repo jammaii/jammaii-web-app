@@ -55,5 +55,19 @@ export const userProjectSchema: SchemaField<UserSingleProjectResponse>[] = [
     column: 'Payout Amount',
     type: Number,
     value: (project) => project.payoutAmount
+  },
+  {
+    column: 'Total Admin Fee',
+    type: Number,
+    value: (project) => project.totalSlots * (project.slotAdminFee || 0)
+  },
+  {
+    column: 'Total Expected Payout',
+    type: Number,
+    value: (project) =>
+      project.payoutAmount
+        ? project.payoutAmount -
+          project.totalSlots * (project.slotAdminFee || 0)
+        : 0
   }
 ];

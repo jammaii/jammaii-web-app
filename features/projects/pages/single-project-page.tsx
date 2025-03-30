@@ -322,9 +322,7 @@ export function SingleProjectPage({ id, isAdmin }: SingleProjectPageProps) {
         </CardContent>
       </Card>
 
-      {isAdmin && data?.adminDetails && (
-        <ProjectUsers details={data.adminDetails} projectId={id} />
-      )}
+      {isAdmin && data?.adminDetails && <ProjectUsers projectId={id} />}
     </>
   );
 }

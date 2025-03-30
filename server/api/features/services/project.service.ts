@@ -7,10 +7,12 @@ import type {
   ProjectResponse,
   ProjectsResponse,
   UpdateProjectRequestDto,
-  UserSingleProjectResponse
+  UserSingleProjectResponse,
+  GetSingleProjectRequestDto,
+  UserSingleProjectResponses
 } from '@/features/projects/types/app';
 import { generateUUID } from '@/lib/ids';
-import { desc, eq, inArray, like, or, sql } from 'drizzle-orm';
+import { and, desc, eq, inArray, like, or, sql } from 'drizzle-orm';
 import { SearchAndPaginationType } from '@/features/general/types/app';
 import { project, user, userInvestment } from '@/server/db/schema';
 import { UserInvestmentsResponse } from '@/features/users/types/app';
@@ -118,58 +120,11 @@ export class ProjectService {
           .innerJoin(project, eq(project.id, userInvestment.projectId))
           .where(eq(userInvestment.projectId, id));
 
-        // Get investors for admin details
-        const investors = await db
-          .select({
-            user: {
-              id: user.id,
-              image: user.id,
-              firstName: user.firstName,
-              lastName: user.lastName,
-              middleName: user.middleName,
-              email: user.email,
-              phoneNumber: user.phoneNumber,
-              role: user.role,
-              profileCompleted: user.profileCompleted,
-              bankDetail: user.bankDetail,
-              metaCreatedAt: user.metaCreatedAt
-            },
-            totalSlots: sql<number>`SUM(${userInvestment.slots})`.as(
-              'total_slots'
-            ),
-            totalAmount:
-              sql<number>`SUM(${userInvestment.slots} * ${project.slotPrice})`.as(
-                'total_amount'
-              )
-          })
-          .from(userInvestment)
-          .innerJoin(user, eq(userInvestment.userId, user.id))
-          .innerJoin(project, eq(project.id, userInvestment.projectId))
-          .where(eq(userInvestment.projectId, id))
-          .groupBy(user.id)
-          .orderBy(desc(user.metaCreatedAt))
-          .limit(10);
-
         return {
           ...projectDataWithSlotsData,
           adminDetails: {
             totalInvestors: Number(adminStats?.totalInvestors) || 0,
-            totalAmountInvested: Number(adminStats?.totalAmountInvested) || 0,
-            investors: {
-              users: investors.map((i) => {
-                return {
-                  ...i,
-                  totalSlots: Number(i?.totalSlots) || 0,
-                  totalAmount: Number(i?.totalAmount) || 0
-                };
-              }),
-              meta: {
-                page: 1,
-                perPage: 10,
-                total: Number(adminStats?.totalInvestors) || 0,
-                totalPages: 1
-              }
-            }
+            totalAmountInvested: Number(adminStats?.totalAmountInvested) || 0
           }
         };
       }
@@ -497,7 +452,97 @@ export class ProjectService {
     }
   }
 
-  static async getProjectUsers(
+  static async getProjectUsers({
+    id,
+    page = 1,
+    perPage = 10,
+    search = '',
+    isAdmin
+  }: GetSingleProjectRequestDto): Promise<UserSingleProjectResponses> {
+    let whereClause = undefined;
+    if (search) {
+      whereClause = and(eq(userInvestment.projectId, id));
+    }
+
+    const [total, investors, [projectRecord]] = await Promise.all([
+      db
+        .select({ count: sql<number>`count(*)` })
+        .from(userInvestment)
+        .where(whereClause)
+        .execute()
+        .then((res) => Number(res[0].count)),
+      db
+        .select({
+          user: {
+            id: user.id,
+            firstName: user.firstName,
+            lastName: user.lastName,
+            middleName: user.middleName,
+            email: user.email,
+            phoneNumber: user.phoneNumber,
+            role: user.role,
+            profileCompleted: user.profileCompleted,
+            image: user.image,
+            bankDetail: user.bankDetail,
+            metaCreatedAt: user.metaCreatedAt
+          },
+          totalSlots: sql<number>`SUM(${userInvestment.slots})`.as(
+            'total_slots'
+          ),
+          totalAmount:
+            sql<number>`SUM(${userInvestment.slots} * ${project.slotPrice})`.as(
+              'total_amount'
+            )
+        })
+        .from(userInvestment)
+        .innerJoin(user, eq(userInvestment.userId, user.id))
+        .innerJoin(project, eq(project.id, userInvestment.projectId))
+        .where(eq(userInvestment.projectId, id))
+        .groupBy(user.id)
+        .orderBy(desc(user.metaCreatedAt))
+        .limit(perPage)
+        .offset((page - 1) * perPage),
+      db
+        .select({
+          id: project.id,
+          roi: project.roi,
+          slotAdminFee: project.adminFee
+        })
+        .from(project)
+        .where(eq(project.id, id))
+    ]);
+
+    const { roi, slotAdminFee } = projectRecord;
+    const processedInvestors: UserSingleProjectResponse[] = investors.map(
+      (investor) => {
+        const totalSlots = Number(investor.totalSlots);
+        const totalAmount = Number(investor.totalAmount);
+
+        const payoutAmount = (roi / 100) * totalAmount + totalAmount;
+
+        return {
+          ...investor,
+          payoutAmount,
+          totalSlots,
+          totalAmount,
+          slotAdminFee,
+          roi
+        };
+      }
+    );
+
+    return {
+      users: processedInvestors,
+      meta: {
+        page,
+        perPage,
+        total,
+        totalPages: Math.ceil(total / perPage)
+      }
+    };
+  }
+
+  static async downloadProjectUsers(
     projectId: string,
     isAdmin?: boolean
   ): Promise<internal.Readable> {
@@ -532,11 +577,15 @@ export class ProjectService {
       .limit(10);
 
     const [projectRecord] = await db
-      .select({ id: project.id, roi: project.roi })
+      .select({
+        id: project.id,
+        roi: project.roi,
+        slotAdminFee: project.adminFee
+      })
       .from(project)
       .where(eq(project.id, projectId));
 
-    const roi = projectRecord.roi;
+    const { roi, slotAdminFee } = projectRecord;
     const processedInvestors: UserSingleProjectResponse[] = investors.map(
       (investor) => {
         const totalSlots = Number(investor.totalSlots);
@@ -549,6 +598,7 @@ export class ProjectService {
           payoutAmount,
           totalSlots,
           totalAmount,
+          slotAdminFee,
           roi
         };
       }

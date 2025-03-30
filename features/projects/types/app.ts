@@ -9,7 +9,11 @@ import {
 } from 'validation/shared.schema';
 import { z } from 'zod';
 import type { File as BufferFile } from 'buffer';
-import { getByIdSchema, PaginationProps } from '@/features/general/types/app';
+import {
+  getByIdSchema,
+  PaginationProps,
+  searchAndPaginationSchema
+} from '@/features/general/types/app';
 import { PROJECT_STATUSES } from '@/server/db/schemas/project/enums/project-status.schema';
 import { UserResponse } from '@/features/users/types/app';
 
@@ -79,8 +83,10 @@ export type CreateProjectRequestDto = z.infer<typeof createProjectSchema>;
 
 export const getSingleProjectSchema = z.object({
   isAdmin: booleanSchema('isAdmin').optional(),
+  ...searchAndPaginationSchema.shape,
   ...getByIdSchema.shape
 });
+export type GetSingleProjectRequestDto = z.infer<typeof getSingleProjectSchema>;
 
 export type CreateProjectPreview = {
   propertyDetails: PropertyDetailsRequestDto;
@@ -157,15 +163,17 @@ export interface UserSingleProjectResponse {
   totalSlots: number;
   totalAmount: number;
   roi?: number;
+  slotAdminFee?: number;
   payoutAmount?: number;
 }
 export interface AdminProjectDetails {
   totalAmountInvested: number;
   totalInvestors: number;
-  investors: {
-    users: UserSingleProjectResponse[];
-    meta: PaginationProps;
-  };
+}
+
+export interface UserSingleProjectResponses {
+  users: UserSingleProjectResponse[];
+  meta: PaginationProps;
 }
 
 export interface ProjectResponse {

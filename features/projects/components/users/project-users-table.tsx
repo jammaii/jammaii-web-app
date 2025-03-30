@@ -16,35 +16,38 @@ import {
   CardTitle
 } from '@/components/ui/card';
 import { ProjectUserColumn } from './project-user-column';
-import { ChevronLeft, ChevronRight, Upload } from 'lucide-react';
+import { Upload } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { UserSingleProjectResponse } from '@/features/projects/types/app';
-import { api } from '@/lib/api';
 import { downloadExcelFile } from '@/features/projects/utils';
+import { useState } from 'react';
+import { PaginationProps } from '@/features/general/types/app';
+import { PaginationInput } from '@/components/general/pagination-input';
 
 interface ProjectUsersTableProps {
   users: UserSingleProjectResponse[];
-  page: number;
-  totalPages: number;
   projectId: string;
-  onPageChangeAction: (page: number) => void;
+  meta: PaginationProps;
+  onSearchChange: (value: string) => void;
+  onPaginationChange: (page: number, perPage: number) => void;
 }
 
 export function ProjectUsersTable({
   users,
-  page,
-  totalPages,
   projectId,
-  onPageChangeAction
+  meta,
+  onSearchChange,
+  onPaginationChange
 }: ProjectUsersTableProps) {
-  const itemsPerPage = 10;
-  const start = (page - 1) * itemsPerPage + 1;
-  const end = Math.min(page * itemsPerPage, users.length);
-
-  const downloadMutation = api.project.getProjectUsers.useMutation();
+  const [search, setSearch] = useState('');
+  const [page, setPage] = useState(1);
+  const [perPage, setPerPage] = useState(10);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleDownload = async () => {
+    setIsLoading(true);
     await downloadExcelFile(projectId);
+    setIsLoading(false);
   };
 
   return (
@@ -58,7 +61,7 @@ export function ProjectUsersTable({
             variant="outline"
             className="h-8 gap-1"
             leftIcon={<Upload className="h-3.5 w-3.5" />}
-            isLoading={downloadMutation.isPending}
+            isLoading={isLoading}
             onClick={handleDownload}
           >
             <span className="sr-only sm:not-sr-only">Export</span>
@@ -94,35 +97,7 @@ export function ProjectUsersTable({
         </Table>
       </CardContent>
       <CardFooter>
-        <div className="flex w-full items-center justify-between">
-          <div className="text-xs text-muted-foreground">
-            Showing{' '}
-            <strong>
-              {start}-{end}
-            </strong>{' '}
-            of <strong>{users.length}</strong> users
-          </div>
-          <div className="flex">
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => onPageChangeAction(page - 1)}
-              disabled={page === 1}
-              leftIcon={<ChevronLeft className="mr-2 h-4 w-4" />}
-            >
-              Prev
-            </Button>
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => onPageChangeAction(page + 1)}
-              disabled={page >= totalPages}
-              rightIcon={<ChevronRight className="ml-2 h-4 w-4" />}
-            >
-              Next
-            </Button>
-          </div>
-        </div>
+        <PaginationInput meta={meta} onPaginationChange={onPaginationChange} />
       </CardFooter>
     </Card>
   );
