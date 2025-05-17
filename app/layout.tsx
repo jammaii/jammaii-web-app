@@ -6,9 +6,9 @@ import { Providers } from '@/components/layout/providers';
 import GoogleAnalytics from '@/components/general/google-analytics';
 
 export const metadata = {
-  title: 'JAMMAII',
+  title: 'Real Estate Crowdfunding in Nigeria | Invest with Jammaii',
   description:
-    'Jammaii is a premium real estate crowdfunding platform for affiliate developers'
+    'Join Jammaii to co-invest in premium Nigerian real estate projects. Start small, earn big. Easy, secure, and profitable property crowdfunding.'
 };
 
 export default async function RootLayout({
