@@ -11,9 +11,9 @@ import {
   ArrowRight
 } from 'lucide-react';
 import Link from 'next/link';
-import Image from 'next/image';
 import { useState } from 'react';
 import { CopyrightText } from './copyright';
+import Image from 'next/image';
 
 const footerLinks = {
   company: [
@@ -55,13 +55,13 @@ export function Footer() {
               href="/"
               className="group flex items-center gap-2 transition-opacity hover:opacity-90"
             >
-              {/* <Image
-                src="/images/logo.png"
+              <Image
+                src="/jammaii-logo-0.jpg"
                 alt="Logo"
                 width={40}
                 height={40}
                 className="h-10 w-10 transition-transform group-hover:scale-105"
-              /> */}
+              />
               <span className="bg-gradient-to-r from-primary to-primary/80 bg-clip-text text-xl font-bold text-transparent">
                 JAMMAII PREMIUM PROPERTIES
               </span>
@@ -122,10 +122,22 @@ export function Footer() {
           <CopyrightText />
           <div className="flex gap-4">
             {[
-              { icon: FacebookIcon, label: 'Facebook', href: '#' },
+              {
+                icon: FacebookIcon,
+                label: 'Facebook',
+                href: 'https://www.facebook.com/share/1CenbBjAfa'
+              },
               { icon: TwitterIcon, label: 'Twitter', href: '#' },
-              { icon: InstagramIcon, label: 'Instagram', href: '#' },
-              { icon: LinkedinIcon, label: 'LinkedIn', href: '#' }
+              {
+                icon: InstagramIcon,
+                label: 'Instagram',
+                href: 'https://www.instagram.com/jammaii_properties'
+              },
+              {
+                icon: LinkedinIcon,
+                label: 'LinkedIn',
+                href: 'https://www.linkedin.com/company/jammaiipremiumproperties'
+              }
             ].map(({ icon: Icon, label, href }) => (
               <Link
                 key={label}
