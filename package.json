@@ -102,6 +102,8 @@
     "@react-email/tailwind": "^1.0.4",
     "@t3-oss/env-nextjs": "^0.12.0",
     "@types/bcryptjs": "^2.4.6",
+    "@types/react-is": "^19.0.0",
+    "@types/scheduler": "^0.26.0",
     "@typescript-eslint/eslint-plugin": "^8.25.0",
     "@typescript-eslint/parser": "^8.25.0",
     "drizzle-kit": "^0.22.8",
