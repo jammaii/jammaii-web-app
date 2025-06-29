@@ -1,0 +1,9 @@
+{
+  "redirects": [
+    {
+      "source": "https://jammaii.com/:path*",
+      "destination": "https://www.jammaii.com/:path*",
+      "permanent": true
+    }
+  ]
+}
