@@ -1,7 +1,8 @@
 {
   "redirects": [
     {
-      "source": "https://jammaii.com/:path*",
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "jammaii.com" }],
       "destination": "https://www.jammaii.com/:path*",
       "permanent": true
     }
