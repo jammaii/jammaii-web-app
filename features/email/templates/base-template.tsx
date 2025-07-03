@@ -30,7 +30,7 @@ export function BaseTemplate({ previewText, children }: BaseTemplateProps) {
                 alt="Jammaii Logo"
                 className="mx-auto"
                 height={100}
-                src="https://jammaii-bucket.s3.eu-north-1.amazonaws.com/next-s3-uploads/0857bda8-3d79-46c0-bce0-c18407b77da2/jammaii-logo-2.png"
+                src="https://jammaii-s3-bucket.s3.eu-north-1.amazonaws.com/jammaii-logo-2.png"
               />
             </Section>
             <Section className="rounded-lg bg-green-500 p-8 shadow-sm">
