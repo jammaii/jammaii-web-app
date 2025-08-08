@@ -20,7 +20,7 @@ const footerLinks = {
     { label: 'About Us', href: '/about' },
     { label: 'Vision and Mission', href: '/vision-mission' },
     { label: 'Contact', href: '/contact' },
-    { label: 'Blog', href: '/#' }
+    { label: 'Blog', href: 'https://blog.jammaii.com' }
   ],
   resources: [
     { label: 'How It Works', href: '/how-it-works' },
